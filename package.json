@@ -1,0 +1,66 @@
+{
+  "name": "reactnow",
+  "version": "1.0.0",
+  "description": "Universal React starter: Webpack 2, React Router 4, PostCSS, SSR",
+  "main": ".eslintrc.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "webpack --colors --progress",
+    "start": "webpack-dev-server --colors --progress"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/leebenson/reactnow.git"
+  },
+  "keywords": [
+    "postcss",
+    "react",
+    "reactjs",
+    "starter-kit",
+    "ssr",
+    "universal",
+    "webpack",
+    "webpack2",
+    "webpack-config",
+    "postcss"
+  ],
+  "author": "Lee Benson <lee@leebenson.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leebenson/reactnow/issues"
+  },
+  "homepage": "https://github.com/leebenson/reactnow#readme",
+  "devDependencies": {
+    "babel-eslint": "^7.1.1",
+    "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-env": "^1.1.8",
+    "babel-preset-react": "^6.22.0",
+    "css-loader": "^0.26.1",
+    "eslint": "^3.15.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-import-resolver-webpack": "^0.8.1",
+    "eslint-plugin-babel": "^4.0.1",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.9.0",
+    "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "node-sass": "^4.5.0",
+    "postcss-cssnext": "^2.9.0",
+    "postcss-loader": "^1.2.2",
+    "postcss-partial-import": "^3.1.0",
+    "react-router-dom": "^4.0.0-beta.5",
+    "resolve-url-loader": "^1.6.1",
+    "sass-loader": "^5.0.0",
+    "style-loader": "^0.13.1",
+    "webpack": "^2.2.1",
+    "webpack-config": "^6.2.1",
+    "webpack-dev-server": "^2.3.0"
+  },
+  "dependencies": {
+    "react": "^15.4.2",
+    "react-dom": "^15.4.2",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-router-dom": "0.0.0"
+  }
+}

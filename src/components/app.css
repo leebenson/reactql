@@ -1,0 +1,20 @@
+@import url('https://fonts.googleapis.com/css?family=Shrikhand|Mada');
+
+:root {
+  --fg: hotpink;
+}
+
+:global html {
+  padding: 0;
+  border: 0;
+  font-family: 'Mada', sans-serif;
+}
+
+.hello {
+  & h1 {
+    margin: 0;
+    font-family: 'Shrikhand', cursive;
+    color: var(--fg);
+    font-size: 4em;
+  }
+}

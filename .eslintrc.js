@@ -1,0 +1,42 @@
+const path = require('path');
+const baseRules = require('eslint-config-airbnb-base/rules/style');
+const [_, ...restricted] = baseRules.rules['no-restricted-syntax'];
+
+const PATHS = require('./paths');
+
+module.exports = {
+  extends: 'airbnb',
+  parser: 'babel-eslint',
+  parserOptions: {
+    ecmaVersion: 2017,
+    sourceType: 'module',
+    jsx: true,
+  },
+  env: {
+    node: true,
+    browser: true,
+  },
+  plugins: [
+    'jsx-a11y',
+    'import',
+    'babel',
+  ],
+  rules: {
+    'arrow-parens': ['error', 'as-needed'],
+    'react/forbid-prop-types': [1, { forbid: ['any']} ],
+    'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
+    'react/no-multi-comp': 0,
+    'react/jsx-closing-bracket-location': [1, 'after-props'],
+    'linebreak-style': 0,
+    'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
+    'no-restricted-syntax': [2, ...restricted.filter(r => r !== 'ForOfStatement')],
+    'global-require': 0,
+  },
+  settings: {
+    'import/resolver': {
+      webpack: {
+        config: path.join(__dirname, 'webpack/base.js'),
+      },
+    },
+  },
+};
