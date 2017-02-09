@@ -1,20 +1,45 @@
+/* Regular @import url statements work as you'd expect them to -- alternatively
+you can import locally two, and they wind up in the resulting bundle */
 @import url('https://fonts.googleapis.com/css?family=Shrikhand|Mada');
 
+/* Define some variables we might want to use elsewhere */
 :root {
   --fg: hotpink;
 }
 
+/* Global block.  Anything we put in here will automatically get put in
+the global scope... i.e. it will bleed out to our overall app CSS */
 :global html {
   padding: 0;
   border: 0;
   font-family: 'Mada', sans-serif;
 }
 
+/* Implictly local.  .hello will get transformed into a hashed class in
+our React code, so that we could also use .hello in conjunction with another
+component without the two clashing */
 .hello {
+  /* We can nest rules, thanks to cssnext */
   & h1 {
     margin: 0;
     font-family: 'Shrikhand', cursive;
+    /* Variables can be injected into our resulting CSS */
     color: var(--fg);
     font-size: 4em;
+  }
+}
+
+/* We can define as many top-level classes as we like, and they will all
+be hashed in our HTML */
+.data {
+  & li {
+    margin-bottom: 0.5em;
+    &:last-child {
+      margin-bottom: 0;
+    }
+    & span {
+      font-style: italic;
+      font-weight: bold;
+    }
   }
 }

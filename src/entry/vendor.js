@@ -16,3 +16,6 @@ import 'react-dom';
 
 // React Router, for browsers
 import 'react-router-dom';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/observable/interval';

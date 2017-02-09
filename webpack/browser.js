@@ -55,7 +55,6 @@ export default new Config().extend('[root]/base.js').merge({
   // Modules specific to our browser bundle
   module: {
     loaders: [
-
       // .js(x) loading
       {
         test: /\.jsx?$/,
