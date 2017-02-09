@@ -39,4 +39,7 @@ module.exports = {
       },
     },
   },
+  globals: {
+    SERVER: false,
+  },
 };

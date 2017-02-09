@@ -1,7 +1,7 @@
 {
   "name": "reactnow",
   "version": "1.0.0",
-  "description": "Universal React starter: Webpack 2, React Router 4, PostCSS, SSR",
+  "description": "Universal React starter: React, Webpack 2, RxJS 5, React Router 4, PostCSS, SSR",
   "main": ".eslintrc.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
@@ -17,6 +17,7 @@
     "postcss",
     "react",
     "reactjs",
+    "rxjs",
     "starter-kit",
     "ssr",
     "universal",

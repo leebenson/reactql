@@ -227,9 +227,11 @@ import style from 'styles/some/file.css';
 
 ## RxJS - Reactive extensions
 
+(If you're new to RxJS, [read this](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) for a primer on its awesomeness.)
+
 This starter kit comes with [RxJS v5](https://github.com/ReactiveX/rxjs) pre-loaded, along with a custom `@connect` Higher-Order Component that lets you easily pass observers to your component and get the  eventual values passed along as `props`.
 
-An example is shown in the [`src/components/app.js`](xx) file, simplified here:
+An example is shown in the [`src/components/app.js`](https://github.com/leebenson/reactnow/blob/master/src/components/app.js) file, simplified here:
 
 ```jsx
 // The @connect HOC
@@ -285,13 +287,15 @@ CurrentTime.defaultProps = {
 
 ### How do RxJS events work on the server?
 
-To avoid long-running observers and potential memory leaks, when `connect` is used on the server-side it will automatically add a `take(1)` parameter to your Observable, which emits the 'completed' event once the first value has been returned.
+To avoid long-running observers, when `connect` is used on the server-side it will automatically add a `take(1)` parameter to your Observable, which emits the 'completed' event once the first value has been returned.
 
 Since the server can't render more than once per request, this means the server side will do no further processing.
 
-The server will only render the final React markup back to the client once all events have entered a completed state. In effect, this allows you to await the first asynchronous result of ANY call type -- meaning you can pull data from a third-party DB, make `fetch()` calls off-site or do other things that require you to synchronise the completion of multiple disparate observers.
+The server will only render the final React markup back to the client once all events have entered a completed state, so another benefit this serves is signalling back to our server that we're ready to dump the final HTML back to the visitor.
 
-This would traditionally be quite difficult to do without managing complex Promise chains, but with RxJS and the `connect` decorator, is now easy!
+In effect, this allows you to await the first asynchronous result of ANY data stream -- meaning you can pull data from a third-party DB, make `fetch()` calls off-site or do other things that require you to synchronise the completion of multiple disparate observers.
+
+This would traditionally be quite difficult to do without managing complex Promise chains or writing lots of custom logic to handle special cases on the server, but with RxJS and the `connect` decorator, it's much simpler.
 
 ## FAQ
 

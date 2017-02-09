@@ -1,5 +1,3 @@
-/* global SERVER */
-
 // React
 import React from 'react';
 

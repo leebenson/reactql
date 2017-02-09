@@ -27,7 +27,8 @@ class Connector extends React.Component {
   componentWillMount() {
     this.subscriptions = [];
     for (const name of Object.getOwnPropertyNames(this.props.observables)) {
-      const sub = this.props.observables[name].subscribe(val => {
+      const o$ = !SERVER ? this.props.observables[name] : this.props.observables[name].take(1);
+      const sub = o$.subscribe(val => {
         this.setState({
           [name]: val,
         });
