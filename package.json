@@ -6,6 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --colors --progress",
+    "build-server": "webpack --colors --progress",
     "start": "webpack-dev-server --colors --progress"
   },
   "repository": {
@@ -58,6 +59,8 @@
     "webpack-dev-server": "^2.3.0"
   },
   "dependencies": {
+    "koa": "^2.0.0-alpha.7",
+    "microseconds": "^0.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.6",

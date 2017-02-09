@@ -1,6 +1,6 @@
 /* Regular @import url statements work as you'd expect them to -- alternatively
 you can import locally two, and they wind up in the resulting bundle */
-@import url('https://fonts.googleapis.com/css?family=Shrikhand|Mada');
+@import url('https://fonts.googleapis.com/css?family=Shrikhand');
 
 /* Define some variables we might want to use elsewhere */
 :root {
@@ -12,7 +12,7 @@ the global scope... i.e. it will bleed out to our overall app CSS */
 :global html {
   padding: 0;
   border: 0;
-  font-family: 'Mada', sans-serif;
+  font-family: 'Lucida', sans-serif;
 }
 
 /* Implictly local.  .hello will get transformed into a hashed class in

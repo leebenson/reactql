@@ -50,7 +50,7 @@ export default new Config().merge({
   module: {
     loaders: [
 
-      // Images, fonts.
+      // Images, fonts, etc
       {
         test: /\.(png|woff|woff2|svg|ttf|eot|jpg)$/,
         loader: 'file-loader',
@@ -72,7 +72,7 @@ export default new Config().merge({
   output: {
 
     // Our compiled bundles/static files will wind up in `dist`
-    path: PATHS.dist,
+    path: PATHS.public,
 
     // Deem the `dist` folder to be the root of our web server
     publicPath: '/',

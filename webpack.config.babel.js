@@ -39,6 +39,9 @@ switch (process.env.npm_lifecycle_event) {
   case 'build':
     toExport = load('browser_prod');
     break;
+  case 'build-server':
+    toExport = load('server');
+    break;
   default:
     throw new Error('Invoke through npm only');
 }

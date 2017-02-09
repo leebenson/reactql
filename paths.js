@@ -15,4 +15,8 @@ module.exports = {
 
   // Dist path; where bundled assets will wind up
   dist: path.join(__dirname, 'dist'),
+
+  // Public.  This is where our web server will start looking to serve
+  // static files from
+  public: path.join(__dirname, 'dist', 'public'),
 };

@@ -40,11 +40,11 @@ Page.propTypes = {
 // change depending where we're running the code (environment vars, etc)
 // and also how we can connect a 'vanilla' React component to an RxJS
 // observable source, and feed eventual values in as properties
-const Stats = props => {
+const Stats = ({ now }) => {
   const info = [
     ['Environment', process.env.NODE_ENV],
     ['Running', SERVER ? 'On the server' : 'In the browser'],
-    ['Current time', props.now.toString()],
+    ['Current time', `${now.toTimeString()} ← RxJS at work`],
   ];
 
   return (

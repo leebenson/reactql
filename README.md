@@ -12,6 +12,7 @@ Maintained and updated regularly.
 
 - [Webpack 2](https://webpack.js.org/), with [tree shaking](https://webpack.js.org/guides/tree-shaking/)
 - [React Router 4](https://github.com/ReactTraining/react-router/tree/v4); browser + server compatible routes
+- [RxJS](http://reactivex.io/) reactive extensions, for responding to Observables and managing state
 - [PostCSS](http://postcss.org/) with [next-gen CSS](http://cssnext.io/) and inline  [@imports](https://github.com/postcss/postcss-import)
 - [SASS](http://sass-lang.com) support (also parsed through PostCSS)
 - Full route-aware server-side rendering (SSR) of initial HTML
@@ -223,6 +224,74 @@ The same is true of any filetype that Webpack recognises- .jpg, .css, .sass, .js
 // If, say, you wish to put all CSS code in `src/styles`
 import style from 'styles/some/file.css';
 ```
+
+## RxJS - Reactive extensions
+
+This starter kit comes with [RxJS v5](https://github.com/ReactiveX/rxjs) pre-loaded, along with a custom `@connect` Higher-Order Component that lets you easily pass observers to your component and get the  eventual values passed along as `props`.
+
+An example is shown in the [`src/components/app.js`](xx) file, simplified here:
+
+```jsx
+// The @connect HOC
+import connect from 'lib/connect';
+
+// Start with a pure functional component that takes a 'now' prop
+const CurrentTime = ({ now }) => (
+  <h1>Current time is: {now.toTimeString()}</h1>
+);
+
+// `now` will always be an instance of Date
+CurrentTime.propTypes = {
+  now: React.PropTypes.instanceOf(Date),
+};
+
+// By default, we'll start with the current date.  That will 'seed' the
+// `props` value that our component can display
+CurrentTime.defaultProps = {
+  now: new Date(),
+};
+
+// Wrap the <Stats> component in a Higher-Order Component (HOC) to 'listen'
+// to passed in observables.  The keys we pass here will become props to the
+// underlying component, and will re-render whenever we get another value
+const CurrentTimeObserved = connect({
+  now: Observable.interval(1000).map(() => new Date()),
+})(CurrentTime);
+```
+
+In the above example, when `<CurrentTimeObserved />` is mounted, it will automatically receive a new observed value every second, which will implicitly cause the underlying `<CurrentTime />` component to refresh and display the latest time.
+
+You can pass in any number of observers into the `connect()` HOC as an object of key/Observer pairs, and the key name will be the prop key used on the underlying component.
+
+`connect` can be used as a decorator too:
+
+```jsx
+import React from 'react';
+import connect from 'lib/connect';
+
+@connect({ now: Observable.interval(1000).map(() => new Date()) })
+class CurrentTime extends React.Component {
+  render() {
+    return (
+      <h1>Current time is: {this.props.now.toTimeString()}</h1>
+    );
+  }
+}
+
+CurrentTime.defaultProps = {
+  now: new Date(),
+};
+```
+
+### How do RxJS events work on the server?
+
+To avoid long-running observers and potential memory leaks, when `connect` is used on the server-side it will automatically add a `take(1)` parameter to your Observable, which emits the 'completed' event once the first value has been returned.
+
+Since the server can't render more than once per request, this means the server side will do no further processing.
+
+The server will only render the final React markup back to the client once all events have entered a completed state. In effect, this allows you to await the first asynchronous result of ANY call type -- meaning you can pull data from a third-party DB, make `fetch()` calls off-site or do other things that require you to synchronise the completion of multiple disparate observers.
+
+This would traditionally be quite difficult to do without managing complex Promise chains, but with RxJS and the `connect` decorator, is now easy!
 
 ## FAQ
 

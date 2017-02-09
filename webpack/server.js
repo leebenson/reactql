@@ -47,7 +47,7 @@ export default new Config().extend({
   entry: {
     javascript: [
       // Server entry point
-      path.join(PATHS.app, 'server.js'),
+      path.join(PATHS.src, 'server.js'),
     ],
   },
 
