@@ -104,6 +104,12 @@ export default new Config().extend({
           ],
         },
       },
+
+      // .ejs views
+      {
+        test: /\.ejs$/,
+        loader: 'raw-loader',
+      },
     ],
   },
   plugins: [

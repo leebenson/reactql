@@ -33,16 +33,23 @@ import koaStatic from 'koa-static';
 // High-precision timing, so we can debug response time to serve a request
 import ms from 'microseconds';
 
+// Embedded Javascript views -- we'll use this to inject React and other
+// data into the HTML that is rendered back to the client
+import ejs from 'ejs';
+
 // React Router HOC for figuring out the exact React hierarchy to display
 // based on the URL
 import { StaticRouter } from 'react-router';
+
+// Initial view to send back HTML render
+import view from 'kit/views/ssr.ejs';
 
 // App entry point
 import App from 'src/app';
 
 // Import paths.  We'll use this to figure out where our public folder is
 // so we can serve static files
-import PATHS from '../../paths';
+import PATHS from 'paths';
 
 // ----------------------
 
@@ -61,21 +68,31 @@ const PORT = process.env.PORT || 4000;
 
     // Everything else is React
     .get('/*', async ctx => {
-      const context = {};
+      const route = {};
+
+      // Generate the HTML from our React tree.  We're wrapping the result
+      // in `react-router`'s <StaticRouter> which will pull out URL info and
+      // store it in our empty `route` object
+
+      console.log(ctx.request);
 
       const html = ReactDOMServer.renderToString(
-        <StaticRouter location={ctx.request.url} context={context}>
+        <StaticRouter location={ctx.request.url} context={route}>
           <App />
         </StaticRouter>,
       );
 
-      ctx.body = html;
+      // Render the view with our injected React data
+      ctx.body = ejs.render(view, {
+        title: 'Test!',
+        html,
+      });
     });
 
   // Start Koa
   (new Koa())
 
-    // Priliminary security for HTTP headers
+    // Preliminary security for HTTP headers
     .use(koaHelmet())
 
     // Error wrapper.  If an error manages to slip through the middleware

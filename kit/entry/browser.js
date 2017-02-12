@@ -69,7 +69,7 @@ const Root = (() => {
       </AppContainer>
     );
   }
-  return <Chain />;
+  return Chain;
 })();
 
 doRender();

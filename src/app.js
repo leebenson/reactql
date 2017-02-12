@@ -83,12 +83,12 @@ export default () => (
     <hr />
     <ul>
       <li><Link to="/">Home</Link></li>
-      <li><Link to="/about">About</Link></li>
-      <li><Link to="/contact">Contact</Link></li>
+      <li><Link to="/page/about">About</Link></li>
+      <li><Link to="/page/contact">Contact</Link></li>
     </ul>
     <hr />
     <Route exact path="/" component={Home} />
-    <Route path="/:name" component={Page} />
+    <Route path="/page/:name" component={Page} />
     <hr />
     <p>Runtime info:</p>
     <StatsObserver />
