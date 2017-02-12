@@ -1,4 +1,4 @@
-![ReactNow](http://imgh.us/reactnow2.svg)
+<img src="//imgh.us/reactnow2.svg" alt="ReactNow" width="300px"/>
 
 # WIP: Don't use yet
 
@@ -57,7 +57,7 @@ Simply run:
 
 `npm start`
 
-... and a server will spawn (by default) on [http://localhost:3000](http://localhost:3000)
+... and a server will spawn (by default) on [http://localhost:8080](http://localhost:8080)
 
 Changes to your React components/styles will update in the browser in real-time, with no refreshes. Changes to other code may require a refresh.
 
@@ -107,7 +107,7 @@ Webpack configuration files, notably:
 
 - `base.js`: Base configuration that all others inherit from
 - `browser.js`: Base configuration for the browser.  Inherits from base, and is extended by browser_dev and browser_prod
-- `browser_dev.js`: Config for the browser spawned at [http://localhost:3000](http://localhost:3000) when running `npm start`
+- `browser_dev.js`: Config for the browser spawned at [http://localhost:8080](http://localhost:8080) when running `npm start`
 - `browser_prod.js`: Production browser bundling.  Minifies and crunches code and images, gzips assets, removes source maps and debug flags, builds your browser bundles ready for production.  This is automatically served back to the client when you run `npm run build-run`
 - `server.js`: Node.js web server bundle.  Even though we're running this through Node, Webpack still gets involved and properly handles inline file and CSS loading, and generates a build that works with your locally installed Node.js. You can build the server with `npm run build-server` or build and run with `npm run build-run`
 
@@ -405,11 +405,10 @@ If you need to edit the build defaults, you can start digging into the `kit` dir
 
 ### **TL;DR:** I haven't got time to read the set-up guide. How can I get this running _now_?
 
-- Step 1: Install with `npm i -g react now`
-- Step 2: Create an app with `reactnow <project_folder>`
-- Step 3: `cd` into that folder
-- Step 4: Run `npm run dev`
+- Step 1: Start a new project with `git clone --depth 1 https://github.com/leebenson/reactnow <project_folder>`
+- Step 2: `cd` into the folder, then install packages with `npm i`
+- Step 3: Run `npm start`
 
-This will spawn a dev server on [http://localhost:3000](http://localhost:3000)
+This will spawn a dev server on [http://localhost:8080](http://localhost:8080)
 
-To build in production, do steps 1-3 above then run `npm run build-run`
+To build in production, do steps 1-2 above then run `npm run build-run`

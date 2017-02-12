@@ -7,9 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --colors",
     "build-browser": "webpack --colors",
-    "build-server": "webpack --colors --progress",
-    "build-run": "webpack --colors --progress && node dist/server",
-    "start": "webpack-dev-server --colors --progress"
+    "build-server": "webpack --colors",
+    "build-run": "webpack --colors && node dist/server",
+    "start": "webpack-dev-server --colors"
   },
   "repository": {
     "type": "git",
@@ -35,6 +35,7 @@
   },
   "homepage": "https://github.com/leebenson/reactnow#readme",
   "devDependencies": {
+    "babel-core": "^6.22.1",
     "babel-eslint": "^7.1.1",
     "babel-loader": "^6.2.10",
     "babel-polyfill": "^6.22.0",
