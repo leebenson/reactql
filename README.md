@@ -101,6 +101,10 @@ This is where Webpack looks for entry points for building the browser, server an
 
 Custom libraries built for _ReactNow_.  You'll find the RxJS `@connect` decorator in here, that lets you feed Observable values into your React components.
 
+### `kit/repo`
+
+Non-code files specific to the starter kit.  For example, the _ReactNow_ logo that github pulls.  You can safely delete this folder, if you want.
+
 ### `kit/webpack`
 
 Webpack configuration files, notably:
@@ -157,7 +161,7 @@ I've made a few tweaks based on personal preference:
 * Unary operators `++` and `--` are allowed as the final statement in a `for` loop
 * JSX can be written in both `.js` or `.jsx` files
 * Global `require` statements are allowed.  Since we're targeting a universal code base in dev and production, there may be code you need to import conditionally
-* Module resolution first looks in our `src` folder, and _then_ `node_modules` (so we can write `import x from 'someLocalFile'` instead of requiring paths relative from the caller)
+* Module resolution first looks in our project root folder, and _then_ `node_modules` (so we can write `import x from 'src/someLocalFile'` instead of requiring paths relative from the caller)
 * React line breaks for self-enclosing tags should be on the same line as the final prop, e.g.:
 
 ```js
@@ -262,26 +266,26 @@ Yes! In the server bundle, styles are extracted out and use the same local names
 
 ## Module resolution
 
-When you `import` or `require` modules, Webpack (and ESLint) will first look in your `src` folder before checking `node_modules`.
+When you `import` or `require` modules, Webpack (and ESLint) will first look in your root project folder before checking `node_modules`.
 
 This allows you to short-hand writing long, relative path names.
 
 e.g. instead of writing:
 
 ```js
-import x from '../../components/some/file.js';
+import x from '../../../components/some/file.js';
 ```
 
 ... you can instead simply write:
 
 ```js
-import x from 'components/some/file.js';
+import x from 'src/components/some/file.js';
 ```
 
 The same is true of any filetype that Webpack recognises- .jpg, .css, .sass, .json, etc:
 
 ```js
-// If, say, you wish to put all CSS code in `src/styles`
+// If, say, you wish to put all CSS code in a `styles` folder in the project root
 import style from 'styles/some/file.css';
 ```
 
@@ -291,7 +295,7 @@ import style from 'styles/some/file.css';
 
 This starter kit comes with [RxJS v5](https://github.com/ReactiveX/rxjs) pre-loaded, along with a custom `@connect` Higher-Order Component that lets you easily pass observers to your component and get the  eventual values passed along as `props`.
 
-An example is shown in the [`src/components/app.js`](https://github.com/leebenson/reactnow/blob/master/src/components/app.js) file, simplified here:
+An example is shown in the [`src/app.js`](https://github.com/leebenson/reactnow/blob/master/src/app.js) file, simplified here:
 
 ```jsx
 // The @connect HOC
@@ -393,7 +397,7 @@ Hopefully. I haven't tested it. But there's no OS X/Linux specific commands that
 
 There's currently no test library, so feel free to add your own.
 
-Data fetching libs are also an exercise left to the user. Just install whatever you need via npm and add to `src/entry/vendor.js`
+Data fetching libs are also an exercise left to the user. Use REST, [Apollo GraphQL](http://www.apollodata.com/) or whatever else you want to talk to your server or API.
 
 ## Where do I start coding?
 
