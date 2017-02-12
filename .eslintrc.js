@@ -31,13 +31,14 @@ module.exports = {
     'react/jsx-filename-extension': [1, { extensions: ['.js', '.jsx'] }],
     'no-restricted-syntax': [2, ...restricted.filter(r => r !== 'ForOfStatement')],
     'global-require': 0,
+    'import/no-unresolved': [2, { commonjs: true }],
   },
   settings: {
     'import/resolver': {
       webpack: {
-        config: path.join(__dirname, 'webpack/base.js'),
+        config: path.join(PATHS.webpack, 'base'),
       },
-    },
+    }
   },
   globals: {
     SERVER: false,

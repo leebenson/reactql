@@ -14,7 +14,7 @@ import { BrowserRouter } from 'react-router-dom';
 // Root component.  This is our 'entrypoint' into the app.  If you're using
 // the ReactNow starter kit for the first time, `components/app` is where
 // you can start editing to add your own code
-import App from 'components/app';
+import App from 'src/app';
 
 // ----------------------
 
@@ -53,11 +53,11 @@ const Root = (() => {
 
     // Start our 'listener' at the root component, so that any changes that
     // occur in the hierarchy can be captured
-    module.hot.accept('components/app', () => {
+    module.hot.accept('src/app', () => {
       // Refresh the entry point of our app, to get the changes.
 
       // eslint-disable-next-line
-      require('components/app').default;
+      require('src/app').default;
 
       // Re-render the hierarchy
       doRender();

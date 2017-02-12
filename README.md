@@ -12,7 +12,7 @@ Maintained and updated regularly.
 
 - [Webpack 2](https://webpack.js.org/), with [tree shaking](https://webpack.js.org/guides/tree-shaking/)
 - [React Router 4](https://github.com/ReactTraining/react-router/tree/v4); browser + server compatible routes
-- [RxJS](http://reactivex.io/) reactive extensions, for responding to Observables and managing state
+- [RxJS](http://reactivex.io/) reactive extensions, with custom `@connect` decorator for passing Observable values to React component props
 - [PostCSS](http://postcss.org/) with [next-gen CSS](http://cssnext.io/) and inline  [@imports](https://github.com/postcss/postcss-import)
 - [SASS](http://sass-lang.com) support (also parsed through PostCSS)
 - Full route-aware server-side rendering (SSR) of initial HTML
@@ -23,6 +23,8 @@ Maintained and updated regularly.
 - Separate vendor + client bundles, for better browser caching/faster builds
 - Dynamic polyfills, courtesy of [babel-preset-env](https://github.com/babel/babel-preset-env)
 - Aggressive code minification with [Uglify](https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin)
+- [GIF/JPEG/PNG/SVG crunching](https://github.com/tcoopman/image-webpack-loader)
+- [Gzip compression](https://webpack.js.org/plugins/compression-webpack-plugin/) and serving of static assets as pre-compressed `.gz` files
 - [ESLint](http://eslint.org/)ing based on a tweaked [Airbnb style guide](https://github.com/airbnb/javascript)
 - Tons of comments (too many) to fill you in on what's happening under the hood
 
@@ -34,24 +36,110 @@ You'll need [Node.js](https://nodejs.org) installed.
 
 ## Starting a new project
 
-The easiest way to use this starter kit (on OS X/Linux) is install one-time with:
+For now, simply clone the starter kit:
 
-`curl https://raw.githubusercontent.com/leebenson/react-now/master/scripts/install | sh`
+`git clone https://github.com/leebenson/reactnow <project_folder>`
 
-This will make a `/usr/local/bin/reactnow` script, that you can then use to create any new project like so:
+... then install the required packages:
 
-`reactnow <project_folder>`
+`cd <project_folder`
+`npm i`
 
-Note: `reactnow` will always clone the latest version of the starter kit into your project folder, so you shouldn't need to run the installer more than once.
+... and start writing over it.
 
-The starter script offers the following benefits:
+In future, you'll be able to install globally via NPM and generate projects with a few other goodies such as code generation, deletion of the `.git` folder, etc.
 
-- You don't need to clone the repo every time
-- It only downloads the latest version, not the full git history
-- `.git` is deleted automatically, so you're starting with a clean slate
-- It's an easy one-liner
+## Running in development
 
-If you're using Windows, you can simply clone this repo and start writing over it.
+Simply run:
+
+`npm start`
+
+... and a server will spawn (by default) on [http://localhost:3000](http://localhost:3000)
+
+Changes to your React components/styles will update in the browser in real-time, with no refreshes. Changes to other code may require a refresh.
+
+## Running a web server (server-side rendering)
+
+This starter kit includes a `server.js` entry point, that spawns a [Koa 2](http://koajs.com/) web server.
+
+To run it, you first need to build both the server and client bundles with:
+
+`npm run build`
+
+Then, simply run:
+
+`npm run server`
+
+... which (by default) spawns a server at [http://localhost:4000](http://localhost:4000)
+
+Or, you can run the short-cut: `npm run build-run`, which has the same effect as running the above two commands separately.
+
+## Project structure
+
+This starter has been designed to provide you with a few skeletal pieces to get you going, and make it easier to layer in your own code.
+
+Here's the folder layout:
+
+### `.git`
+
+Git folder.  By default, this points to the _ReactNow_ starter kit, so you can safely delete this if you want to initialise your own git repo and start contributing to it.
+
+### `kit`
+
+The bulk of _ReactNow_ is found in `./kit`.  If you need to dive into the Webpack config or change the vendor packages used in your project, this is where you'd do it.
+
+For the most part though, you probably won't need to touch this stuff.
+
+### `kit/entry`
+
+This is where Webpack looks for entry points for building the browser, server and vendor bundles.
+
+### `kit/lib`
+
+Custom libraries built for _ReactNow_.  You'll find the RxJS `@connect` decorator in here, that lets you feed Observable values into your React components.
+
+### `kit/webpack`
+
+Webpack configuration files, notably:
+
+- `base.js`: Base configuration that all others inherit from
+- `browser.js`: Base configuration for the browser.  Inherits from base, and is extended by browser_dev and browser_prod
+- `browser_dev.js`: Config for the browser spawned at [http://localhost:3000](http://localhost:3000) when running `npm start`
+- `browser_prod.js`: Production browser bundling.  Minifies and crunches code and images, gzips assets, removes source maps and debug flags, builds your browser bundles ready for production.  This is automatically served back to the client when you run `npm run build-run`
+- `server.js`: Node.js web server bundle.  Even though we're running this through Node, Webpack still gets involved and properly handles inline file and CSS loading, and generates a build that works with your locally installed Node.js. You can build the server with `npm run build-server` or build and run with `npm run build-run`
+
+### `src`
+
+This is where all of your own code will live. By default, it contains the `<App>` component in `app.js` which demonstrates a few of the concepts that this starter kit offers you, along with styles defined in `app.css`.
+
+You can overwrite these files directly with your own code and use this as a starter point.
+
+### `static`
+
+Put static files here that you want to wind up serving in production.
+
+Webpack will automatically crunch any of your GIF/JPEG/PNG/SVG images it finds in here, as well as generate pre-compressed `.gz` versions of every file so that your Koa web server on [http://localhost:4000](http://localhost:4000) (after running `npm run build-run`) can serve up the compressed versions instead of the full-sized originals.
+
+## Root files
+
+There are various configuration files that you'll find in the root:
+
+- `.babelrc`:  This exists solely to transpile the ES6 Webpack config into something Node.js can natively run. It has no bearing on the [Babel](http://babeljs.io/) config that's used to transpile your Webpack code, so you can safely this leave alone.
+
+- `.eslint.js`: [ESLint](http://eslint.org/) configuration. If your editor/IDE has ESLint installed, it will use this file to lint your code.  See _Tweaked Airbnb style guide_ below to see the rules set for this starter kit.
+
+- `.gitignore`: Files to ignore when checking in your code.  This is built around the _ReactNow_ starter kit, but you will probably want to use it as a base for your own code since it ignores the usual Node stuff, along with `dist` and some of the caching folders used by Webpack.
+
+- `LICENSE`:  _ReactNow_ is [MIT licensed](https://opensource.org/licenses/MIT). You're free to use it in your own code, so long as the original attribution remains and you don't blame me if anything goes wrong :smile:. Read the full license for the full terms.
+
+- `package.json`: NPM packages used in this starter kit.  When you're extending this kit with your own code, you'll probably want to gut out the name, description and repo links and replace with your own. Just keep `dependencies` and `devDependencies` intact for the kit to continue to work.
+
+- `paths.js`: File paths to different parts of the kit. Used by Webpack to determine what lives where.
+
+- `README.md`: This file :smile:
+
+- `webpack.config.babel.js`: The Webpack entry point.  This will invoke the config found in `kit/webpack` per the `npm run...` command that spawned it.
 
 ## Tweaked Airbnb style guide
 
@@ -80,32 +168,6 @@ I've made a few tweaks based on personal preference:
 ```
 
 (I just think it looks neater)
-
-## Running in development
-
-Simply run:
-
-`npm start`
-
-... and a server will spawn (by default) on [http://localhost:3000](http://localhost:3000)
-
-Changes to your React components/styles will update in the browser in real-time, with no refreshes. Changes to other code may require a refresh.
-
-## Running a web server (server-side rendering)
-
-This starter kit includes a `server.js` entry point, that spawns a [Koa 2](http://koajs.com/) web server.
-
-To run it, you first need to build both the server and client bundles with:
-
-`npm run build`
-
-Then, simply run:
-
-`npm run server`
-
-... which (by default) spawns a server at [http://localhost:4000](http://localhost:4000)
-
-Or, you can run the short-cut: `npm run build-run`, which has the same effect as running the above two commands separately.
 
 ## Stylesheets
 
@@ -301,9 +363,11 @@ This would traditionally be quite difficult to do without managing complex Promi
 
 ### Why should I use ReactNow?
 
-There are [plenty](https://github.com/gaearon/react-hot-loader/tree/master/docs) of React starter kits available. Many are great, and probably offer similar or more comprehensive tooling to this one.
+This starter kit is the product of over 2 years working with React.
 
-I wanted to build something that matched my own stack, and I could quickly use to spawn a new project with all of the pieces that I use every day.
+IMO, this represents the best available tooling for web apps in 2017. I use this stuff every day in production, so you can be confident it'll be maintained and updated regularly.
+
+Use ReactNow if you want to skip the set-up, and get your next project up in record time.
 
 ### Is this production ready?
 
@@ -326,6 +390,20 @@ I'd generally recommend a similar layout to keep your code light and maintainabl
 ### Will this work on Windows?
 
 Hopefully. I haven't tested it. But there's no OS X/Linux specific commands that are used to build stuff, so it _should_ work.
+
+### What's missing?
+
+There's currently no test library, so feel free to add your own.
+
+Data fetching libs are also an exercise left to the user. Just install whatever you need via npm and add to `src/entry/vendor.js`
+
+## Where do I start coding?
+
+`src/app.js` is the main React component, that both the browser and the serve will look to. Overwrite it with your own code.
+
+When you start using [npm packages](https://www.npmjs.com/) that aren't part of this starter kit, append them to `kit/entry/vendor` to have them compile
+
+If you need to edit the build defaults, you can start digging into the `kit` dir which contains the 'under the hood' build stuff.  But that generally comes later.
 
 ### **TL;DR:** I haven't got time to read the set-up guide. How can I get this running _now_?
 

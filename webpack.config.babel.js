@@ -5,14 +5,13 @@
 // ----------------------
 // IMPORTS
 
-// Node's built-in `path` module.  We'll use this to determine the `webpack`
-// config directory relative to this file
-import path from 'path';
-
 // FitBit's [webpack-config](https://fitbit.github.io/webpack-config/) lib for
 // breaking down complex configurations into multiple files for easier
 // extensibility
 import Config, { environment } from 'webpack-config';
+
+// Project paths configuration
+import PATHS from './paths';
 
 // ----------------------
 
@@ -24,7 +23,7 @@ function load(file) {
 
 // Set the 'root' path to the 'webpack' dir in this folder
 environment.setAll({
-  root: () => path.join(__dirname, 'webpack'),
+  root: () => PATHS.webpack,
 });
 
 // eslint-disable-next-line import/no-mutable-exports
@@ -36,7 +35,11 @@ switch (process.env.npm_lifecycle_event) {
   case 'start':
     toExport = load('browser_dev');
     break;
+  case 'build-run':
   case 'build':
+    toExport = [load('browser_prod'), load('server')];
+    break;
+  case 'build-browser':
     toExport = load('browser_prod');
     break;
   case 'build-server':

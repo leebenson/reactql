@@ -2,12 +2,22 @@
 const path = require('path');
 
 module.exports = {
-  // Source path; where we'll put our application files
-  src: path.join(__dirname, 'src'),
+  // Root project folder.  This is the current dir.
+  root: __dirname,
+
+  // Kit.  ReactNow starter kit code.  You can edit these files, but be
+  // aware that upgrading your starter kit could overwrite them
+  kit: path.join(__dirname, 'kit'),
 
   // Entry points.  This is where webpack will look for our browser.js,
   // server.js and vendor.js files to start building
-  entry: path.join(__dirname, 'src', 'entry'),
+  entry: path.join(__dirname, 'kit', 'entry'),
+
+  // Webpack configuration files
+  webpack: path.join(__dirname, 'kit', 'webpack'),
+
+  // Source path; where we'll put our application files
+  src: path.join(__dirname, 'src'),
 
   // Static files.  HTML, images, etc that can be processed by Webpack
   // before being moved into the final `dist` folder

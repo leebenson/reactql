@@ -10,7 +10,9 @@ import { Observable } from 'rxjs/Observable';
 
 // RxJS connector for 'listening' to observables, and feeding the results
 // down to underlying component props
-import connect from 'lib/connect';
+import connect from 'kit/lib/connect';
+
+import TestImage from 'static/test.png';
 
 // Styles
 import css from './app.css';
@@ -77,6 +79,7 @@ const StatsObserver = connect({
 // the <Page> component based on the route name
 export default () => (
   <div>
+    <img src={TestImage} alt="Test" />
     <div className={css.hello}>
       <h1>ReactNow</h1>
     </div>
@@ -88,7 +91,7 @@ export default () => (
     </ul>
     <hr />
     <Route exact path="/" component={Home} />
-    <Route path="/:name" component={Page} />
+    <Route path=":name" component={Page} />
     <hr />
     <p>Runtime info:</p>
     <StatsObserver />

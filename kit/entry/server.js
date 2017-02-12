@@ -11,12 +11,31 @@
 // ----------------------
 // IMPORTS
 
+// React UI
+import React from 'react';
+
+// React utility to transform JSX to HTML (to send back to the client)
+import ReactDOMServer from 'react-dom/server';
+
 // Koa 2 web server.  Handles incoming HTTP requests, and will serve back
 // the React render, or any of the static assets being compiled
 import Koa from 'koa';
 
+// Koa Router, for handling URL requests
+import KoaRouter from 'koa-router';
+
+// Static file handler
+import koaStatic from 'koa-static';
+
 // High-precision timing, so we can debug response time to serve a request
 import ms from 'microseconds';
+
+// React Router HOC for figuring out the exact React hierarchy to display
+// based on the URL
+import { StaticRouter } from 'react-router';
+
+// App entry point
+import App from 'src/app';
 
 // Import paths.  We'll use this to figure out where our public folder is
 // so we can serve static files
@@ -24,10 +43,34 @@ import PATHS from '../../paths';
 
 // ----------------------
 
+// Port to bind to.  Takes this from the `PORT` environment var, or assigns
+// to 4000 by default
+const PORT = process.env.PORT || 4000;
+
 // Run the server
 (async function server() {
+  // Set up routes
+  const router = (new KoaRouter())
+    // Set-up a general purpose /ping route to check the server is alive
+    .get('/ping', async ctx => {
+      ctx.body = 'pong';
+    })
+
+    // Everything else is React
+    .get('/*', async ctx => {
+      const context = {};
+
+      const html = ReactDOMServer.renderToString(
+        <StaticRouter location={ctx.request.url} context={context}>
+          <App />
+        </StaticRouter>,
+      );
+
+      ctx.body = html;
+    });
+
   // Start Koa
-  const app = (new Koa())
+  (new Koa())
 
     // Error wrapper.  If an error manages to slip through the middleware
     // chain, it will be caught and logged back here
@@ -47,9 +90,25 @@ import PATHS from '../../paths';
     // timing to a HTTP Response header
     .use(async (ctx, next) => {
       const start = ms.now();
+      console.log(start);
       await next();
       const end = ms.parse(ms.since(start));
       const total = end.microseconds + (end.milliseconds * 1e3) + (end.seconds * 1e6);
-      ctx.set('Timing', `${total / 1e3}ms`);
-    });
+      ctx.set('Response-Time', `${total / 1e3}ms`);
+    })
+
+    // Serve static files from our dist/public directory, which is where
+    // the compiled JS, images, etc will wind up
+    .use(koaStatic(PATHS.public, {
+      // Don't defer to middleware.  If we have a file, serve it immediately
+      defer: false,
+    }))
+
+    // If the requests makes it here, we'll assume they need to be handled
+    // by the router
+    .use(router.routes())
+    .use(router.allowedMethods())
+
+    // Bind to the specified port
+    .listen(PORT);
 }());

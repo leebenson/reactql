@@ -6,7 +6,9 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "webpack --colors --progress",
+    "build-browser": "webpack --colors --progress",
     "build-server": "webpack --colors --progress",
+    "build-run": "webpack --colors --progress && node dist/server",
     "start": "webpack-dev-server --colors --progress"
   },
   "repository": {
@@ -38,6 +40,7 @@
     "babel-polyfill": "^6.22.0",
     "babel-preset-env": "^1.1.8",
     "babel-preset-react": "^6.22.0",
+    "compression-webpack-plugin": "^0.3.2",
     "css-loader": "^0.26.1",
     "eslint": "^3.15.0",
     "eslint-config-airbnb": "^14.1.0",
@@ -47,25 +50,30 @@
     "eslint-plugin-jsx-a11y": "^4.0.0",
     "eslint-plugin-react": "^6.9.0",
     "extract-text-webpack-plugin": "^2.0.0-rc.3",
+    "image-webpack-loader": "^3.2.0",
     "node-sass": "^4.5.0",
     "postcss-cssnext": "^2.9.0",
     "postcss-loader": "^1.2.2",
     "postcss-partial-import": "^3.1.0",
     "react-router-dom": "^4.0.0-beta.5",
     "resolve-url-loader": "^1.6.1",
-    "sass-loader": "^5.0.0",
+    "sass-loader": "^5.0.1",
     "style-loader": "^0.13.1",
     "webpack": "^2.2.1",
-    "webpack-config": "^6.2.1",
-    "webpack-dev-server": "^2.3.0"
+    "webpack-config": "^7.0.0",
+    "webpack-dev-server": "^2.3.0",
+    "webpack-node-externals": "^1.5.4"
   },
   "dependencies": {
     "koa": "^2.0.0-alpha.7",
+    "koa-router": "^7.0.1",
+    "koa-static": "^3.0.0",
     "microseconds": "^0.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
     "react-hot-loader": "^3.0.0-beta.6",
-    "react-router-dom": "0.0.0",
+    "react-router": "^4.0.0-beta.5",
+    "react-router-dom": "^4.0.0-beta.5",
     "rxjs": "^5.1.0"
   }
 }
