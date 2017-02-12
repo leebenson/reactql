@@ -1,4 +1,4 @@
-<img src="//imgh.us/reactnow2.svg" alt="ReactNow" width="300px"/>
+<img src="/kit/repo/reactnow.svg" alt="ReactNow" width="300" />
 
 # WIP: Don't use yet
 
