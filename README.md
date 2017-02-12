@@ -39,11 +39,12 @@ You'll need [Node.js](https://nodejs.org) installed.
 
 For now, simply clone the starter kit:
 
-`git clone https://github.com/leebenson/reactnow <project_folder>`
+`git clone --depth 1 https://github.com/leebenson/reactnow <project_folder>`
 
 ... then install the required packages:
 
-`cd <project_folder`
+`cd <project_folder>`
+
 `npm i`
 
 ... and start writing over it.
