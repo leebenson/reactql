@@ -12,13 +12,14 @@ Maintained and updated regularly.
 
 - [Webpack 2](https://webpack.js.org/), with [tree shaking](https://webpack.js.org/guides/tree-shaking/)
 - [React Router 4](https://github.com/ReactTraining/react-router/tree/v4); browser + server compatible routes
-- [RxJS](http://reactivex.io/) reactive extensions, with custom `@connect` decorator for passing Observable values to React component props
+- [RxJS](http://reactivex.io/) reactive extensions, with a custom `@connect` decorator for passing Observable values to React component props
 - [PostCSS](http://postcss.org/) with [next-gen CSS](http://cssnext.io/) and inline  [@imports](https://github.com/postcss/postcss-import)
 - [SASS](http://sass-lang.com) support (also parsed through PostCSS)
 - Full route-aware server-side rendering (SSR) of initial HTML
 - Universal building - both browser + Node.js server
 - Dev + [React hot reloading](http://gaearon.github.io/react-hot-loader/); zero refresh, real-time updates
 - Built-in [Koa 2](http://koajs.com/) web server
+- HTTP header hardening with [Helmet](https://github.com/venables/koa-helmet)
 - Easily extendable [webpack-config](https://fitbit.github.io/webpack-config/) files
 - Separate vendor + client bundles, for better browser caching/faster builds
 - Dynamic polyfills, courtesy of [babel-preset-env](https://github.com/babel/babel-preset-env)
@@ -131,13 +132,9 @@ There are various configuration files that you'll find in the root:
 
 - `.gitignore`: Files to ignore when checking in your code.  This is built around the _ReactNow_ starter kit, but you will probably want to use it as a base for your own code since it ignores the usual Node stuff, along with `dist` and some of the caching folders used by Webpack.
 
-- `LICENSE`:  _ReactNow_ is [MIT licensed](https://opensource.org/licenses/MIT). You're free to use it in your own code, so long as the original attribution remains and you don't blame me if anything goes wrong :smile:. Read the full license for the full terms.
-
 - `package.json`: NPM packages used in this starter kit.  When you're extending this kit with your own code, you'll probably want to gut out the name, description and repo links and replace with your own. Just keep `dependencies` and `devDependencies` intact for the kit to continue to work.
 
 - `paths.js`: File paths to different parts of the kit. Used by Webpack to determine what lives where.
-
-- `README.md`: This file :smile:
 
 - `webpack.config.babel.js`: The Webpack entry point.  This will invoke the config found in `kit/webpack` per the `npm run...` command that spawned it.
 

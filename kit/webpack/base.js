@@ -21,6 +21,12 @@ import cssnext from 'postcss-cssnext';
 // Allow @import statements in our CSS, and use webpack to resolve those paths
 import postcssPartialImport from 'postcss-partial-import';
 
+// Show a nice little progress bar
+import ProgressBarPlugin from 'progress-bar-webpack-plugin';
+
+// Chalk lib, to add some multi-colour awesomeness to our progress messages
+import chalk from 'chalk';
+
 // Our local path configuration, so webpack knows where everything is/goes
 import PATHS from '../../paths';
 
@@ -54,7 +60,7 @@ export default new Config().merge({
         test: /\.(woff|woff2|ttf|eot)$/i,
         loader: 'file-loader',
         query: {
-          name: 'assets/fonts/[hash].[ext]',
+          name: 'assets/fonts/[name].[ext]',
         },
       },
 
@@ -67,7 +73,12 @@ export default new Config().merge({
           {
             loader: 'file-loader',
             query: {
-              name: 'assets/img/[hash].[ext]',
+              // We'll use the original file as the final asset instead of
+              // a hash.  Why?  The hash will change when we compress in
+              // production, which causes the server hash to mismatch and look
+              // for a file that doesn't exist.  Keeping the file name the same
+              // is exactly what we want.
+              name: 'assets/img/[name].[ext]',
             },
           },
         ],
@@ -96,6 +107,11 @@ export default new Config().merge({
   },
 
   plugins: [
+    // Progress bar + options
+    new ProgressBarPlugin({
+      format: ` ${chalk.magenta.bold('ReactNow')} building [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
+    }),
+
     // Options that our module loaders will pull from
     new webpack.LoaderOptionsPlugin({
 

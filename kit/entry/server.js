@@ -21,6 +21,9 @@ import ReactDOMServer from 'react-dom/server';
 // the React render, or any of the static assets being compiled
 import Koa from 'koa';
 
+// HTTP header hardening
+import koaHelmet from 'koa-helmet';
+
 // Koa Router, for handling URL requests
 import KoaRouter from 'koa-router';
 
@@ -71,6 +74,9 @@ const PORT = process.env.PORT || 4000;
 
   // Start Koa
   (new Koa())
+
+    // Priliminary security for HTTP headers
+    .use(koaHelmet())
 
     // Error wrapper.  If an error manages to slip through the middleware
     // chain, it will be caught and logged back here
