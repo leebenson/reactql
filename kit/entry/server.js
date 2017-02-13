@@ -41,6 +41,10 @@ import ejs from 'ejs';
 // based on the URL
 import { StaticRouter } from 'react-router';
 
+// <Helmet> component for retrieving <head> section, so we can set page
+// title, meta info, etc along with the initial HTML
+import Helmet from 'react-helmet';
+
 // Initial view to send back HTML render
 import view from 'kit/views/ssr.ejs';
 
@@ -74,8 +78,6 @@ const PORT = process.env.PORT || 4000;
       // in `react-router`'s <StaticRouter> which will pull out URL info and
       // store it in our empty `route` object
 
-      console.log(ctx.request);
-
       const html = ReactDOMServer.renderToString(
         <StaticRouter location={ctx.request.url} context={route}>
           <App />
@@ -84,7 +86,10 @@ const PORT = process.env.PORT || 4000;
 
       // Render the view with our injected React data
       ctx.body = ejs.render(view, {
-        title: 'Test!',
+        // <head> section
+        head: Helmet.rewind(),
+
+        // Full React HTML render
         html,
       });
     });
@@ -113,7 +118,6 @@ const PORT = process.env.PORT || 4000;
     // timing to a HTTP Response header
     .use(async (ctx, next) => {
       const start = ms.now();
-      console.log(start);
       await next();
       const end = ms.parse(ms.since(start));
       const total = end.microseconds + (end.milliseconds * 1e3) + (end.seconds * 1e6);

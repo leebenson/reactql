@@ -19,7 +19,8 @@ Maintained and updated regularly.
 - Universal building - both browser + Node.js server
 - Dev + [React hot reloading](http://gaearon.github.io/react-hot-loader/); zero refresh, real-time updates
 - Built-in [Koa 2](http://koajs.com/) web server
-- HTTP header hardening with [Helmet](https://github.com/venables/koa-helmet)
+- HTTP header hardening with [Helmet for Koa](https://github.com/venables/koa-helmet)
+- Declarative/dynamic `<head>` section, using [react-helmet](https://github.com/nfl/react-helmet)
 - Easily extendable [webpack-config](https://fitbit.github.io/webpack-config/) files
 - Separate vendor + client bundles, for better browser caching/faster builds
 - Dynamic polyfills, courtesy of [babel-preset-env](https://github.com/babel/babel-preset-env)
@@ -89,13 +90,15 @@ Git folder.  By default, this points to the _ReactNow_ starter kit, so you can s
 
 ### `kit`
 
-The bulk of _ReactNow_ is found in `./kit`.  If you need to dive into the Webpack config or change the vendor packages used in your project, this is where you'd do it.
+The bulk of _ReactNow_ is found in `./kit`.  If you need to dive into the Webpack config or add some custom functionality to your web server or browser instantiation, you'd do it here.
 
 For the most part though, you probably won't need to touch this stuff.
 
 ### `kit/entry`
 
-This is where Webpack looks for entry points for building the browser, server and vendor bundles.
+This is where Webpack looks for entry points for building the browser and the server.
+
+Note: There's no separate entry for 'vendors', since the bundle is built automatically by testing whether packages reside in `node_modules`
 
 ### `kit/lib`
 
@@ -402,8 +405,6 @@ Data fetching libs are also an exercise left to the user. Use REST, [Apollo Grap
 ## Where do I start coding?
 
 `src/app.js` is the main React component, that both the browser and the serve will look to. Overwrite it with your own code.
-
-When you start using [npm packages](https://www.npmjs.com/) that aren't part of this starter kit, append them to `kit/entry/vendor` to have them compile
 
 If you need to edit the build defaults, you can start digging into the `kit` dir which contains the 'under the hood' build stuff.  But that generally comes later.
 

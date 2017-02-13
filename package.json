@@ -77,6 +77,7 @@
     "microseconds": "^0.1.0",
     "react": "^15.4.2",
     "react-dom": "^15.4.2",
+    "react-helmet": "^4.0.0",
     "react-hot-loader": "^3.0.0-beta.6",
     "react-router": "^4.0.0-beta.5",
     "react-router-dom": "^4.0.0-beta.5",

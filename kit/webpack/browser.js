@@ -34,13 +34,6 @@ export default new Config().extend('[root]/base.js').merge({
       // Entry point for the browser
       path.join(PATHS.entry, 'browser.js'),
     ],
-
-    // Vendor code.  In `src/entry/vendor.js`, import the common modules that
-    // are required in every request.  The CommonsChunkPlugin will then pull
-    // this info out and bundle it into a separate `vendor.js`.
-    vendor: [
-      path.join(PATHS.entry, 'vendor.js'),
-    ],
   },
 
   // Set-up some common mocks/polyfills for features available in node, so
@@ -88,7 +81,10 @@ export default new Config().extend('[root]/base.js').merge({
     // we can load them independently of our app-specific code changes
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: Infinity,
+      minChunks: module => (
+         // this assumes your vendor imports exist in the node_modules directory
+         module.context && module.context.indexOf('node_modules') !== -1
+      ),
     }),
 
     // Create a `SERVER` constant that's false in the browser-- we'll use this to
@@ -97,6 +93,7 @@ export default new Config().extend('[root]/base.js').merge({
     new webpack.DefinePlugin({
       SERVER: false,
     }),
+
     // new CopyWebpackPlugin([
     //   {
     //     from: PATHS.public,

@@ -8,9 +8,15 @@ import { Link, Route } from 'react-router-dom';
 // update our <Stats> component below
 import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/observable/interval';
+import 'rxjs/add/operator/map';
+
 // RxJS connector for 'listening' to observables, and feeding the results
 // down to underlying component props
 import connect from 'kit/lib/connect';
+
+// <DocumentTitle> component for setting the page title
+import Helmet from 'react-helmet';
 
 // Styles
 import css from './app.css';
@@ -77,6 +83,12 @@ const StatsObserver = connect({
 // the <Page> component based on the route name
 export default () => (
   <div>
+    <Helmet
+      title="ReactNow application"
+      meta={[{
+        name: 'description',
+        content: 'ReactNow starter kit app',
+      }]} />
     <div className={css.hello}>
       <h1>ReactNow</h1>
     </div>
