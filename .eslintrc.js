@@ -17,9 +17,9 @@ module.exports = {
     browser: true,
   },
   plugins: [
-    'jsx-a11y',
-    'import',
     'babel',
+    'import',
+    'jsx-a11y',
   ],
   rules: {
     'arrow-parens': ['error', 'as-needed'],
@@ -36,7 +36,7 @@ module.exports = {
   settings: {
     'import/resolver': {
       webpack: {
-        config: path.join(PATHS.webpack, 'base'),
+        config: path.join(PATHS.webpack, 'eslint.js'),
       },
     }
   },

@@ -53,8 +53,6 @@ export default new Config().extend({
 
   entry: {
     javascript: [
-      // Vendors
-      path.join(PATHS.entry, 'vendor.js'),
       // Server entry point
       path.join(PATHS.entry, 'server.js'),
     ],
@@ -101,6 +99,11 @@ export default new Config().extend({
         query: {
           presets: [
             'react',
+          ],
+          plugins: [
+            'transform-decorators-legacy',
+            'syntax-dynamic-import',
+            ['transform-class-properties', { spec: true }],
           ],
         },
       },

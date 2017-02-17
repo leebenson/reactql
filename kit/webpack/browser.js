@@ -69,6 +69,11 @@ export default new Config().extend('[root]/base.js').merge({
                 // Transpile JSX code
                 'react',
               ],
+              plugins: [
+                'transform-decorators-legacy',
+                'syntax-dynamic-import',
+                ['transform-class-properties', { spec: true }],
+              ],
             },
           },
         ],
