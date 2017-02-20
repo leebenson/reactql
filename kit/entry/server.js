@@ -64,7 +64,7 @@ import streamAdapter from 'recyclejs/adapter/rxjs';
 import reactDriver from 'recyclejs/drivers/react';
 
 // drivers and components
-import storeDriver from 'kit/lib/store';
+import storeDriver, { serverStore } from 'kit/lib/store';
 import App from 'src/root';
 
 // ----------------------
@@ -131,15 +131,13 @@ const PORT = process.env.PORT || 4000;
       // );
 
       const recycle = Recycle(streamAdapter(Rx));
-      recycle.use(storeDriver, reactDriver(React));
+      recycle.use(storeDriver, serverStore, reactDriver(React));
       const AppReact = recycle.createComponent(App).get('ReactComponent');
 
-      console.log('AppReact ->', AppReact);
-
       const p = new Promise((resolve, reject) => {
-        // getDriver('store') is avaiable
-        // because storeDriver had returned an object: { name: 'store', store$: <stream> }
-        recycle.getDriver('store').store$.take(1)
+        // getDriver('serverStore') is avaiable
+        // because it returned an object: { name: 'serverStore', store$: <stream> }
+        recycle.getDriver('serverStore').store$
           .subscribe(
             nextState => {
               console.log('next ->', nextState);
@@ -151,7 +149,7 @@ const PORT = process.env.PORT || 4000;
             () => {
               // stream has completed
               // first event was fired, and components had updated
-              const html = ReactDOMServer.renderToString(AppReact);
+              const html = ReactDOMServer.renderToString(React.createElement(AppReact));
               ctx.body = ejs.render(view, {
                 // <head> section
                 head: Helmet.rewind(),
