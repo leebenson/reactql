@@ -1,4 +1,4 @@
-[[https://github.com/leebenson/reactql/blob/master/kit/repo/reactql%402x.png|alt=reactql]]
+![reactql](https://github.com/leebenson/reactql/blob/master/kit/repo/reactql%402x.png)
 
 # WIP: Don't use yet
 
