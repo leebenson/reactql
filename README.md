@@ -1,4 +1,4 @@
-<img src="/kit/repo/reactql@2x.png" alt="ReactQL" width="700" />
+[[https://github.com/leebenson/reactql/blob/master/kit/repo/reactql%402x.png|alt=reactql]]
 
 # WIP: Don't use yet
 
