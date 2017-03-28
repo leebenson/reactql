@@ -1,18 +1,18 @@
-<img src="/kit/repo/reactnow@2x.png" alt="ReactNow" width="500" />
+<img src="/kit/repo/reactql@2x.png" alt="ReactQL" width="700" />
 
 # WIP: Don't use yet
 
-# Universal React starter kit
+# Universal React+GraphQL starter kit
 
-The starter kit I use for all my React projects. Browser + server-side rendering.
+React for UI. Apollo for GraphQL. Browser + server-side rendering.
 
 Maintained and updated regularly.
 
 ## Features
 
+- [Apollo Client v1.0](http://dev.apollodata.com/) for GraphQL
 - [Webpack 2](https://webpack.js.org/), with [tree shaking](https://webpack.js.org/guides/tree-shaking/)
 - [React Router 4](https://github.com/ReactTraining/react-router/tree/v4); browser + server compatible routes
-- [RxJS](http://reactivex.io/) reactive extensions, with a custom `@connect` decorator for passing Observable values to React component props
 - [PostCSS](http://postcss.org/) with [next-gen CSS](http://cssnext.io/) and inline  [@imports](https://github.com/postcss/postcss-import)
 - [SASS](http://sass-lang.com) support (also parsed through PostCSS)
 - Full route-aware server-side rendering (SSR) of initial HTML
@@ -22,7 +22,7 @@ Maintained and updated regularly.
 - HTTP header hardening with [Helmet for Koa](https://github.com/venables/koa-helmet)
 - Declarative/dynamic `<head>` section, using [react-helmet](https://github.com/nfl/react-helmet)
 - Easily extendable [webpack-config](https://fitbit.github.io/webpack-config/) files
-- Separate vendor + client bundles, for better browser caching/faster builds
+- Separate local + vendor bundles, for better browser caching/faster builds
 - Dynamic polyfills, courtesy of [babel-preset-env](https://github.com/babel/babel-preset-env)
 - Aggressive code minification with [Uglify](https://webpack.github.io/docs/list-of-plugins.html#uglifyjsplugin)
 - [GIF/JPEG/PNG/SVG crunching](https://github.com/tcoopman/image-webpack-loader)
@@ -40,7 +40,7 @@ You'll need [Node.js](https://nodejs.org) installed.
 
 For now, simply clone the starter kit:
 
-`git clone --depth 1 https://github.com/leebenson/reactnow <project_folder>`
+`git clone --depth 1 https://github.com/leebenson/reactql <project_folder>`
 
 ... then install the required packages:
 
@@ -86,11 +86,11 @@ Here's the folder layout:
 
 ### `.git`
 
-Git folder.  By default, this points to the _ReactNow_ starter kit, so you can safely delete this if you want to initialise your own git repo and start contributing to it.
+Git folder.  By default, this points to the _reactql_ starter kit, so you can safely delete this if you want to initialise your own git repo and start contributing to it.
 
 ### `kit`
 
-The bulk of _ReactNow_ is found in `./kit`.  If you need to dive into the Webpack config or add some custom functionality to your web server or browser instantiation, you'd do it here.
+The bulk of _reactql_ is found in `./kit`.  If you need to dive into the Webpack config or add some custom functionality to your web server or browser instantiation, you'd do it here.
 
 For the most part though, you probably won't need to touch this stuff.
 
@@ -102,17 +102,18 @@ Note: There's no separate entry for 'vendors', since the bundle is built automat
 
 ### `kit/lib`
 
-Custom libraries built for _ReactNow_.  You'll find the RxJS `@connect` decorator in here, that lets you feed Observable values into your React components.
+Custom libraries built for _reactql_.  Currently empty.
 
 ### `kit/repo`
 
-Non-code files specific to the starter kit.  For example, the _ReactNow_ logo that github pulls.  You can safely delete this folder, if you want.
+Non-code files specific to the starter kit.  For example, the _reactql_ logo that github pulls.  You can safely delete this folder, if you want.
 
 ### `kit/webpack`
 
 Webpack configuration files, notably:
 
 - `base.js`: Base configuration that all others inherit from
+- `eslint.js`: Entry point for the linter, to properly follow local module folders and avoid false positives
 - `browser.js`: Base configuration for the browser.  Inherits from base, and is extended by browser_dev and browser_prod
 - `browser_dev.js`: Config for the browser spawned at [http://localhost:8080](http://localhost:8080) when running `npm start`
 - `browser_prod.js`: Production browser bundling.  Minifies and crunches code and images, gzips assets, removes source maps and debug flags, builds your browser bundles ready for production.  This is automatically served back to the client when you run `npm run build-run`
@@ -138,7 +139,9 @@ There are various configuration files that you'll find in the root:
 
 - `.eslint.js`: [ESLint](http://eslint.org/) configuration. If your editor/IDE has ESLint installed, it will use this file to lint your code.  See _Tweaked Airbnb style guide_ below to see the rules set for this starter kit.
 
-- `.gitignore`: Files to ignore when checking in your code.  This is built around the _ReactNow_ starter kit, but you will probably want to use it as a base for your own code since it ignores the usual Node stuff, along with `dist` and some of the caching folders used by Webpack.
+- `.eslintignore`: Files the linter can safely ignore.
+
+- `.gitignore`: Files to ignore when checking in your code.  This is built around the _reactql_ starter kit, but you will probably want to use it as a base for your own code since it ignores the usual Node stuff, along with `dist` and some of the caching folders used by Webpack.
 
 - `package.json`: NPM packages used in this starter kit.  When you're extending this kit with your own code, you'll probably want to gut out the name, description and repo links and replace with your own. Just keep `dependencies` and `devDependencies` intact for the kit to continue to work.
 
@@ -261,7 +264,7 @@ In development, your styles will be bundled with full source maps into the resul
 
 In production, code is extracted out into a final `style.css` file that is automatically minified and included in the first-page HTML via a `<link>` tag that's sent from the server-side.  Webpack will do the heavy lifting and match up your React names with the CSS localised styles, so it'll work exactly the same way as in dev.
 
-You don't need to do anything for this to happen- _ReactNow_ takes care of it for you.
+You don't need to do anything for this to happen- _reactql_ takes care of it for you.
 
 ## Can I use styles on the server-side too?
 
@@ -292,87 +295,15 @@ The same is true of any filetype that Webpack recognises- .jpg, .css, .sass, .js
 import style from 'styles/some/file.css';
 ```
 
-## RxJS - Reactive extensions
-
-(If you're new to RxJS, [read this](https://gist.github.com/staltz/868e7e9bc2a7b8c1f754) for a primer on its awesomeness.)
-
-This starter kit comes with [RxJS v5](https://github.com/ReactiveX/rxjs) pre-loaded, along with a custom `@connect` Higher-Order Component that lets you easily pass observers to your component and get the  eventual values passed along as `props`.
-
-An example is shown in the [`src/app.js`](https://github.com/leebenson/reactnow/blob/master/src/app.js) file, simplified here:
-
-```jsx
-// The @connect HOC
-import connect from 'lib/connect';
-
-// Start with a pure functional component that takes a 'now' prop
-const CurrentTime = ({ now }) => (
-  <h1>Current time is: {now.toTimeString()}</h1>
-);
-
-// `now` will always be an instance of Date
-CurrentTime.propTypes = {
-  now: React.PropTypes.instanceOf(Date),
-};
-
-// By default, we'll start with the current date.  That will 'seed' the
-// `props` value that our component can display
-CurrentTime.defaultProps = {
-  now: new Date(),
-};
-
-// Wrap the <Stats> component in a Higher-Order Component (HOC) to 'listen'
-// to passed in observables.  The keys we pass here will become props to the
-// underlying component, and will re-render whenever we get another value
-const CurrentTimeObserved = connect({
-  now: Observable.interval(1000).map(() => new Date()),
-})(CurrentTime);
-```
-
-In the above example, when `<CurrentTimeObserved />` is mounted, it will automatically receive a new observed value every second, which will implicitly cause the underlying `<CurrentTime />` component to refresh and display the latest time.
-
-You can pass in any number of observers into the `connect()` HOC as an object of key/Observer pairs, and the key name will be the prop key used on the underlying component.
-
-`connect` can be used as a decorator too:
-
-```jsx
-import React from 'react';
-import connect from 'lib/connect';
-
-@connect({ now: Observable.interval(1000).map(() => new Date()) })
-class CurrentTime extends React.Component {
-  render() {
-    return (
-      <h1>Current time is: {this.props.now.toTimeString()}</h1>
-    );
-  }
-}
-
-CurrentTime.defaultProps = {
-  now: new Date(),
-};
-```
-
-### How do RxJS events work on the server?
-
-To avoid long-running observers, when `connect` is used on the server-side it will automatically add a `take(1)` parameter to your Observable, which emits the 'completed' event once the first value has been returned.
-
-Since the server can't render more than once per request, this means the server side will do no further processing.
-
-The server will only render the final React markup back to the client once all events have entered a completed state, so another benefit this serves is signalling back to our server that we're ready to dump the final HTML back to the visitor.
-
-In effect, this allows you to await the first asynchronous result of ANY data stream -- meaning you can pull data from a third-party DB, make `fetch()` calls off-site or do other things that require you to synchronise the completion of multiple disparate observers.
-
-This would traditionally be quite difficult to do without managing complex Promise chains or writing lots of custom logic to handle special cases on the server, but with RxJS and the `connect` decorator, it's much simpler.
-
 ## FAQ
 
-### Why should I use ReactNow?
+### Why should I use ReactQL?
 
-This starter kit is the product of over 2 years working with React.
+This starter kit is the product of over 2 years working with React, and GraphQL since its initial public release.
 
 IMO, this represents the best available tooling for web apps in 2017. I use this stuff every day in production, so you can be confident it'll be maintained and updated regularly.
 
-Use ReactNow if you want to skip the set-up, and get your next project up in record time.
+Use ReactQL if you want to skip the set-up, and get your next project up in record time.
 
 ### Is this production ready?
 
@@ -380,15 +311,15 @@ Some of the third-party packages in my stack may be in alpha or beta stages, so 
 
 I personally use this starter kit for every new React project I undertake, many of which are running successfully under heavy production load -- so I'm quite comfortable with the tech choices.
 
-### What kind of projects is ReactNow a good starter for?
+### What kind of projects is ReactQL a good starter for?
 
-Anything 'front end', that also needs to render well on the server.  I typically break my projects down into a few pieces:
+Anything 'front end' that's backed by a GraphQL server. I typically break my projects down into a few pieces:
 
-- **Front end**, with a built-in web server that serves public traffic. This usually sits behind an Nginx proxy/load balancer and compiles and dumps back the UI. **This is basically ReactNow**.
+- **Front end**, with a built-in web server that serves public traffic. This usually sits behind an Nginx proxy/load balancer and compiles and dumps back the UI. **This is basically ReactQL**.
 
-- **API server**. This could be Node.js, Python, Go, etc. But it's usually separate to the front-end code base, and is something the front-end talks to directly. _I generally don't use ReactNow for this_ unless there's a good reason to build a monolithic app (e.g. speed, the back-end not doing a whole lot, etc.)
+- **GraphQL API**. This could be Node.js, Python, Go, etc. But it's usually separate to the front-end code base, and is something the front-end talks to directly via the Apollo GraphQL client. _I generally don't use ReactQL for this_ unless there's a good reason to build a monolithic app (e.g. speed, the back-end not doing a whole lot, etc.)
 
-- **Microservices**.  Smaller pieces of the stack that do one thing, and do it well. The API server is responsible for talking to this stuff.  Again, _ReactNow_ doesn't really get a look in.
+- **Microservices**.  Smaller pieces of the stack that do one thing, and do it well. The API server is responsible for talking to this stuff.  Again, _ReactQL_ doesn't really get a look in.
 
 I'd generally recommend a similar layout to keep your code light and maintainable. With that said, if you want Node.js to handle both your front and back-office concerns, there's no reason you couldn't write that stuff here too, and keep it scoped to the server. I just prefer to keep it separate.
 
@@ -400,8 +331,6 @@ Hopefully. I haven't tested it. But there's no OS X/Linux specific commands that
 
 There's currently no test library, so feel free to add your own.
 
-Data fetching libs are also an exercise left to the user. Use REST, [Apollo GraphQL](http://www.apollodata.com/) or whatever else you want to talk to your server or API.
-
 ## Where do I start coding?
 
 `src/app.js` is the main React component, that both the browser and the serve will look to. Overwrite it with your own code.
@@ -410,7 +339,7 @@ If you need to edit the build defaults, you can start digging into the `kit` dir
 
 ### **TL;DR:** I haven't got time to read the set-up guide. How can I get this running _now_?
 
-- Step 1: Start a new project with `git clone --depth 1 https://github.com/leebenson/reactnow <project_folder>`
+- Step 1: Start a new project with `git clone --depth 1 https://github.com/leebenson/reactql <project_folder>`
 - Step 2: `cd` into the folder, then install packages with `npm i`
 - Step 3: Run `npm start`
 

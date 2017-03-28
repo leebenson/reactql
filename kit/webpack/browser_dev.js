@@ -20,7 +20,8 @@ const LOCAL = `http://${HOST}:8080`;
 export default new Config().extend({
   '[root]/browser.js': config => {
     // Add `webpack-dev-server` polyfills needed to communicate with the browser
-    config.entry.vendor.unshift(
+
+    config.entry.browser.unshift(
       'react-hot-loader/patch',
       `webpack-dev-server/client?${LOCAL}`,
       'webpack/hot/only-dev-server',
