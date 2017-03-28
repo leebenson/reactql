@@ -60,13 +60,13 @@ Stats.defaultProps = {
 export default () => (
   <div>
     <Helmet
-      title="ReactNow application"
+      title="ReactQL application"
       meta={[{
         name: 'description',
-        content: 'ReactNow starter kit app',
+        content: 'ReactQL starter kit app',
       }]} />
     <div className={css.hello}>
-      <h1>ReactNow</h1>
+      <h1>ReactQL starter kit</h1>
     </div>
     <hr />
     <ul>
