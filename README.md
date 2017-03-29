@@ -1,7 +1,5 @@
 ![reactql](https://raw.githubusercontent.com/leebenson/reactql/master/kit/repo/reactql%402x.png)
 
-# WIP: Don't use yet
-
 # Universal React+GraphQL starter kit
 
 React for UI. Apollo for GraphQL. Redux for stores. Browser + server-side rendering.
