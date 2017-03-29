@@ -297,7 +297,7 @@ import style from 'styles/some/file.css';
 
 ## Creating GraphQL enabled components + server-side rending
 
-When running `npm start`, you'll see an example of GraphQL talking to a live server end-point hosted at [graph.cool/](https://www.graph.cool/)
+When running `npm start`, you'll see an example of GraphQL talking to a live server end-point hosted at [graph.cool](https://www.graph.cool/)
 
 Check out [src/app.js](https://github.com/leebenson/reactql/blob/master/src/app.js) to see this working in action.
 
@@ -309,7 +309,7 @@ Furthermore, it will send back the initial Redux state with the HTML, too, ensur
 
 Here's a blow-by-blow of how it works:
 
-First, set the GraphQL API endpoint.  By default, I've included a sample to a [graph.cool/](https://www.graph.cool/) service I created for this starter kit -- change this to your own GraphQL server in production:
+First, set the GraphQL API endpoint.  By default, I've included a sample to a [graph.cool](https://www.graph.cool/) service I created for this starter kit -- change this to your own GraphQL server in production:
 
 **[root]/config.js**
 ```js
@@ -378,7 +378,7 @@ Finally, we create a higher-order component that wraps our plain component, and 
 const GraphQLMessage = graphql(query)(Message);
 ```
 
-Now, we can use `<GraphQLMessage />` inside any other React component, and it'll automatically update with props when data has been retrieved or is updated.
+Now, we can use `<GraphQLMessage />` inside any other React component, and it'll automatically update with props when data has been retrieved or is updated via Apollo.
 
 ## How can I prevent data loading on the server?
 
