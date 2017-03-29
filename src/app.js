@@ -1,5 +1,11 @@
+// ----------------------
+// IMPORTS
+
 // React
 import React from 'react';
+
+// GraphQL
+import { gql, graphql } from 'react-apollo';
 
 // Routing
 import { Link, Route } from 'react-router-dom';
@@ -7,8 +13,13 @@ import { Link, Route } from 'react-router-dom';
 // <DocumentTitle> component for setting the page title
 import Helmet from 'react-helmet';
 
+// Helper to merge expected React PropTypes to Apollo-enabled component
+import { mergeData } from 'kit/lib/apollo';
+
 // Styles
 import css from './app.css';
+
+// ----------------------
 
 // We'll display this <Home> component when we're on the / route
 const Home = () => (
@@ -54,6 +65,45 @@ Stats.defaultProps = {
   now: new Date(),
 };
 
+// Now, let's create a GraphQL-enabled component...
+
+// First, create the GraphQL query that we'll use to request data from our
+// sample endpoint
+const query = gql`
+  query {
+    allMessages(first:1) {
+      text
+    }
+  }
+`;
+
+// ... then, let's create the component to display the message
+const Message = ({ data }) => {
+  const message = data.allMessages && data.allMessages[0].text;
+  const isLoading = data.loading ? 'yes' : 'nope';
+  return (
+    <div>
+      <h2>Message from GraphQL server: <em>{message}</em></h2>
+      <h2>Currently loading?: {isLoading}</h2>
+    </div>
+  );
+};
+
+// Add propTypes for React to expect data from GraphQL
+Message.propTypes = {
+  data: mergeData({
+    allMessages: React.PropTypes.arrayOf(
+      React.PropTypes.shape({
+        text: React.PropTypes.string.isRequired,
+      }).isRequired,
+    ),
+  }),
+};
+
+// Finally, wrap the component in the GraphQL HOC 'listener' which will
+// inject props data down once the GraphQL API request has been completed
+const GraphQLMessage = graphql(query)(Message);
+
 // Export a simple component that allows clicking on list items to change
 // the route, along with a <Route> 'listener' that will conditionally display
 // the <Page> component based on the route name
@@ -68,6 +118,8 @@ export default () => (
     <div className={css.hello}>
       <h1>ReactQL starter kit</h1>
     </div>
+    <hr />
+    <GraphQLMessage />
     <hr />
     <ul>
       <li><Link to="/">Home</Link></li>

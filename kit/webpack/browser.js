@@ -14,18 +14,18 @@ import path from 'path';
 import webpack from 'webpack';
 
 // We'll use `webpack-config` to extend the base config we've already created
-import Config from 'webpack-config';
+import WebpackConfig from 'webpack-config';
 
 // other plug-ins
 // import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 // Our local path configuration, so webpack knows where everything is/goes
-import PATHS from '../../paths';
+import { PATHS } from '../../config';
 
 // ----------------------
 
 // Extend the 'base' config
-export default new Config().extend('[root]/base.js').merge({
+export default new WebpackConfig().extend('[root]/base.js').merge({
 
   // This is where webpack will start crunching our source code
   entry: {

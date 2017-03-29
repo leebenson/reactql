@@ -12,7 +12,7 @@ import webpack from 'webpack';
 
 // We'll use `webpack-config` to create a 'base' config that can be
 // merged/extended from for further configs
-import Config from 'webpack-config';
+import WebpackConfig from 'webpack-config';
 
 // CSSNext is our postcss plugin of choice, that will allow us to use 'future'
 // stylesheet syntax like it's available today.
@@ -28,12 +28,12 @@ import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 import chalk from 'chalk';
 
 // Our local path configuration, so webpack knows where everything is/goes
-import PATHS from '../../paths';
+import { PATHS } from '../../config';
 
 // ----------------------
 
 // Export a new 'base' config, which we can extend/merge from
-export default new Config().merge({
+export default new WebpackConfig().merge({
 
   // Javascript file extensions that webpack will resolve
   resolve: {
@@ -109,7 +109,7 @@ export default new Config().merge({
   plugins: [
     // Progress bar + options
     new ProgressBarPlugin({
-      format: ` ${chalk.magenta.bold('ReactNow')} building [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
+      format: ` ${chalk.magenta.bold('ReactQL')} building [:bar] ${chalk.green.bold(':percent')} (:elapsed seconds)`,
     }),
 
     // Options that our module loaders will pull from

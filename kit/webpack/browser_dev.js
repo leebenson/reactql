@@ -7,9 +7,9 @@
 // IMPORTS
 
 import webpack from 'webpack';
-import Config from 'webpack-config';
+import WebpackConfig from 'webpack-config';
 
-import PATHS from '../../paths';
+import { PATHS } from '../../config';
 
 // ----------------------
 
@@ -17,23 +17,23 @@ import PATHS from '../../paths';
 const HOST = 'localhost';
 const LOCAL = `http://${HOST}:8080`;
 
-export default new Config().extend({
-  '[root]/browser.js': config => {
+export default new WebpackConfig().extend({
+  '[root]/browser.js': conf => {
     // Add `webpack-dev-server` polyfills needed to communicate with the browser
 
-    config.entry.browser.unshift(
+    conf.entry.browser.unshift(
       'react-hot-loader/patch',
       `webpack-dev-server/client?${LOCAL}`,
       'webpack/hot/only-dev-server',
     );
 
     // Add React-specific hot loading
-    config.module.loaders.find(l => l.test.toString() === /\.jsx?$/.toString())
+    conf.module.loaders.find(l => l.test.toString() === /\.jsx?$/.toString())
       .loaders.unshift({
         loader: 'react-hot-loader/webpack',
       });
 
-    return config;
+    return conf;
   },
 }).merge({
 

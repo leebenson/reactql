@@ -8,7 +8,7 @@
 // IMPORTS
 
 import webpack from 'webpack';
-import Config from 'webpack-config';
+import WebpackConfig from 'webpack-config';
 
 // In dev, we inlined stylesheets inside our JS bundles.  Now that we're
 // building for production, we'll extract them out into a separate .css file
@@ -25,7 +25,7 @@ const extractCSS = new ExtractTextPlugin({
 });
 
 // Extend the `browser.js` config
-export default new Config().extend({
+export default new WebpackConfig().extend({
   '[root]/browser.js': config => {
     // Optimise images
     config.module.loaders.find(l => l.test.toString() === /\.(jpe?g|png|gif|svg)$/i.toString())

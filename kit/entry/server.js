@@ -11,6 +11,9 @@
 // ----------------------
 // IMPORTS
 
+// Patch global.`fetch` so that Apollo calls to GraphQL work
+import 'isomorphic-fetch';
+
 // React UI
 import React from 'react';
 
@@ -20,6 +23,12 @@ import ReactDOMServer from 'react-dom/server';
 // Koa 2 web server.  Handles incoming HTTP requests, and will serve back
 // the React render, or any of the static assets being compiled
 import Koa from 'koa';
+
+// Apollo tools to connect to a GraphQL server.  We'll grab the
+// `ApolloProvider` HOC component, which will inject any 'listening' React
+// components with GraphQL data props.  We'll also use `getDataFromTree`
+// to await data being ready before rendering back HTML to the client
+import { ApolloProvider, getDataFromTree } from 'react-apollo';
 
 // HTTP header hardening
 import koaHelmet from 'koa-helmet';
@@ -45,6 +54,14 @@ import { StaticRouter } from 'react-router';
 // title, meta info, etc along with the initial HTML
 import Helmet from 'react-helmet';
 
+// Grab the shared Apollo Client
+import { serverClient } from 'kit/lib/apollo';
+
+// Custom redux store creator.  This will allow us to create a store 'outside'
+// of Apollo, so we can apply our own reducers and make use of the Redux dev
+// tools in the browser
+import createNewStore from 'kit/lib/redux';
+
 // Initial view to send back HTML render
 import view from 'kit/views/ssr.ejs';
 
@@ -53,7 +70,7 @@ import App from 'src/app';
 
 // Import paths.  We'll use this to figure out where our public folder is
 // so we can serve static files
-import PATHS from 'paths';
+import { PATHS } from 'config';
 
 // ----------------------
 
@@ -74,15 +91,25 @@ const PORT = process.env.PORT || 4000;
     .get('/*', async ctx => {
       const route = {};
 
+      // Create a new server Apollo client for this request
+      const client = serverClient();
+
+      // Create a new Redux store for this request
+      const store = createNewStore(client);
+
       // Generate the HTML from our React tree.  We're wrapping the result
       // in `react-router`'s <StaticRouter> which will pull out URL info and
       // store it in our empty `route` object
-
-      const html = ReactDOMServer.renderToString(
+      const components = (
         <StaticRouter location={ctx.request.url} context={route}>
-          <App />
-        </StaticRouter>,
+          <ApolloProvider store={store} client={client}>
+            <App />
+          </ApolloProvider>
+        </StaticRouter>
       );
+
+      await getDataFromTree(components);
+      const html = ReactDOMServer.renderToString(components);
 
       // Render the view with our injected React data
       ctx.body = ejs.render(view, {
@@ -91,6 +118,11 @@ const PORT = process.env.PORT || 4000;
 
         // Full React HTML render
         html,
+
+        // Redux serialized store, to prevent the browser from making
+        // unnecessary round-trips to retrieve the same GraphQL data and
+        // for any custom store state
+        state: JSON.stringify(store.getState()),
       });
     });
 

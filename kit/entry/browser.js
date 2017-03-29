@@ -4,6 +4,9 @@
 // ----------------------
 // IMPORTS
 
+// Patch global.`fetch` so that Apollo calls to GraphQL work
+import 'isomorphic-fetch';
+
 // React parts
 import React from 'react';
 import ReactDOM from 'react-dom';
@@ -11,12 +14,30 @@ import ReactDOM from 'react-dom';
 // Browser routing
 import { BrowserRouter } from 'react-router-dom';
 
+// Apollo Provider. This HOC will 'wrap' our React component chain
+// and handle injecting data down to any listening component
+import { ApolloProvider } from 'react-apollo';
+
+// Grab the shared Apollo Client
+import { browserClient } from 'kit/lib/apollo';
+
+// Custom redux store creator.  This will allow us to create a store 'outside'
+// of Apollo, so we can apply our own reducers and make use of the Redux dev
+// tools in the browser
+import createNewStore from 'kit/lib/redux';
+
 // Root component.  This is our 'entrypoint' into the app.  If you're using
-// the ReactNow starter kit for the first time, `components/app` is where
+// the ReactQL starter kit for the first time, `components/app` is where
 // you can start editing to add your own code
 import App from 'src/app';
 
 // ----------------------
+
+// Create a new browser Apollo client
+const client = browserClient();
+
+// Create a new redux store
+const store = createNewStore(client);
 
 // Create the 'root' entry point into the app.  If we have React hot loading
 // (i.e. if we're in development), then we'll wrap the whole thing in an
@@ -38,16 +59,18 @@ const Root = (() => {
   // Wrap the component hierarchy in <BrowserRouter>, so that our children
   // can respond to route changes
   const Chain = () => (
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <ApolloProvider store={store} client={client}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </ApolloProvider>
   );
 
   // React hot reloading -- only enabled in production.  This branch will
   // be shook from production, so we can run a `require` statement here
   // without fear that it'll inflate the bundle size
   if (module.hot) {
-    // <AppContainer> will response to our Hot Module Reload (HMR) changes
+    // <AppContainer> will respond to our Hot Module Reload (HMR) changes
     // back from WebPack, and handle re-rendering the chain as needed
     const AppContainer = require('react-hot-loader').AppContainer;
 

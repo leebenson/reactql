@@ -1,3 +1,17 @@
+1.0.0
+------------------------------------------------------------
+* First official release!
+* Adds Redux, with custom store creation
+* Adds Apollo, with separate browser and server-specific client instantiation
+* Adds helper functions for store and GraphQL client creation
+* Adds `config.js` for custom Apollo and system paths configuration
+* Adds `isomorphic-fetch`, to polyfill Apollo client networking on the server + browser
+* Adds GraphQL data fetching on the server, which awaits retrieval before rendering HTML
+* Adds store state to SSR, which the client uses to avoid over-fetching
+* Bumps NPM packages to latest versions
+* Optimises Webpack configs
+* Updates README
+
 0.1.3
 ------------------------------------------------------------
 * Removed traces of old ReactNow name

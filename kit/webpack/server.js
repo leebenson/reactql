@@ -5,14 +5,14 @@
 
 import path from 'path';
 import webpack from 'webpack';
-import Config from 'webpack-config';
+import WebpackConfig from 'webpack-config';
 
 // Plugin to allow us to exclude `node_modules` packages from the final
 // bundle.  Since we'll be running `server.js` from Node, we'll have access
 // to those modules locally and they don't need to wind up in the bundle file
 import nodeModules from 'webpack-node-externals';
 
-import PATHS from '../../paths';
+import { PATHS } from '../../config';
 
 // ----------------------
 
@@ -26,10 +26,10 @@ function recursiveLoader(root = {}, func) {
   return false;
 }
 
-export default new Config().extend({
-  '[root]/base.js': config => {
+export default new WebpackConfig().extend({
+  '[root]/base.js': conf => {
     // Prevent file emission, since the browser bundle will already have done it
-    config.module.loaders.forEach(loader => {
+    conf.module.loaders.forEach(loader => {
       recursiveLoader(loader, l => {
         if (l.loader === 'file-loader') {
           // eslint-disable-next-line
@@ -38,7 +38,7 @@ export default new Config().extend({
       });
     });
 
-    return config;
+    return conf;
   },
 }).merge({
 
@@ -53,8 +53,6 @@ export default new Config().extend({
 
   entry: {
     javascript: [
-      // Vendors
-      path.join(PATHS.entry, 'vendor.js'),
       // Server entry point
       path.join(PATHS.entry, 'server.js'),
     ],

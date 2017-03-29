@@ -8,6 +8,9 @@
   </head>
   <body>
     <div id="main"><%- html %></div>
+    <script>
+      window.__STATE__ = <%- state %>;
+    </script>
     <script src="/vendor.js"></script>
     <script src="/browser.js"></script>
   </body>
