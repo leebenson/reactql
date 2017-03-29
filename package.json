@@ -10,6 +10,7 @@
     "build-server": "webpack --colors",
     "build-run": "webpack --colors && node dist/server",
     "lint": "eslint .",
+    "server": "node dist/server",
     "start": "webpack-dev-server --colors"
   },
   "repository": {
