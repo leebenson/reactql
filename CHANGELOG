@@ -1,3 +1,9 @@
+1.0.3
+------------------------------------------------------------
+* Adds new logo design
+* Adds link to new https://reactql.org site
+* Removes redundant propTypes on `Stats` component in sample `src/app.js`
+
 1.0.2
 ------------------------------------------------------------
 * Adds `npm run server` script

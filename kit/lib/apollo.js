@@ -14,7 +14,7 @@ import { APOLLO } from 'config';
 
 // Create a new Apollo network interface, to point to our API server.
 // Note:  By default in this kit, we'll connect to a sample endpoint that
-// repsonds with simple messages.  Update this to reflect your own server.
+// repsonds with simple messages.  Update [root]/config.js as needed.
 const networkInterface = createNetworkInterface({
   uri: APOLLO.uri,
 });

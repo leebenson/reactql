@@ -59,12 +59,6 @@ const Stats = () => {
   );
 };
 
-// By default, we'll start with the current date.  That will 'seed' the
-// `props` value that our component can display
-Stats.defaultProps = {
-  now: new Date(),
-};
-
 // Now, let's create a GraphQL-enabled component...
 
 // First, create the GraphQL query that we'll use to request data from our

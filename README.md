@@ -1,4 +1,4 @@
-![reactql](https://raw.githubusercontent.com/leebenson/reactql/master/kit/repo/reactql%402x.png)
+![reactql](https://raw.githubusercontent.com/leebenson/reactql/master/kit/repo/reactql-logo%402x.png)
 
 # Universal React+GraphQL starter kit
 
@@ -29,6 +29,10 @@ Maintained and updated regularly.
 - [Gzip compression](https://webpack.js.org/plugins/compression-webpack-plugin/) and serving of static assets as pre-compressed `.gz` files
 - [ESLint](http://eslint.org/)ing based on a tweaked [Airbnb style guide](https://github.com/airbnb/javascript)
 - Tons of comments (too many) to fill you in on what's happening under the hood
+
+# Documentation
+
+See **[https://reactql.org]** for full docs + details.
 
 # System requirements
 
