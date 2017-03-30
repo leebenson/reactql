@@ -1,4 +1,4 @@
-<img src="https://raw.githubusercontent.com/leebenson/reactql/master/kit/repo/reactql-logo.png" srcset="https://raw.githubusercontent.com/leebenson/reactql/master/kit/repo/reactql-logo.png 1x, https://raw.githubusercontent.com/leebenson/reactql/master/kit/repo/reactql-logo%402x.png 2x" alt="ReactQL" width="278" height="67" />
+<img src="https://raw.githubusercontent.com/leebenson/reactql/master/kit/repo/reactql-logo%402x.png" alt="ReactQL" width="278" height="67" />
 
 # Universal React+GraphQL starter kit
 
