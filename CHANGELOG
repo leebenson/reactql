@@ -1,3 +1,7 @@
+1.0.4 - 2017-03-31
+------------------------------------------------------------
+* Now Promised-based `import()` statements can appear anywhere, thanks to `babel-plugin-syntax-dynamic-import` (for code splitting)
+
 1.0.3
 ------------------------------------------------------------
 * Adds new logo design

@@ -69,6 +69,9 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
                 // Transpile JSX code
                 'react',
               ],
+              plugins: [
+                'syntax-dynamic-import',
+              ],
             },
           },
         ],

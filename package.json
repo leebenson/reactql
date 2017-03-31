@@ -1,6 +1,6 @@
 {
   "name": "reactql",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Universal React+GraphQL starter kit: React, Apollo, Webpack 2, React Router 4, PostCSS, SSR",
   "main": ".eslintrc.js",
   "scripts": {
@@ -41,6 +41,7 @@
     "babel-core": "^6.24.0",
     "babel-eslint": "^7.2.1",
     "babel-loader": "^6.4.1",
+    "babel-plugin-syntax-dynamic-import": "^6.18.0",
     "babel-polyfill": "^6.23.0",
     "babel-preset-env": "^1.2.2",
     "babel-preset-react": "^6.23.0",

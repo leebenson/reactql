@@ -100,6 +100,9 @@ export default new WebpackConfig().extend({
           presets: [
             'react',
           ],
+          plugins: [
+            'syntax-dynamic-import',
+          ],
         },
       },
 
