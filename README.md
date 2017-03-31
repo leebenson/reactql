@@ -32,7 +32,7 @@ Maintained and updated regularly.
 
 # Documentation
 
-See **[https://reactql.org]** for full docs + details.
+See **[https://reactql.org](https://reactql.org)** for full docs + details.
 
 # System requirements
 
