@@ -27,8 +27,10 @@ import ProgressBarPlugin from 'progress-bar-webpack-plugin';
 // Chalk lib, to add some multi-colour awesomeness to our progress messages
 import chalk from 'chalk';
 
-// Our local path configuration, so webpack knows where everything is/goes
-import { PATHS } from '../../config';
+// Our local path configuration, so webpack knows where everything is/goes.
+// Since we haven't yet established our module resolution paths, we have to
+// use the full relative path
+import PATHS from '../../config/paths';
 
 // ----------------------
 

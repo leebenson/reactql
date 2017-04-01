@@ -12,7 +12,7 @@ import WebpackConfig from 'webpack-config';
 // to those modules locally and they don't need to wind up in the bundle file
 import nodeModules from 'webpack-node-externals';
 
-import { PATHS } from '../../config';
+import PATHS from '../../config/paths';
 
 // ----------------------
 

@@ -70,7 +70,7 @@ import App from 'src/app';
 
 // Import paths.  We'll use this to figure out where our public folder is
 // so we can serve static files
-import { PATHS } from 'config';
+import PATHS from 'config/paths';
 
 // ----------------------
 

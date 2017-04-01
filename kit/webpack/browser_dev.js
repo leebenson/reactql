@@ -9,7 +9,7 @@
 import webpack from 'webpack';
 import WebpackConfig from 'webpack-config';
 
-import { PATHS } from '../../config';
+import PATHS from '../../config/paths';
 
 // ----------------------
 

@@ -1,3 +1,12 @@
+1.1.1 - 2017-04-02
+------------------------------------------------------------
+* Adds missing `babel-register` mod to NPM, to allow on-the-fly ESlinting of new syntax
+* Fixes `npm run lint` errors
+* Fixes ESLint for use in IDEs/editors, such as Atom.io
+* Moves config files to dedicated `[root]/config` folder
+* Adds `config/paths.js` for setting folder structure
+* Adds `config/project.js` for project settings, such as the Apollo GraphQL endpoint
+
 1.1.0 - 2017-04-01
 ------------------------------------------------------------
 * Upgrades to Apollo client v1 official

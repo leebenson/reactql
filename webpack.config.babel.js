@@ -11,7 +11,7 @@
 import Config, { environment } from 'webpack-config';
 
 // Project paths configuration
-import { PATHS } from './config';
+import PATHS from './config/paths';
 
 // ----------------------
 

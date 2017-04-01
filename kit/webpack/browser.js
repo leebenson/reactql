@@ -20,7 +20,7 @@ import WebpackConfig from 'webpack-config';
 // import CopyWebpackPlugin from 'copy-webpack-plugin';
 
 // Our local path configuration, so webpack knows where everything is/goes
-import { PATHS } from '../../config';
+import PATHS from '../../config/paths';
 
 // ----------------------
 

@@ -8,7 +8,7 @@ import { PropTypes } from 'react';
 import { createNetworkInterface, ApolloClient } from 'react-apollo';
 
 // Custom configuration/settings
-import { APOLLO } from 'config';
+import { APOLLO } from 'config/project';
 
 // ----------------------
 
