@@ -27,7 +27,7 @@ import { browserClient } from 'kit/lib/apollo';
 import createNewStore from 'kit/lib/redux';
 
 // Root component.  This is our 'entrypoint' into the app.  If you're using
-// the ReactQL starter kit for the first time, `components/app` is where
+// the ReactQL starter kit for the first time, `src/app.js` is where
 // you can start editing to add your own code
 import App from 'src/app';
 
@@ -36,7 +36,7 @@ import App from 'src/app';
 // Create a new browser Apollo client
 const client = browserClient();
 
-// Create a new redux store
+// Create a new Redux store
 const store = createNewStore(client);
 
 // Create the 'root' entry point into the app.  If we have React hot loading

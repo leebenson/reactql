@@ -108,8 +108,9 @@ const PORT = process.env.PORT || 4000;
         </StaticRouter>
       );
 
+      // Wait for GraphQL data to be available in our initial render,
+      // before dumping HTML back to the client
       await getDataFromTree(components);
-      const html = ReactDOMServer.renderToString(components);
 
       // Render the view with our injected React data
       ctx.body = ejs.render(view, {
@@ -117,7 +118,7 @@ const PORT = process.env.PORT || 4000;
         head: Helmet.rewind(),
 
         // Full React HTML render
-        html,
+        html: ReactDOMServer.renderToString(components),
 
         // Redux serialized store, to prevent the browser from making
         // unnecessary round-trips to retrieve the same GraphQL data and

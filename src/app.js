@@ -10,7 +10,7 @@ import { gql, graphql } from 'react-apollo';
 // Routing
 import { Link, Route } from 'react-router-dom';
 
-// <DocumentTitle> component for setting the page title
+// <Helmet> component for setting the page title
 import Helmet from 'react-helmet';
 
 // Helper to merge expected React PropTypes to Apollo-enabled component
