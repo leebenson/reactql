@@ -1,3 +1,11 @@
+1.2.0 - 2017-04-02
+------------------------------------------------------------
+* Adds ReactQL logo to starter kit
+* Example code for importing images and using in React components
+* Webpack workaround workaround for https://github.com/tcoopman/image-webpack-loader/issues/88
+* Adds missing image and JSON loaders for Webpack
+* Adds example for hashed nested classnames in CSS
+
 1.1.2 bump - 2017-04-02
 ------------------------------------------------------------
 * version bump

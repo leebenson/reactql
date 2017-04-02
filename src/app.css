@@ -31,6 +31,10 @@ component without the two clashing */
     color: var(--fg);
     font-size: 4rem;
   }
+  /* We can nest other classnames, too, which are automatically hashed */
+  & .logo {
+    width: 250px;
+  }
 }
 
 /* We can define as many top-level classes as we like, and they will all

@@ -19,6 +19,10 @@ import { mergeData } from 'kit/lib/apollo';
 // Styles
 import css from './app.css';
 
+// Get the ReactQL logo.  This is a local .svg file, which will be made
+// available as a string relative to [root]/dist/assets/img/
+import logo from './reactql-logo.svg';
+
 // ----------------------
 
 // We'll display this <Home> component when we're on the / route
@@ -110,7 +114,7 @@ export default () => (
         content: 'ReactQL starter kit app',
       }]} />
     <div className={css.hello}>
-      <h1>ReactQL starter kit</h1>
+      <img src={logo} alt="ReactQL" className={css.logo} />
     </div>
     <hr />
     <GraphQLMessage />

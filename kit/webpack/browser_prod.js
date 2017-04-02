@@ -31,6 +31,8 @@ export default new WebpackConfig().extend({
     config.module.loaders.find(l => l.test.toString() === /\.(jpe?g|png|gif|svg)$/i.toString())
       .loaders.push({
         loader: 'image-webpack-loader',
+        // workaround for https://github.com/tcoopman/image-webpack-loader/issues/88
+        options: {},
       });
 
     return config;
