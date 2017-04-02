@@ -1,3 +1,7 @@
+1.1.2 - 2017-04-02
+------------------------------------------------------------
+* Removes redundant `kit/repo` folder
+
 1.1.1 - 2017-04-02
 ------------------------------------------------------------
 * Adds missing `babel-register` mod to NPM, to allow on-the-fly ESlinting of new syntax
