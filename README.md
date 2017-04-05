@@ -9,12 +9,12 @@ Maintained and updated regularly.
 ## Features
 
 - [React](https://facebook.github.io/react/) for UI
-- [React Apollo](http://dev.apollodata.com/react/) for GraphQL
+- [Apollo Client (React)](http://dev.apollodata.com/react/) for GraphQL
 - [React Router 4](https://github.com/ReactTraining/react-router/tree/v4) for declarative browser + server routes
 - [Redux](http://redux.js.org/) for flux/store state management
 - [Webpack 2](https://webpack.js.org/), with [tree shaking](https://webpack.js.org/guides/tree-shaking/)
 - [PostCSS](http://postcss.org/) with [next-gen CSS](http://cssnext.io/) and inline  [@imports](https://github.com/postcss/postcss-import)
-- [SASS](http://sass-lang.com) support (also parsed through PostCSS)
+- [SASS](http://sass-lang.com) and [LESS](http://lesscss.org/) support (also parsed through PostCSS)
 - Full route-aware server-side rendering (SSR) of initial HTML
 - Universal building - both browser + Node.js server
 - Dev + [React hot reloading](http://gaearon.github.io/react-hot-loader/); zero refresh, real-time updates
@@ -28,7 +28,7 @@ Maintained and updated regularly.
 - [GIF/JPEG/PNG/SVG crunching](https://github.com/tcoopman/image-webpack-loader) for images
 - [Gzip compression](https://webpack.js.org/plugins/compression-webpack-plugin/) and serving of static assets as pre-compressed `.gz` files
 - [ESLint](http://eslint.org/)ing based on a tweaked [Airbnb style guide](https://github.com/airbnb/javascript)
-- Tons of comments (too many) to fill you in on what's happening under the hood
+- Tons of commentary/documentation to fill you in on what's happening under the hood
 
 # Documentation
 
