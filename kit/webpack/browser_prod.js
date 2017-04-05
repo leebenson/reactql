@@ -15,14 +15,26 @@ import WebpackConfig from 'webpack-config';
 // that can be called from our final HTML.  This plugin does the heavy lifting
 import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
-// TODO
+// Compression plugin for generating `.gz` static files
 import CompressionPlugin from 'compression-webpack-plugin';
+
+// ----------------------
 
 // The final CSS file will wind up in `dist/assets/css/style.css`
 const extractCSS = new ExtractTextPlugin({
   filename: 'assets/css/style.css',
   allChunks: true,
 });
+
+// CSS loader
+const cssLoader = {
+  loader: 'css-loader',
+  query: {
+    // Enable CSS modules spec.  This makes our styles :local by
+    // default, so they won't bleed out to the global scope
+    modules: true,
+  },
+};
 
 // Extend the `browser.js` config
 export default new WebpackConfig().extend({
@@ -45,14 +57,8 @@ export default new WebpackConfig().extend({
         test: /\.css$/,
         loader: extractCSS.extract({
           use: [
-            {
-              loader: 'css-loader',
-              query: {
-                // Enable CSS modules spec.  This makes our styles :local by
-                // default, so they won't bleed out to the global scope
-                modules: true,
-              },
-            },
+            // CSS loader -- see above for options
+            cssLoader,
             // Pass through postcss first, which will minify, optimise and
             // parse through cssnext
             {
@@ -70,13 +76,23 @@ export default new WebpackConfig().extend({
         test: /\.s(c|a)ss$/,
         loader: extractCSS.extract({
           use: [
-            'css-loader?sourceMap',
+            // CSS loader -- see above for options
+            cssLoader,
             'postcss-loader',
             'resolve-url-loader',
             'sass-loader?sourceMap',
           ],
           fallback: 'style-loader',
         }),
+      },
+      // LESS processing.  Parsed through `less-loader` first
+      {
+        test: /\.less$/,
+        loaders: [
+          'style-loader',
+          cssLoader,
+          'less-loader',
+        ],
       },
     ],
   },

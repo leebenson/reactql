@@ -1,3 +1,8 @@
+1.3.0 - 2017-04-05
+------------------------------------------------------------
+* Adds LESS stylesheet processing
+* Adds examples for CSS, SASS and LESS stylesheets
+
 1.2.0 - 2017-04-02
 ------------------------------------------------------------
 * Adds ReactQL logo to starter kit

@@ -17,6 +17,17 @@ import PATHS from '../../config/paths';
 const HOST = 'localhost';
 const LOCAL = `http://${HOST}:8080`;
 
+// CSS loader options.  We want local modules, for all imports to be
+// recognised, and source maps enabled
+const cssLoader = {
+  loader: 'css-loader',
+  query: {
+    modules: true,
+    importLoaders: 1,
+    sourceMap: true,
+  },
+};
+
 export default new WebpackConfig().extend({
   '[root]/browser.js': conf => {
     // Add `webpack-dev-server` polyfills needed to communicate with the browser
@@ -78,14 +89,7 @@ export default new WebpackConfig().extend({
         test: /\.css$/,
         loaders: [
           'style-loader',
-          {
-            loader: 'css-loader',
-            query: {
-              modules: true,
-              importLoaders: 1,
-              sourceMap: true,
-            },
-          },
+          cssLoader,
           {
             loader: 'postcss-loader',
           },
@@ -96,9 +100,18 @@ export default new WebpackConfig().extend({
         test: /\.s(a|c)ss$/,
         loaders: [
           'style-loader',
-          'css-loader?sourceMap',
+          cssLoader,
           'resolve-url-loader',
           'sass-loader?sourceMap',
+        ],
+      },
+      // LESS processing.  Parsed through `less-loader` first
+      {
+        test: /\.less$/,
+        loaders: [
+          'style-loader',
+          cssLoader,
+          'less-loader',
         ],
       },
     ],

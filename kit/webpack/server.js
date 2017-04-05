@@ -16,6 +16,14 @@ import PATHS from '../../config/paths';
 
 // ----------------------
 
+// CSS loader
+const cssLoader = {
+  loader: 'css-loader/locals',
+  query: {
+    modules: true,
+  },
+};
+
 // Helper function to recursively filter through loaders, and apply the
 // supplied function
 function recursiveLoader(root = {}, func) {
@@ -70,12 +78,7 @@ export default new WebpackConfig().extend({
       {
         test: /\.css$/,
         loaders: [
-          {
-            loader: 'css-loader/locals',
-            query: {
-              modules: true,
-            },
-          },
+          cssLoader,
           'postcss-loader',
         ],
       },
@@ -83,10 +86,16 @@ export default new WebpackConfig().extend({
       {
         test: /\.s(c|a)ss$/,
         loaders: [
-          {
-            loader: 'css-loader/locals',
-          },
+          cssLoader,
           'sass-loader',
+        ],
+      },
+      // Do the same with LESS files-- same with SASS; classnames, but no emission
+      {
+        test: /\.less$/,
+        loaders: [
+          cssLoader,
+          'less-loader',
         ],
       },
       // .js(x) files can extend the `.babelrc` file at the root of the project

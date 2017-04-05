@@ -17,7 +17,9 @@ import Helmet from 'react-helmet';
 import { mergeData } from 'kit/lib/apollo';
 
 // Styles
-import css from './app.css';
+import css from './styles.css';
+import sass from './styles.scss';
+import less from './styles.less';
 
 // Get the ReactQL logo.  This is a local .svg file, which will be made
 // available as a string relative to [root]/dist/assets/img/
@@ -102,6 +104,15 @@ Message.propTypes = {
 // inject props data down once the GraphQL API request has been completed
 const GraphQLMessage = graphql(query)(Message);
 
+// Example of CSS, SASS and LESS styles being used together
+const Styles = () => (
+  <ul className={css.styleExamples}>
+    <li className={css.example}>Styled by CSS</li>
+    <li className={sass.example}>Styled by SASS</li>
+    <li className={less.example}>Styled by LESS</li>
+  </ul>
+);
+
 // Export a simple component that allows clicking on list items to change
 // the route, along with a <Route> 'listener' that will conditionally display
 // the <Page> component based on the route name
@@ -130,5 +141,8 @@ export default () => (
     <hr />
     <p>Runtime info:</p>
     <Stats />
+    <hr />
+    <p>Stylesheet examples:</p>
+    <Styles />
   </div>
 );
