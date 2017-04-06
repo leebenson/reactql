@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { PropTypes } from 'react';
 
 const Html = ({ title, meta, html, state }) => (
   <html lang="en" prefix="og: http://ogp.me/ns#">
@@ -19,5 +19,12 @@ const Html = ({ title, meta, html, state }) => (
     </body>
   </html>
 );
+
+Html.propTypes = {
+  title: PropTypes.object.isRequired,
+  meta: PropTypes.any.isRequired,
+  html: PropTypes.string.isRequired,
+  state: PropTypes.string.isRequired,
+};
 
 export default Html;
