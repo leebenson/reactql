@@ -17,7 +17,7 @@ Maintained and updated regularly.
 - [SASS](http://sass-lang.com) and [LESS](http://lesscss.org/) support (also parsed through PostCSS)
 - Full route-aware server-side rendering (SSR) of initial HTML
 - Universal building - both browser + Node.js server
-- Dev + [React hot reloading](http://gaearon.github.io/react-hot-loader/); zero refresh, real-time updates
+- Dev + [React-compatible hot code reloading](http://gaearon.github.io/react-hot-loader/); zero refresh, real-time updates
 - Built-in [Koa 2](http://koajs.com/) web server, with async/await routing
 - HTTP header hardening with [Helmet for Koa](https://github.com/venables/koa-helmet)
 - Declarative/dynamic `<head>` section, using [react-helmet](https://github.com/nfl/react-helmet)
