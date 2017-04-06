@@ -114,12 +114,6 @@ export default new WebpackConfig().extend({
           ],
         },
       },
-
-      // .ejs views
-      {
-        test: /\.ejs$/,
-        loader: 'raw-loader',
-      },
     ],
   },
   plugins: [
