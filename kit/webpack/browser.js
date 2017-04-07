@@ -61,6 +61,8 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
               babelrc: false,
               presets: [
                 ['env', {
+                  // Enable tree-shaking by disabling commonJS transformation
+                  modules: false,
                   // By default, target only modern browsers
                   targets: {
                     browsers: 'last 3 versions',
