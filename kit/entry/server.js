@@ -42,10 +42,6 @@ import koaStatic from 'koa-static';
 // High-precision timing, so we can debug response time to serve a request
 import ms from 'microseconds';
 
-// Embedded Javascript views -- we'll use this to inject React and other
-// data into the HTML that is rendered back to the client
-import ejs from 'ejs';
-
 // React Router HOC for figuring out the exact React hierarchy to display
 // based on the URL
 import { StaticRouter } from 'react-router';
@@ -63,7 +59,7 @@ import { serverClient } from 'kit/lib/apollo';
 import createNewStore from 'kit/lib/redux';
 
 // Initial view to send back HTML render
-import view from 'kit/views/ssr.ejs';
+import Html from 'kit/views/ssr';
 
 // App entry point
 import App from 'src/app';
@@ -112,19 +108,18 @@ const PORT = process.env.PORT || 4000;
       // before dumping HTML back to the client
       await getDataFromTree(components);
 
-      // Render the view with our injected React data
-      ctx.body = ejs.render(view, {
-        // <head> section
-        head: Helmet.rewind(),
+      // Full React HTML render
+      const html = ReactDOMServer.renderToString(components);
 
-        // Full React HTML render
-        html: ReactDOMServer.renderToString(components),
-
-        // Redux serialized store, to prevent the browser from making
-        // unnecessary round-trips to retrieve the same GraphQL data and
-        // for any custom store state
-        state: JSON.stringify(store.getState()),
-      });
+      // Render the view with our injected React data.  We'll pass in the
+      // Helmet component to generate the <head> tag, as well as our Redux
+      // store state so that the browser can continue from the server
+      ctx.body = `<!DOCTYPE html>\n${ReactDOMServer.renderToStaticMarkup(
+        <Html
+          html={html}
+          head={Helmet.rewind()}
+          state={store.getState()} />,
+      )}`;
     });
 
   // Start Koa

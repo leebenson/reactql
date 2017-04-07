@@ -1,3 +1,11 @@
+1.4.0 - 2017-04-07
+------------------------------------------------------------
+* Merges !7
+* Adds full React rendering on the server -- no more EJS
+* Combines separate `title` and `meta` into a single `head` propType on `<Html>`
+* Adds `<Html>` state dehydration within the component
+* Fixes linting and propTypes for `<Html>`
+
 1.3.0 - 2017-04-05
 ------------------------------------------------------------
 * Adds LESS stylesheet processing
