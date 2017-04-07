@@ -111,16 +111,14 @@ const PORT = process.env.PORT || 4000;
       // Full React HTML render
       const html = ReactDOMServer.renderToString(components);
 
-      const { title, meta } = Helmet.rewind();
-
-      // Redux serialized store, to prevent the browser from making
-      // unnecessary round-trips to retrieve the same GraphQL data and
-      // for any custom store state
-      const state = JSON.stringify(store.getState());
-
-      // Render the view with our injected React data
+      // Render the view with our injected React data.  We'll pass in the
+      // Helmet component to generate the <head> tag, as well as our Redux
+      // store state so that the browser can continue from the server
       ctx.body = `<!DOCTYPE html>\n${ReactDOMServer.renderToStaticMarkup(
-        <Html title={title} meta={meta} html={html} state={state} />,
+        <Html
+          html={html}
+          head={Helmet.rewind()}
+          state={store.getState()} />,
       )}`;
     });
 
