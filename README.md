@@ -8,6 +8,7 @@ Maintained and updated regularly.
 
 ## Features
 
+- CLI for quickly starting a new project
 - [React](https://facebook.github.io/react/) for UI
 - [Apollo Client (React)](http://dev.apollodata.com/react/) for GraphQL
 - [React Router 4](https://github.com/ReactTraining/react-router/tree/v4) for declarative browser + server routes
@@ -29,6 +30,16 @@ Maintained and updated regularly.
 - [Gzip compression](https://webpack.js.org/plugins/compression-webpack-plugin/) and serving of static assets as pre-compressed `.gz` files
 - [ESLint](http://eslint.org/)ing based on a tweaked [Airbnb style guide](https://github.com/airbnb/javascript)
 - Tons of commentary/documentation to fill you in on what's happening under the hood
+
+# Quick start
+
+Install the ReactQL CLI on Mac/Windows/Linux:
+
+```bash
+npm i -g reactql
+```
+
+Then run `reactql` for help, or `reactql new` to start a new project.
 
 # Documentation
 

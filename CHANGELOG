@@ -1,3 +1,9 @@
+2.0.0 - 2017-04-10
+------------------------------------------------------------
+* Adds CLI - no more manual git cloning!
+* Adds `.reactql` EJS templates- groundwork for starter kit personalisation
+* Updates `README.md` with new 'quick start' instructions
+
 1.4.1 - 2017-04-07
 ------------------------------------------------------------
 * Fixes #8 tree shaking / dead code elimination in the production browser bundle
