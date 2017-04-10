@@ -226,6 +226,9 @@ const args = yargs
         // of options to use
         Object.assign(args, answers);
 
+        // Modify path to be absolute
+        args.path = path.resolve(process.cwd(), args.path);
+
         // Copy the starter kit files over to the new path
         fse.copySync(paths.files, args.path);
 
@@ -294,11 +297,11 @@ const args = yargs
             // the preferred option!
             if (exists('yarn')) {
               installer = ['yarn', []];
-              console.log('Installing via Yarn.\n');
+              console.log('Installing via Yarn...\n');
 
             } else {
               installer = ['npm', ['i']];
-              console.log('Yarn not found; falling back to NPM. Tip: For faster future builds, `npm i -g yarn`\n');
+              console.log(`Yarn not found; falling back to NPM. Tip: For faster future builds, install ${chalk.underline('https://yarnpkg.com')}\n`);
             }
 
             // Create a bottom bar to display the installation spinner at the bottom
@@ -308,10 +311,10 @@ const args = yargs
             // Temporary var to track the position of the 'spinner'
             let i = 0;
 
-            // Update the spinner every 50ms, to reflect the installation activity
+            // Update the spinner every 300ms, to reflect the installation activity
             const update = setInterval(function () {
               ui.updateBottomBar(`\n${spinner[++i % 4]} Installing modules -- Please wait...`);
-            }, 50);
+            }, 300);
 
             // Execute yarn/npm as a child process, pipe output to stdout
             spawn(...installer, {cwd: args.path, stdio: 'pipe'})
