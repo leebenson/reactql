@@ -9,8 +9,7 @@ Authored by Lee Benson <lee@leebenson.com>
 // Node
 const path = require('path');
 const fse = require('fs-extra');
-const exec = require('child_process').exec;
-const spawn = require('child_process').spawn;
+const spawn = require('cross-spawn');
 
 // Third-party
 const chalk = require('chalk');
