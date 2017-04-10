@@ -7,6 +7,7 @@ Authored by Lee Benson <lee@leebenson.com>
 // IMPORTS
 
 // Node
+const os = require('os');
 const path = require('path');
 const fse = require('fs-extra');
 const spawn = require('cross-spawn');
@@ -36,6 +37,11 @@ updateNotifier({ pkg: package, updateCheckInterval: 0 }).notify();
  Helper functions
 */
 
+// Show emoji only on supported platforms
+function emoji(ifSupported, ifNot='\b') {
+  return os.type() === 'Darwin' ? `${ifSupported} ` : ifNot;
+}
+
 // Show error message.  We'll use this if yarn/npm throws back a non-zero
 // code, to display the problem back to the console
 function showError(msg) {
@@ -50,7 +56,7 @@ ${msg}
 function finished(dir) {
   return `
 ${separator}
-${'\uD83D\uDE80'}  We have lift off!  You starter kit is ready.
+${emoji('\uD83D\uDE80','-->')} We have lift off!  You starter kit is ready.
 
 First, navigate to your new project folder:
 ${chalk.bgRed.white(`cd ${dir}`)}
@@ -66,7 +72,7 @@ ${chalk.bgRed.white('npm run server')}
 
 Docs/help available at ${chalk.blue.underline('https://reactql.org')}
 
-Don't forget to ${'\u2B50'}  us on GitHub!
+Don't forget to ${emoji('\u2B50',"'star'")} us on GitHub!
 ${chalk.underline('https://github.com/reactql/cli')}
 ${separator}
 
@@ -265,16 +271,19 @@ const args = yargs
               });
 
               // Compile the template through EJS, passing `args`
-              const compiled = ejs.render(content, { args });
+              const compiled = ejs.render(content, { args }).trim();
 
-              // Write the content to the file, minus the .reactql extension
-              fse.writeFileSync(
-                item.path.replace(/\.reactql$/, ''),
-                compiled,
-                {
-                  encoding: 'utf8',
-                }
-              );
+              // Write non-blank content out using the original file
+              // name, minus the .reactql extension
+              if (compiled) {
+                fse.writeFileSync(
+                  item.path.replace(/\.reactql$/, ''),
+                  compiled,
+                  {
+                    encoding: 'utf8',
+                  }
+                );
+              }
 
               // Delete the template
               fse.unlinkSync(item.path);
