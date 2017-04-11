@@ -214,7 +214,7 @@ const args = yargs
           type: 'input',
           message: 'Where to install?',
           default(answers) {
-            const dir = answers.name || args.name;
+            const dir = (answers.name || args.name).toLowerCase();
             let current = process.cwd();
 
             return dir ? path.resolve(current, dir) : current;

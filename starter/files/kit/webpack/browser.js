@@ -67,6 +67,9 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
                   targets: {
                     browsers: 'last 3 versions',
                   },
+                  // Exclude default regenerator-- we want to enable async/await
+                  // so we'll do that with a dedicated plugin
+                  exclude: ['transform-regenerator'],
                 }],
                 // Transpile JSX code
                 'react',
@@ -74,6 +77,7 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
               plugins: [
                 'transform-object-rest-spread',
                 'syntax-dynamic-import',
+                'transform-regenerator',
               ],
             },
           },
