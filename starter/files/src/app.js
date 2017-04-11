@@ -3,6 +3,7 @@
 
 // React
 import React from 'react';
+import PropTypes from 'prop-types';
 
 // GraphQL
 import { gql, graphql } from 'react-apollo';
@@ -41,8 +42,8 @@ const Page = ({ match }) => (
 // Specify PropTypes if the `match` object, which is injected to props by
 // the <Route> component
 Page.propTypes = {
-  match: React.PropTypes.shape({
-    params: React.PropTypes.object,
+  match: PropTypes.shape({
+    params: PropTypes.object,
   }).isRequired,
 };
 
@@ -92,9 +93,9 @@ const Message = ({ data }) => {
 // Add propTypes for React to expect data from GraphQL
 Message.propTypes = {
   data: mergeData({
-    allMessages: React.PropTypes.arrayOf(
-      React.PropTypes.shape({
-        text: React.PropTypes.string.isRequired,
+    allMessages: PropTypes.arrayOf(
+      PropTypes.shape({
+        text: PropTypes.string.isRequired,
       }).isRequired,
     ),
   }),

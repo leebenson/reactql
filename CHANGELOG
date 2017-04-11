@@ -1,3 +1,22 @@
+2.0.1 - 2017-04-11
+------------------------------------------------------------
+* Fixes #15 - rest/spread inside objects, e.g. `{ ...whatever }` should now work
+* Updates `.gitignore` to exclude files across the whole repo, so starter kit `node_modules` can be built and tested locally
+* Adds `yarn.lock`, as a starter point for Yarn bundling
+* Adds default MIT license to `starter/files/package.json` and as a default CLI choice, to match this repo
+* Closes #12 - redundant `starter/files/package.json` entries and and `json-loader` removed
+* Adds `prop-types` NPM, and migrates from the deprecated `React.PropTypes` style (still a known issue in react-router 4.0.0-- fixed in https://github.com/ReactTraining/react-router/commit/d601722f8515eea3910bb3a69313f3f2fc37df16)
+* Bumps NPM packages:
+ react               ^15.4.2  →  ^15.5.3
+ react-apollo         ^1.0.0  →   ^1.0.1
+ react-dom           ^15.4.2  →  ^15.5.3
+ react-helmet         ^5.0.2  →   ^5.0.3
+ babel-core          ^6.24.0  →  ^6.24.1
+ babel-preset-env     ^1.3.2  →   ^1.3.3
+ babel-preset-react  ^6.23.0  →  ^6.24.1
+ babel-register      ^6.24.0  →  ^6.24.1
+ webpack              ^2.3.2  →   ^2.3.3
+
 2.0.0 - 2017-04-10
 ------------------------------------------------------------
 * Adds CLI - no more manual git cloning!

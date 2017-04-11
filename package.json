@@ -1,6 +1,6 @@
 {
   "name": "reactql",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Universal React+GraphQL starter kit: React, Apollo, Webpack 2, React Router 4, PostCSS, SSR",
   "main": "cli/index.js",
   "scripts": {

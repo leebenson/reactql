@@ -2,7 +2,7 @@
 // IMPORTS
 
 // React propTypes
-import { PropTypes } from 'react';
+import PropTypes from 'prop-types';
 
 // Apollo client library
 import { createNetworkInterface, ApolloClient } from 'react-apollo';

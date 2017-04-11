@@ -110,6 +110,7 @@ export default new WebpackConfig().extend({
             'react',
           ],
           plugins: [
+            'transform-object-rest-spread',
             'syntax-dynamic-import',
           ],
         },

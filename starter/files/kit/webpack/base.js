@@ -85,12 +85,6 @@ export default new WebpackConfig().merge({
           },
         ],
       },
-
-      // .json files will become objects that we can use in JS, like any other
-      {
-        test: /\.json$/,
-        loader: 'json-loader',
-      },
     ],
   },
 

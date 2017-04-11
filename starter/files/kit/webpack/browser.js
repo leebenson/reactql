@@ -72,6 +72,7 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
                 'react',
               ],
               plugins: [
+                'transform-object-rest-spread',
                 'syntax-dynamic-import',
               ],
             },

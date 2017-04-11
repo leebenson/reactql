@@ -37,7 +37,7 @@ updateNotifier({ pkg: package, updateCheckInterval: 0 }).notify();
  Helper functions
 */
 
-// Show emoji only on supported platforms
+// Show emoji only on supported platforms.  Otherwise, backspace to erase.
 function emoji(ifSupported, ifNot='\b') {
   return os.type() === 'Darwin' ? `${ifSupported} ` : ifNot;
 }
@@ -52,7 +52,7 @@ ${msg}
   `.trim());
 }
 
-// Finished instructions.  Show the user how to use the starer kit
+// Finished instructions.  Show the user how to use the starter kit
 function finished(dir) {
   return `
 ${separator}
@@ -205,7 +205,7 @@ const args = yargs
           name: 'license',
           type: 'input',
           message: 'License?',
-          default: 'ISC',
+          default: 'MIT',
           validate: validate.license,
           when: validate.option(args.license, validate.license),
         },
