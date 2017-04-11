@@ -4,7 +4,7 @@
 
 React for UI. Apollo for GraphQL. Redux for stores. Browser + server-side rendering.
 
-Easy CLI tool for Mac/Windows/Linux. Just `npm i -g reactql` and run `reactql new` to start something new.
+Easy CLI tool for Mac/Windows/Linux. Just `npm i -g reactql` and run `reactql new` to start your next project.
 
 Maintained and updated regularly.
 
