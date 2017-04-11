@@ -43,6 +43,8 @@ npm i -g reactql
 
 Then run `reactql` for help, or `reactql new` to start a new project.
 
+<img src="https://reactql.org/reactql/screenshot.png" alt="Screenshot" width="570" height="678" />
+
 # Documentation
 
 ## See **[https://reactql.org](https://reactql.org)** for full features + documentation.
