@@ -1,8 +1,10 @@
 <img src="https://reactql.org/docs/images/reactql-logo.svg" alt="ReactQL" width="278" height="77" />
 
-# Universal React+GraphQL starter kit
+# Universal React+GraphQL starter kit CLI
 
 React for UI. Apollo for GraphQL. Redux for stores. Browser + server-side rendering.
+
+Easy CLI tool for Mac/Windows/Linux. Just `npm i -g reactql` and run `reactql new` to start something new.
 
 Maintained and updated regularly.
 
@@ -33,13 +35,15 @@ Maintained and updated regularly.
 
 # Quick start
 
-Install the ReactQL CLI on Mac/Windows/Linux:
+Install the ReactQL command-line tool on Mac/Windows/Linux:
 
 ```bash
 npm i -g reactql
 ```
 
 Then run `reactql` for help, or `reactql new` to start a new project.
+
+![ReactQL CLI](https://reactql.org/reactql/animation.gif)
 
 # Documentation
 
