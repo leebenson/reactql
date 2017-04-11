@@ -69,7 +69,7 @@ const Root = (() => {
     </ApolloProvider>
   );
 
-  // React hot reloading -- only enabled in production.  This branch will
+  // React hot reloading -- only enabled in development.  This branch will
   // be shook from production, so we can run a `require` statement here
   // without fear that it'll inflate the bundle size
   if (module.hot) {
