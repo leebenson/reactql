@@ -43,8 +43,6 @@ npm i -g reactql
 
 Then run `reactql` for help, or `reactql new` to start a new project.
 
-[![asciicast](https://asciinema.org/a/2ix8tz77zdpeho8diwjijoltz.png)](https://asciinema.org/a/2ix8tz77zdpeho8diwjijoltz)
-
 # Documentation
 
 ## See **[https://reactql.org](https://reactql.org)** for full features + documentation.
