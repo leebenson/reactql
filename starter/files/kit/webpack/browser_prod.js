@@ -7,6 +7,8 @@
 // ----------------------
 // IMPORTS
 
+import { join } from 'path';
+
 import webpack from 'webpack';
 import WebpackConfig from 'webpack-config';
 
@@ -17,6 +19,15 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 
 // Compression plugin for generating `.gz` static files
 import CompressionPlugin from 'compression-webpack-plugin';
+
+// Bundle Analyzer plugin for viewing interactive treemap of bundle
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+
+// Our local path configuration, so webpack knows where everything is/goes
+import PATHS from '../../config/paths';
+
+// Project configuration to control build settings
+import { BUNDLE_ANALYZER } from '../../config/project';
 
 // ----------------------
 
@@ -128,5 +139,12 @@ export default new WebpackConfig().extend({
 
     // Fire up CSS extraction
     extractCSS,
+
+    // Output interactive bundle report
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: join(PATHS.dist, 'report.html'),
+      openAnalyzer: BUNDLE_ANALYZER.openAnalyzer,
+    }),
   ],
 });
