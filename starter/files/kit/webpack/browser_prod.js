@@ -18,6 +18,14 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 // Compression plugin for generating `.gz` static files
 import CompressionPlugin from 'compression-webpack-plugin';
 
+// Chunk Manifest plugin for generating an asset manifest
+import ChunkManifestPlugin from 'chunk-manifest-webpack-plugin';
+
+// Plugin for computing chunk hash
+import WebpackChunkHash from 'webpack-chunk-hash';
+
+import ManifestPlugin from 'webpack-manifest-plugin';
+
 // ----------------------
 
 // The final CSS file will wind up in `dist/assets/css/style.css`
@@ -50,6 +58,11 @@ export default new WebpackConfig().extend({
     return config;
   },
 }).merge({
+  output: {
+    // Filenames will be <name>.<chunkhas>.js in production on the browser
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js',
+  },
   module: {
     loaders: [
       // .css loading
@@ -128,5 +141,25 @@ export default new WebpackConfig().extend({
 
     // Fire up CSS extraction
     extractCSS,
+
+    // Extract webpack bootstrap logic into a separate file
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity,
+    }),
+
+    // Map hash to module id
+    new webpack.HashedModuleIdsPlugin(),
+
+    // Compute chunk hash
+    new WebpackChunkHash(),
+
+    // Generate assets manifest
+    new ChunkManifestPlugin({
+      filename: "chunk-manifest.json",
+      manifestVariable: "webpackManifest"
+    }),
+
+    new ManifestPlugin(),
   ],
 });

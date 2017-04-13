@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 // ----------------------
 
-const Html = ({ head, html, state }) => (
+const Html = ({ head, html, state, manifest, vendor, browser, chunkManifest }) => (
   <html lang="en" prefix="og: http://ogp.me/ns#">
     <head>
       <meta charSet="utf-8" />
@@ -19,6 +19,12 @@ const Html = ({ head, html, state }) => (
       {head.meta.toComponent()}
       <link rel="stylesheet" href="/assets/css/style.css" />
       {head.title.toComponent()}
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `//<![CDATA[
+                   window.webpackManifest = ${chunkManifest}
+                   //]]>`,
+        }} />
     </head>
     <body>
       <div
@@ -28,8 +34,9 @@ const Html = ({ head, html, state }) => (
         dangerouslySetInnerHTML={{
           __html: `window.__STATE__ = ${JSON.stringify(state)}`,
         }} />
-      <script defer src="/vendor.js" />
-      <script defer src="/browser.js" />
+      <script defer src={manifest} />
+      <script defer src={vendor} />
+      <script defer src={browser} />
     </body>
   </html>
 );

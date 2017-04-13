@@ -14,6 +14,9 @@
 // Patch global.`fetch` so that Apollo calls to GraphQL work
 import 'isomorphic-fetch';
 
+// Needed to read manifest files
+import { readFileSync } from 'fs';
+
 // React UI
 import React from 'react';
 
@@ -70,6 +73,10 @@ import PATHS from 'config/paths';
 
 // ----------------------
 
+// Read in manifest files
+const manifest = JSON.parse(readFileSync('dist/public/manifest.json', 'utf8'));
+const chunkManifest = readFileSync('dist/public/chunk-manifest.json', 'utf8');
+
 // Port to bind to.  Takes this from the `PORT` environment var, or assigns
 // to 4000 by default
 const PORT = process.env.PORT || 4000;
@@ -118,7 +125,11 @@ const PORT = process.env.PORT || 4000;
         <Html
           html={html}
           head={Helmet.rewind()}
-          state={store.getState()} />,
+          state={store.getState()} 
+          manifest={manifest["manifest.js"]}
+          vendor={manifest["vendor.js"]}
+          browser={manifest["browser.js"]}
+          chunkManifest={chunkManifest} />,
       )}`;
     });
 
