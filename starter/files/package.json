@@ -48,6 +48,7 @@
     "style-loader": "^0.16.1",
     "webpack": "^2.3.2",
     "webpack-chunk-hash": "^0.4.0",
+    "webpack-bundle-analyzer": "^2.4.0",
     "webpack-config": "^7.0.0",
     "webpack-dev-server": "^2.4.2",
     "webpack-manifest-plugin": "^1.1.0",

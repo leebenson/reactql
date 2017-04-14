@@ -7,6 +7,8 @@
 // ----------------------
 // IMPORTS
 
+import { join } from 'path';
+
 import webpack from 'webpack';
 import WebpackConfig from 'webpack-config';
 
@@ -18,6 +20,7 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 // Compression plugin for generating `.gz` static files
 import CompressionPlugin from 'compression-webpack-plugin';
 
+<<<<<<< HEAD
 // Chunk Manifest plugin for generating an asset manifest
 import ChunkManifestPlugin from 'chunk-manifest-webpack-plugin';
 
@@ -25,6 +28,16 @@ import ChunkManifestPlugin from 'chunk-manifest-webpack-plugin';
 import WebpackChunkHash from 'webpack-chunk-hash';
 
 import ManifestPlugin from 'webpack-manifest-plugin';
+=======
+// Bundle Analyzer plugin for viewing interactive treemap of bundle
+import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
+
+// Our local path configuration, so webpack knows where everything is/goes
+import PATHS from '../../config/paths';
+
+// Project configuration to control build settings
+import { BUNDLE_ANALYZER } from '../../config/project';
+>>>>>>> master
 
 // ----------------------
 
@@ -154,12 +167,20 @@ export default new WebpackConfig().extend({
     // Compute chunk hash
     new WebpackChunkHash(),
 
-    // Generate assets manifest
+    // Generate chunk manifest
     new ChunkManifestPlugin({
       filename: "chunk-manifest.json",
       manifestVariable: "webpackManifest"
     }),
 
+    // Generate assets manifest
     new ManifestPlugin(),
+
+    // Output interactive bundle report
+    new BundleAnalyzerPlugin({
+      analyzerMode: 'static',
+      reportFilename: join(PATHS.dist, 'report.html'),
+      openAnalyzer: BUNDLE_ANALYZER.openAnalyzer,
+    }),
   ],
 });
