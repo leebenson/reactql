@@ -1,3 +1,7 @@
+2.1.1 - 2017-04-14
+------------------------------------------------------------
+* Adds [Webpack Bundle Analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer) reporting per #23, on `npm run build`
+
 2.1.0 - 2017-04-11
 ------------------------------------------------------------
 * Add default lowercases of installation path based on project name
