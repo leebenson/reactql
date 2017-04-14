@@ -20,7 +20,6 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 // Compression plugin for generating `.gz` static files
 import CompressionPlugin from 'compression-webpack-plugin';
 
-<<<<<<< HEAD
 // Chunk Manifest plugin for generating an asset manifest
 import ChunkManifestPlugin from 'chunk-manifest-webpack-plugin';
 
@@ -28,7 +27,7 @@ import ChunkManifestPlugin from 'chunk-manifest-webpack-plugin';
 import WebpackChunkHash from 'webpack-chunk-hash';
 
 import ManifestPlugin from 'webpack-manifest-plugin';
-=======
+
 // Bundle Analyzer plugin for viewing interactive treemap of bundle
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
@@ -37,7 +36,6 @@ import PATHS from '../../config/paths';
 
 // Project configuration to control build settings
 import { BUNDLE_ANALYZER } from '../../config/project';
->>>>>>> master
 
 // ----------------------
 
