@@ -62,7 +62,7 @@ export default new WebpackConfig().merge({
         test: /\.(woff|woff2|ttf|eot)$/i,
         loader: 'file-loader',
         query: {
-          name: 'assets/fonts/[name].[ext]',
+          name: 'assets/fonts/[name].[hash].[ext]',
         },
       },
 
@@ -75,12 +75,7 @@ export default new WebpackConfig().merge({
           {
             loader: 'file-loader',
             query: {
-              // We'll use the original file as the final asset instead of
-              // a hash.  Why?  The hash will change when we compress in
-              // production, which causes the server hash to mismatch and look
-              // for a file that doesn't exist.  Keeping the file name the same
-              // is exactly what we want.
-              name: 'assets/img/[name].[ext]',
+              name: 'assets/img/[name].[hash].[ext]',
             },
           },
         ],

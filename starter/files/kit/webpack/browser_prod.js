@@ -39,9 +39,9 @@ import { BUNDLE_ANALYZER } from '../../config/project';
 
 // ----------------------
 
-// The final CSS file will wind up in `dist/assets/css/style.css`
+// The final CSS file will wind up in `dist/assets/css/style.[contenthash].css`
 const extractCSS = new ExtractTextPlugin({
-  filename: 'assets/css/style.css',
+  filename: 'assets/css/style.[contenthash].css',
   allChunks: true,
 });
 
@@ -109,14 +109,20 @@ export default new WebpackConfig().extend({
           fallback: 'style-loader',
         }),
       },
-      // LESS processing.  Parsed through `less-loader` first
+      // As a secondary option to postcss, we'll also allow LESS files that
+      // have a .less extension.  They will get routed through postcss
+      // in just the same way, and @import should also work fine
       {
         test: /\.less$/,
-        loaders: [
-          'style-loader',
-          cssLoader,
-          'less-loader',
-        ],
+        loader: extractCSS.extract({
+          use: [
+            // CSS loader -- see above for options
+            cssLoader,
+            'postcss-loader',
+            'less-loader'
+          ],
+          fallback: 'style-loader',
+        }),
       },
     ],
   },
@@ -167,8 +173,8 @@ export default new WebpackConfig().extend({
 
     // Generate chunk manifest
     new ChunkManifestPlugin({
-      filename: "chunk-manifest.json",
-      manifestVariable: "webpackManifest"
+      filename: 'chunk-manifest.json',
+      manifestVariable: 'webpackManifest',
     }),
 
     // Generate assets manifest

@@ -46,6 +46,22 @@ export default new WebpackConfig().extend({
       });
     });
 
+    // Optimise images
+    conf.module.loaders.find(l => l.test.toString() === /\.(jpe?g|png|gif|svg)$/i.toString())
+      .loaders.push({
+        // We'll use the original file as the final asset instead of
+        // a hash.  Why?  The hash will change when we compress in
+        // production, which causes the server hash to mismatch and look
+        // for a file that doesn't exist.  Keeping the file name the same
+        // is exactly what we want
+
+        // `image-webpack-loader` is used on the server build even `emitFile`
+        // on `fileLoader` disabled so that the correct hash can be generated.
+        loader: 'image-webpack-loader',
+        // workaround for https://github.com/tcoopman/image-webpack-loader/issues/88
+        options: {},
+      });
+
     return conf;
   },
 }).merge({

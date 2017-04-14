@@ -126,10 +126,11 @@ const PORT = process.env.PORT || 4000;
           html={html}
           head={Helmet.rewind()}
           state={store.getState()} 
-          manifest={manifest["manifest.js"]}
-          vendor={manifest["vendor.js"]}
-          browser={manifest["browser.js"]}
-          chunkManifest={chunkManifest} />,
+          manifest={manifest['manifest.js']}
+          vendor={manifest['vendor.js']}
+          browser={manifest['browser.js']}
+          chunkManifest={chunkManifest}
+          css={manifest['browser.css']} />,
       )}`;
     });
 

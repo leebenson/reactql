@@ -9,7 +9,7 @@ import PropTypes from 'prop-types';
 
 // ----------------------
 
-const Html = ({ head, html, state, manifest, vendor, browser, chunkManifest }) => (
+const Html = ({ head, html, state, manifest, vendor, browser, chunkManifest, css }) => (
   <html lang="en" prefix="og: http://ogp.me/ns#">
     <head>
       <meta charSet="utf-8" />
@@ -17,7 +17,7 @@ const Html = ({ head, html, state, manifest, vendor, browser, chunkManifest }) =
       <meta httpEquiv="Content-Language" content="en" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
       {head.meta.toComponent()}
-      <link rel="stylesheet" href="/assets/css/style.css" />
+      <link rel="stylesheet" href={css} />
       {head.title.toComponent()}
       <script
         dangerouslySetInnerHTML={{
