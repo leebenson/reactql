@@ -41,6 +41,7 @@ module.exports = {
       webpack: {
         config: path.join(PATHS.webpack, 'eslint.js'),
       },
+      polyfills: ['fetch'],
     }
   },
   globals: {
