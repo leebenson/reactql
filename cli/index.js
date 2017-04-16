@@ -1,3 +1,5 @@
+/* eslint-disable no-console */
+
 /*
 ReactQL starter kit -- https://reactql.org
 Authored by Lee Benson <lee@leebenson.com>
@@ -9,8 +11,6 @@ Authored by Lee Benson <lee@leebenson.com>
 // Node
 const os = require('os');
 const path = require('path');
-const fse = require('fs-extra');
-const spawn = require('cross-spawn');
 
 // Third-party
 const chalk = require('chalk');
@@ -19,19 +19,24 @@ const updateNotifier = require('update-notifier');
 const inquirer = require('inquirer');
 const through2 = require('through2');
 const klaw = require('klaw');
-const ejs = require('ejs');
 const exists = require('command-exists').sync;
 const spdx = require('spdx');
+const fse = require('fs-extra');
+const spawn = require('cross-spawn');
+const temp = require('temp').track();
+const yauzl = require('yauzl');
+const request = require('request');
+const mkdirp = require('mkdirp');
 
 // Local
 const banner = require('./banner.js');
 const usage = require('./usage.js');
-const package = require('../package.json');
+const pkg = require('../package.json');
 
 // ----------------------
 
 // Check for ReactQL updates automatically
-updateNotifier({ pkg: package, updateCheckInterval: 0 }).notify();
+updateNotifier({ pkg, updateCheckInterval: 0 }).notify();
 
 /*
  Helper functions
@@ -44,12 +49,13 @@ function emoji(ifSupported, ifNot='\b') {
 
 // Show error message.  We'll use this if yarn/npm throws back a non-zero
 // code, to display the problem back to the console
-function showError(msg) {
+function fatalError(msg) {
   console.error(`
 ${chalk.bold.bgRed('ERROR')}${chalk.bgRed(' -- See the output below:')}
 
 ${msg}
   `.trim());
+  process.exit();
 }
 
 // Finished instructions.  Show the user how to use the starter kit
@@ -235,108 +241,140 @@ const args = yargs
         // Modify path to be absolute
         args.path = path.resolve(process.cwd(), args.path);
 
-        // Copy the starter kit files over to the new path
-        fse.copySync(paths.files, args.path);
+        // Create a tmp file stream to save the file locally
+        const file = temp.createWriteStream();
 
-        // Edit `package.json` with project-specific information
-        const packageJsonFile = path.resolve(args.path, 'package.json');
-        const packageJson = require(packageJsonFile);
+        console.log('Downloading source code from Github...');
 
-        fse.writeJsonSync(packageJsonFile, Object.assign(packageJson, {
-          name: args.name,
-          description: args.desc,
-          license: args.license,
-        }));
+        // Download the .zip containing the kit's source code
+        request
+          .get('https://github.com/reactql/kit/archive/master.zip')
+          .pipe(
+            file.on('finish', () => {
+              console.log('Extracting archive...');
+              yauzl.open(file.path, { lazyEntries: true }, (e, zip) => {
+                if (e) fatalError("Couldn't read zip file");
+
+                // Read the zip entry
+                zip.readEntry();
+
+                // Process zip files
+                zip.on('entry', entry => {
+                  // Remove leading folder that Github uses
+                  const fileName = entry.fileName
+                    .split('/')
+                    .slice(1)
+                    .join('/');
+
+                  // Proceed only if we have a file name
+                  if (fileName) {
+
+                    // Resolve the full file name, including the path
+                    const fullName = path.resolve(args.path, fileName);
+
+                    // If it's a folder (based on original filename), create it
+                    if (/\/$/.test(fileName)) {
+                      mkdirp(fullName, e => {
+                        if (e) fatalError(`Couldn't create folder ${fullName}`);
+                        zip.readEntry();
+                      });
+                    } else {
+                      // Otherwise, it's a regular file -- write it
+                      zip.openReadStream(entry, (e, readStream) => {
+                        if (e) fatalError(`Couldn't create ZIP read stream`);
+                        readStream
+                          .pipe(fse.createWriteStream(fullName))
+                          .on('finish', () => zip.readEntry());
+                      });
+                    }
+                  } else {
+                    // Blank filename - move on to the next one
+                    zip.readEntry();
+                  }
+                })
+                .on('end', () => {
+                  // Edit `package.json` with project-specific information
+                  console.log('Writing package.json...');
+
+                  const pkgJsonFile = path.resolve(args.path, 'package.json');
+                  const pkgJson = require(pkgJsonFile);
+
+                  fse.writeJsonSync(pkgJsonFile, Object.assign(pkgJson, {
+                    name: args.name,
+                    description: args.desc,
+                    license: args.license,
+                  }));
+
+                  // Install pakckage dependencies using yarn if we have
+                  // it, otherwise using NPM
+                  let installer;
+
+                  // Show the separator to make it clear we've moved on to the
+                  // next step
+                  console.log(separator);
+
+                  // Prefer yarn (it's faster). If it doesn't exist, fall back to
+                  // npm which every user should have.  Inform the user that yarn is
+                  // the preferred option!
+                  if (exists('yarn')) {
+                    installer = ['yarn', []];
+                    console.log('Installing via Yarn...\n');
+
+                  } else {
+                    installer = ['npm', ['i']];
+                    console.log(`Yarn not found; falling back to NPM. Tip: For faster future builds, install ${chalk.underline('https://yarnpkg.com')}\n`);
+                  }
+
+                  // Create a bottom bar to display the installation spinner at the bottom
+                  // of the console.
+                  const ui = new inquirer.ui.BottomBar({ bottomBar: spinner[0] });
+
+                  // Temporary var to track the position of the 'spinner'
+                  let i = 0;
+
+                  // Update the spinner every 300ms, to reflect the installation activity
+                  const update = setInterval(function () {
+                    ui.updateBottomBar(`\n${spinner[++i % 4]} Installing modules -- Please wait...`);
+                  }, 300);
+
+                  // Execute yarn/npm as a child process, pipe output to stdout
+                  spawn(...installer, {cwd: args.path, stdio: 'pipe'})
+                    .stdout.pipe(ui.log)
+                    .on('error', () => fatalError("Couldn't install packages"))
+                    // When finished, stop the spinner, update with usage instructons and exit
+                    .on('close', function () {
+                      clearInterval(update);
+                      ui.updateBottomBar('');
+                      console.log(finished(args.path));
+                      process.exit();
+                    });
+                });
+              })
+            })
+          )
+          .on('error', () => {
+            console.error("Couldn't download source code from Github");
+            process.exit();
+          });
+
+        });
+
+        // Process the file, when we have it
+        // file
+
+
 
         /*
          Find template files, execute the EJS, and create a new file
          with the rendered content.
         */
 
-        // We'll use `klaw` to walk through the starter kit path, and create
-        // a stream of `fs.Stats` objects representing each file
-        klaw(args.path)
 
-          // Create a function that will handle file objects, determine whether
-          // we have templates, and compile to EJS.  We're using `through2` to
-          // take care of handling the stream
-          .pipe(through2.obj(function(item, enc, next) {
-
-            // We're only interested in `.reactql` template files
-            if (/\.reactql$/.test(item.path)) {
-
-              // Get the file content
-              const content = fse.readFileSync(item.path, {
-                encoding: 'utf8',
-              });
-
-              // Compile the template through EJS, passing `args`
-              const compiled = ejs.render(content, { args }).trim();
-
-              // Write non-blank content out using the original file
-              // name, minus the .reactql extension
-              if (compiled) {
-                fse.writeFileSync(
-                  item.path.replace(/\.reactql$/, ''),
-                  compiled,
-                  {
-                    encoding: 'utf8',
-                  }
-                );
-              }
-
-              // Delete the template
-              fse.unlinkSync(item.path);
-            }
-            // Callback to say we've completed walking the tree
-            next();
-          }))
           // When finished, all of our templates have been run
-          .on('finish', () => {
-            // Install the `package.json` dependencies using yarn if we have
-            // it, otherwise using NPM
-            let installer;
+      //     .on('finish', () => {
 
-            // Show the separator to make it clear we've moved on to the
-            // next step
-            console.log(separator);
-
-            // Prefer yarn (it's faster). If it doesn't exist, fall back to
-            // npm which every user should have.  Inform the user that yarn is
-            // the preferred option!
-            if (exists('yarn')) {
-              installer = ['yarn', []];
-              console.log('Installing via Yarn...\n');
-
-            } else {
-              installer = ['npm', ['i']];
-              console.log(`Yarn not found; falling back to NPM. Tip: For faster future builds, install ${chalk.underline('https://yarnpkg.com')}\n`);
-            }
-
-            // Create a bottom bar to display the installation spinner at the bottom
-            // of the console.
-            const ui = new inquirer.ui.BottomBar({ bottomBar: spinner[0] });
-
-            // Temporary var to track the position of the 'spinner'
-            let i = 0;
-
-            // Update the spinner every 300ms, to reflect the installation activity
-            const update = setInterval(function () {
-              ui.updateBottomBar(`\n${spinner[++i % 4]} Installing modules -- Please wait...`);
-            }, 300);
-
-            // Execute yarn/npm as a child process, pipe output to stdout
-            spawn(...installer, {cwd: args.path, stdio: 'pipe'})
-              .stdout.pipe(ui.log)
-              // When finished, stop the spinner, update with usage instructons and exit
-              .on('close', function () {
-                clearInterval(update);
-                ui.updateBottomBar('');
-                console.log(finished(args.path));
-                process.exit();
-              });
-          });
-      });
+      //     });
+      // });
     },
   })
   .command({
@@ -344,7 +382,7 @@ const args = yargs
     aliases: ['v'],
     desc: 'Show ReactQL version',
     handler() {
-      console.log(package.version);
+      console.log(pkg.version);
     },
   })
   .option('name', {
@@ -361,7 +399,7 @@ const args = yargs
   })
   .option('license', {
     alias: 'l',
-    describe: 'License for package.json',
+    describe: 'License for pkg.json',
   })
   .help()
   .argv;
