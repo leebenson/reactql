@@ -1,5 +1,3 @@
-/* eslint-disable no-console */
-
 /*
 ReactQL starter kit -- https://reactql.org
 Authored by Lee Benson <lee@leebenson.com>
@@ -17,8 +15,6 @@ const chalk = require('chalk');
 const yargs = require('yargs');
 const updateNotifier = require('update-notifier');
 const inquirer = require('inquirer');
-const through2 = require('through2');
-const klaw = require('klaw');
 const exists = require('command-exists').sync;
 const spdx = require('spdx');
 const fse = require('fs-extra');
@@ -84,11 +80,6 @@ ${separator}
 
   `.trim();
 }
-
-// Paths used during copying the starter kit
-const paths = {
-  files: path.resolve(__dirname, '../starter/files'),
-};
 
 // ASCII chars to show possible 'spinner' positions.  We'll prefix this to
 // the installation message during yarn/npm packaging
@@ -244,6 +235,10 @@ const args = yargs
         // Create a tmp file stream to save the file locally
         const file = temp.createWriteStream();
 
+        // Show the separator to make it clear we've moved on to the
+        // next step
+        console.log(separator);
+
         console.log('Downloading source code from Github...');
 
         // Download the .zip containing the kit's source code
@@ -309,10 +304,6 @@ const args = yargs
                   // it, otherwise using NPM
                   let installer;
 
-                  // Show the separator to make it clear we've moved on to the
-                  // next step
-                  console.log(separator);
-
                   // Prefer yarn (it's faster). If it doesn't exist, fall back to
                   // npm which every user should have.  Inform the user that yarn is
                   // the preferred option!
@@ -358,23 +349,6 @@ const args = yargs
           });
 
         });
-
-        // Process the file, when we have it
-        // file
-
-
-
-        /*
-         Find template files, execute the EJS, and create a new file
-         with the rendered content.
-        */
-
-
-          // When finished, all of our templates have been run
-      //     .on('finish', () => {
-
-      //     });
-      // });
     },
   })
   .command({

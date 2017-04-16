@@ -11,6 +11,7 @@ module.exports = {
     node: true,
   },
   rules: {
+    'no-console': 0,
     'import/no-unresolved': [2, {commonjs: true}],
   },
 };

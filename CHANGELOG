@@ -1,3 +1,9 @@
+2.2.0 - 2017-04-16
+------------------------------------------------------------
+* CLI now downloads & extracts source from Github instead of bundling with the kit
+* Adds ESLint and `npm run lint` step
+* Removes redundant `klaw` and `through2` packages
+
 2.1.2 - 2017-04-15
 ------------------------------------------------------------
 * Merges #24 - Adds `browserlist` for global Webpack build targeting
