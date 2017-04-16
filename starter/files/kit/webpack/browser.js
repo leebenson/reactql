@@ -63,10 +63,6 @@ export default new WebpackConfig().extend('[root]/base.js').merge({
                 ['env', {
                   // Enable tree-shaking by disabling commonJS transformation
                   modules: false,
-                  // By default, target only modern browsers
-                  targets: {
-                    browsers: 'last 3 versions',
-                  },
                   // Exclude default regenerator-- we want to enable async/await
                   // so we'll do that with a dedicated plugin
                   exclude: ['transform-regenerator'],

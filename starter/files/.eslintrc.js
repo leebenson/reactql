@@ -21,6 +21,7 @@ module.exports = {
     'babel',
     'import',
     'jsx-a11y',
+    'compat',
   ],
   rules: {
     'arrow-parens': ['error', 'as-needed'],
@@ -33,12 +34,14 @@ module.exports = {
     'no-restricted-syntax': [2, ...restricted.filter(r => r !== 'ForOfStatement')],
     'global-require': 0,
     'import/no-unresolved': [2, { commonjs: true }],
+    'compat/compat': 2
   },
   settings: {
     'import/resolver': {
       webpack: {
         config: path.join(PATHS.webpack, 'eslint.js'),
       },
+      polyfills: ['fetch'],
     }
   },
   globals: {

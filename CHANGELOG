@@ -1,3 +1,7 @@
+2.1.2 - 2017-04-15
+------------------------------------------------------------
+* Merges #24 - Adds `browserlist` for global Webpack build targeting
+
 2.1.1 - 2017-04-14
 ------------------------------------------------------------
 * Adds [Webpack Bundle Analyzer](https://www.npmjs.com/package/webpack-bundle-analyzer) reporting per #23, on `npm run build`
