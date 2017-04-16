@@ -12,6 +12,11 @@ import WebpackConfig from 'webpack-config';
 // to those modules locally and they don't need to wind up in the bundle file
 import nodeModules from 'webpack-node-externals';
 
+// Plugin that allows us to minify ES2015+ code as Uglify currently doesn't
+// support ES2015 features. Significantly slower, but needed to remove dead
+// code from React primarily.
+import BabiliPlugin from 'babili-webpack-plugin';
+
 import PATHS from '../../config/paths';
 
 // ----------------------
@@ -131,9 +136,21 @@ export default new WebpackConfig().extend({
     new webpack.DefinePlugin({
       // We're running on the Node.js server, so set `SERVER` to true
       SERVER: true,
+      // React constantly checking process.env.NODE_ENV causes massive
+      // slowdowns during rendering. Replacing process.env.NODE_ENV
+      // with a string not only removes this expensive check, it allows
+      // a minifier to remove all of React's warnings in production.
+      'process.env': {
+        NODE_ENV: JSON.stringify('production'),
+      },
     }),
+
+    // Used mostly to strip dead code from React
+    new BabiliPlugin(),
   ],
   // No need to transpile `node_modules` files, since they'll obviously
   // still be available to Node.js when we run the resulting `server.js` entry
-  externals: nodeModules(),
+  externals: nodeModules({
+    whitelist: ['react', 'react-dom/server'],
+  }),
 });
