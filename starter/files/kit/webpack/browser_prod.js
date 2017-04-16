@@ -20,12 +20,13 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 // Compression plugin for generating `.gz` static files
 import CompressionPlugin from 'compression-webpack-plugin';
 
-// Chunk Manifest plugin for generating an asset manifest
+// Chunk Manifest plugin for generating a chunk asset manifest
 import ChunkManifestPlugin from 'chunk-manifest-webpack-plugin';
 
 // Plugin for computing chunk hash
 import WebpackChunkHash from 'webpack-chunk-hash';
 
+// Manifest plugin for generating an asset manifest
 import ManifestPlugin from 'webpack-manifest-plugin';
 
 // Bundle Analyzer plugin for viewing interactive treemap of bundle
