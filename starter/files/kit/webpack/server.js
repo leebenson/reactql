@@ -46,6 +46,16 @@ export default new WebpackConfig().extend({
       });
     });
 
+    // Optimise images
+    conf.module.loaders.find(l => l.test.toString() === /\.(jpe?g|png|gif|svg)$/i.toString())
+      .loaders.push({
+        // `image-webpack-loader` is used on the server build even `emitFile`
+        // on `fileLoader` disabled so that the correct hash can be generated.
+        loader: 'image-webpack-loader',
+        // workaround for https://github.com/tcoopman/image-webpack-loader/issues/88
+        options: {},
+      });
+
     return conf;
   },
 }).merge({

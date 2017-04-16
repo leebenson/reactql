@@ -14,6 +14,9 @@
 // Patch global.`fetch` so that Apollo calls to GraphQL work
 import 'isomorphic-fetch';
 
+// Needed to read manifest files
+import { readFileSync } from 'fs';
+
 // React UI
 import React from 'react';
 
@@ -70,6 +73,13 @@ import PATHS from 'config/paths';
 
 // ----------------------
 
+// Read in manifest files
+const [manifest, chunkManifest] = ['manifest', 'chunk-manifest'].map(
+  name => JSON.parse(readFileSync(`dist/public/${name}.json`, 'utf8')),
+);
+
+const scripts = ['manifest.js', 'vendor.js', 'browser.js'].map(key => manifest[key]);
+
 // Port to bind to.  Takes this from the `PORT` environment var, or assigns
 // to 4000 by default
 const PORT = process.env.PORT || 4000;
@@ -118,7 +128,10 @@ const PORT = process.env.PORT || 4000;
         <Html
           html={html}
           head={Helmet.rewind()}
-          state={store.getState()} />,
+          state={store.getState()}
+          scripts={scripts}
+          chunkManifest={chunkManifest}
+          css={manifest['browser.css']} />,
       )}`;
     });
 
@@ -155,6 +168,9 @@ const PORT = process.env.PORT || 4000;
     // Serve static files from our dist/public directory, which is where
     // the compiled JS, images, etc will wind up
     .use(koaStatic(PATHS.public, {
+      // All asset names contain the hashes of their contents so we can
+      // assume they are immutable for caching
+      maxage: 31536000000,
       // Don't defer to middleware.  If we have a file, serve it immediately
       defer: false,
     }))

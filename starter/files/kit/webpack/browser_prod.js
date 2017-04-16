@@ -20,6 +20,15 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin';
 // Compression plugin for generating `.gz` static files
 import CompressionPlugin from 'compression-webpack-plugin';
 
+// Chunk Manifest plugin for generating a chunk asset manifest
+import ChunkManifestPlugin from 'chunk-manifest-webpack-plugin';
+
+// Plugin for computing chunk hash
+import WebpackChunkHash from 'webpack-chunk-hash';
+
+// Manifest plugin for generating an asset manifest
+import ManifestPlugin from 'webpack-manifest-plugin';
+
 // Bundle Analyzer plugin for viewing interactive treemap of bundle
 import { BundleAnalyzerPlugin } from 'webpack-bundle-analyzer';
 
@@ -31,9 +40,9 @@ import { BUNDLE_ANALYZER } from '../../config/project';
 
 // ----------------------
 
-// The final CSS file will wind up in `dist/assets/css/style.css`
+// The final CSS file will wind up in `dist/assets/css/style.[contenthash].css`
 const extractCSS = new ExtractTextPlugin({
-  filename: 'assets/css/style.css',
+  filename: 'assets/css/style.[contenthash].css',
   allChunks: true,
 });
 
@@ -61,6 +70,11 @@ export default new WebpackConfig().extend({
     return config;
   },
 }).merge({
+  output: {
+    // Filenames will be <name>.<chunkhas>.js in production on the browser
+    filename: '[name].[chunkhash].js',
+    chunkFilename: '[name].[chunkhash].js',
+  },
   module: {
     loaders: [
       // .css loading
@@ -96,14 +110,20 @@ export default new WebpackConfig().extend({
           fallback: 'style-loader',
         }),
       },
-      // LESS processing.  Parsed through `less-loader` first
+      // As a secondary option to postcss, we'll also allow LESS files that
+      // have a .less extension.  They will get routed through postcss
+      // in just the same way, and @import should also work fine
       {
         test: /\.less$/,
-        loaders: [
-          'style-loader',
-          cssLoader,
-          'less-loader',
-        ],
+        loader: extractCSS.extract({
+          use: [
+            // CSS loader -- see above for options
+            cssLoader,
+            'postcss-loader',
+            'less-loader',
+          ],
+          fallback: 'style-loader',
+        }),
       },
     ],
   },
@@ -139,6 +159,27 @@ export default new WebpackConfig().extend({
 
     // Fire up CSS extraction
     extractCSS,
+
+    // Extract webpack bootstrap logic into a separate file
+    new webpack.optimize.CommonsChunkPlugin({
+      name: 'manifest',
+      minChunks: Infinity,
+    }),
+
+    // Map hash to module id
+    new webpack.HashedModuleIdsPlugin(),
+
+    // Compute chunk hash
+    new WebpackChunkHash(),
+
+    // Generate chunk manifest
+    new ChunkManifestPlugin({
+      filename: 'chunk-manifest.json',
+      manifestVariable: 'webpackManifest',
+    }),
+
+    // Generate assets manifest
+    new ManifestPlugin(),
 
     // Output interactive bundle report
     new BundleAnalyzerPlugin({
