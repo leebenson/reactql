@@ -1,3 +1,8 @@
+2.2.1 - 2017-04-16
+------------------------------------------------------------
+* Removes redundant root files (README.md, CHANGELOG, LICENSE) from extracted starter kit
+* Slims down `README.md` by delegating features to the [kit repo](https://github.com/reactql/kit)
+
 2.2.0 - 2017-04-16
 ------------------------------------------------------------
 * CLI now downloads & extracts source from Github instead of bundling with the kit

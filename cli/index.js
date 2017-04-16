@@ -300,6 +300,13 @@ const args = yargs
                     license: args.license,
                   }));
 
+                  // Remove root files that irrelevant to the new project
+                  ['README.md', 'CHANGELOG', 'LICENSE'].forEach(file => {
+                    try {
+                      fse.unlinkSync(path.resolve(args.path, file));
+                    } catch(_) { /* ignore errors */ }
+                  });
+
                   // Install pakckage dependencies using yarn if we have
                   // it, otherwise using NPM
                   let installer;
