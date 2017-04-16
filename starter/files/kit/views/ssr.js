@@ -45,6 +45,11 @@ Html.propTypes = {
   head: PropTypes.object.isRequired,
   html: PropTypes.string.isRequired,
   state: PropTypes.object.isRequired,
+  manifest: PropTypes.string.isRequired,
+  vendor: PropTypes.string.isRequired,
+  browser: PropTypes.string.isRequired,
+  chunkManifest: PropTypes.string.isRequired,
+  css: PropTypes.string.isRequired,
 };
 
 export default Html;

@@ -119,7 +119,7 @@ export default new WebpackConfig().extend({
             // CSS loader -- see above for options
             cssLoader,
             'postcss-loader',
-            'less-loader'
+            'less-loader',
           ],
           fallback: 'style-loader',
         }),
