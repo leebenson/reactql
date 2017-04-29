@@ -123,8 +123,8 @@ const validate = {
 
   // Project description.  Accept any character, max length 32
   license(val) {
-    if (!/^none$/i.test(val) && !spdx.valid(val)) {
-      return 'Invalid license. Enter "None" if none.';
+    if (!/^UNLICENSED$/.test(val) && !spdx.valid(val)) {
+      return 'Invalid license. Enter "UNLICENSED" if not licensed.';
     }
 
     return true;
@@ -202,7 +202,7 @@ const args = yargs
           name: 'license',
           type: 'input',
           message: 'License?',
-          default: 'MIT',
+          default: 'UNLICENSED',
           validate: validate.license,
           when: validate.option(args.license, validate.license),
         },
@@ -219,6 +219,21 @@ const args = yargs
           validate: validate.path,
           when: validate.option(args.path, validate.path),
         },
+        {
+          name: 'repo',
+          type: 'list',
+          message: 'Which version of the kit would you like?',
+          choices: [
+            {
+              name: 'Javascript (ES6)',
+              value: 'kit',
+            },
+            {
+              name: 'Typescript',
+              value: 'kit.ts',
+            },
+          ]
+        }
       ];
 
       // Once questions have been answered, we'll have an `answers` object
@@ -243,7 +258,7 @@ const args = yargs
 
         // Download the .zip containing the kit's source code
         request
-          .get('https://github.com/reactql/kit/archive/master.zip')
+          .get(`https://github.com/reactql/${args.repo}/archive/master.zip`)
           .pipe(
             file.on('finish', () => {
               console.log('Extracting archive...');
@@ -294,11 +309,17 @@ const args = yargs
                   const pkgJsonFile = path.resolve(args.path, 'package.json');
                   const pkgJson = require(pkgJsonFile);
 
-                  fse.writeJsonSync(pkgJsonFile, Object.assign(pkgJson, {
-                    name: args.name,
-                    description: args.desc,
-                    license: args.license,
-                  }));
+                  fse.writeJsonSync(
+                    pkgJsonFile,
+                    Object.assign(pkgJson, {
+                      name: args.name,
+                      description: args.desc,
+                      license: args.license,
+                    }),
+                    {
+                      spaces: 2,
+                    }
+                  );
 
                   // Remove root files that irrelevant to the new project
                   ['README.md', 'CHANGELOG', 'LICENSE'].forEach(file => {

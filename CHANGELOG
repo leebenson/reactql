@@ -1,3 +1,16 @@
+2.3.0 - 2017-04-29
+------------------------------------------------------------
+* Closes #32 - adds choice for Javascript or Typescript flavoured kit
+* Improves formatting of new project's `package.json`
+* Bumps NPM:
+ fs-extra  ^2.1.2  →  ^3.0.0
+ yargs  ^7.0.2  →  ^7.1.0
+ yauzl  ^2.7.0  →  ^2.8.0
+
+2.2.2 - 2017-04-16
+------------------------------------------------------------
+* Defaults to 'UNLICENSED' when creating a new starter kit
+
 2.2.1 - 2017-04-16
 ------------------------------------------------------------
 * Removes redundant root files (README.md, CHANGELOG, LICENSE) from extracted starter kit
