@@ -31,6 +31,17 @@ const pkg = require('../package.json');
 
 // ----------------------
 
+const versions = {
+  'kit': {
+    version: '1.3.0',
+    date: '2017-05-27',
+  },
+  'kit.ts': {
+    version: '1.1.2',
+    date: '2017-04-29',
+  },
+};
+
 // Check for ReactQL updates automatically
 updateNotifier({ pkg, updateCheckInterval: 0 }).notify();
 
@@ -225,11 +236,11 @@ const args = yargs
           message: 'Which version of the kit would you like?',
           choices: [
             {
-              name: 'Javascript (ES6)',
+              name: `Javascript (ES6) - v${versions['kit'].version} (${versions['kit'].date})`,
               value: 'kit',
             },
             {
-              name: 'Typescript',
+              name: `Typescript - v${versions['kit.ts'].version} (${versions['kit.ts'].date})`,
               value: 'kit.ts',
             },
           ]
@@ -253,12 +264,11 @@ const args = yargs
         // Show the separator to make it clear we've moved on to the
         // next step
         console.log(separator);
-
         console.log('Downloading source code from Github...');
 
         // Download the .zip containing the kit's source code
         request
-          .get(`https://github.com/reactql/${args.repo}/archive/master.zip`)
+          .get(`https://github.com/reactql/${args.repo}/archive/${versions[args.repo].version}.zip`)
           .pipe(
             file.on('finish', () => {
               console.log('Extracting archive...');

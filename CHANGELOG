@@ -1,3 +1,13 @@
+2.4.0 - 2017-05-28
+------------------------------------------------------------
+* Adds deterministic versioning by hard-coding `kit` and `kit.ts` versions, and downloading from the appropriate repository
+* Displays versions next to JS and Typescript choices on installation
+* Adds version release dates
+* Bumps NPM:
+"fs-extra": "^3.0.1"
+"yargs": "^8.0.1"
+ "eslint-plugin-import": "^2.3.0"
+
 2.3.0 - 2017-04-29
 ------------------------------------------------------------
 * Closes #32 - adds choice for Javascript or Typescript flavoured kit
