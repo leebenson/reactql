@@ -1,3 +1,7 @@
+2.4.1 - 2017-05-28
+------------------------------------------------------------
+* Bumps to kit v1.3.1
+
 2.4.0 - 2017-05-28
 ------------------------------------------------------------
 * Adds deterministic versioning by hard-coding `kit` and `kit.ts` versions, and downloading from the appropriate repository
