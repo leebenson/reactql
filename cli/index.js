@@ -33,8 +33,8 @@ const pkg = require('../package.json');
 
 const versions = {
   'kit': {
-    version: '1.4.1',
-    date: '2017-05-30',
+    version: '1.5.0',
+    date: '2017-06-01',
   },
   'kit.ts': {
     version: '1.1.2',
@@ -243,20 +243,26 @@ const args = yargs
               name: `Typescript - v${versions['kit.ts'].version} (${versions['kit.ts'].date})`,
               value: 'kit.ts',
             },
-          ]
+          ],
+          when() {
+            return !(args.js || args.ts);
+          },
         }
       ];
 
       // Once questions have been answered, we'll have an `answers` object
       // containing the responses
       inquirer.prompt(questions).then(answers => {
-
         // Inject answers to our `args`, so that we've got a complete set
         // of options to use
         Object.assign(args, answers);
 
         // Modify path to be absolute
         args.path = path.resolve(process.cwd(), args.path);
+
+        // Modify repo based on kit flavour
+        if (args.js) args.repo = 'kit';
+        else if (args.ts) args.repo = 'kit.ts';
 
         // Create a tmp file stream to save the file locally
         const file = temp.createWriteStream();
@@ -397,22 +403,31 @@ const args = yargs
       console.log(pkg.version);
     },
   })
-  .option('name', {
-    alias: 'n',
-    describe: 'New project name',
+  .options({
+    name: {
+      alias: 'n',
+      describe: 'New project name',
+    },
+    desc: {
+      alias: 'd',
+      describe: 'Project description',
+    },
+    path: {
+      alias: 'p',
+      describe: 'Path to install the starter kit',
+    },
+    license: {
+      alias: 'l',
+      describe: 'License for pkg.json',
+    },
+    js: {
+      describe: 'Install Javascript (ES6) version',
+    },
+    ts: {
+      describe: 'Install Typescript version',
+    }
   })
-  .option('desc', {
-    alias: 'd',
-    describe: 'Project description',
-  })
-  .option('path', {
-    alias: 'p',
-    describe: 'Path to install the starter kit',
-  })
-  .option('license', {
-    alias: 'l',
-    describe: 'License for pkg.json',
-  })
+  .boolean(['js', 'ts'])
   .help()
   .argv;
 
