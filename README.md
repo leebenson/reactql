@@ -10,12 +10,12 @@ Maintained and updated regularly.
 
 ## Features
 
-* Choose from [Javascript (ES6)](https://github.com/reactql/kit) or [Typescript](https://github.com/reactql/kit.ts) kit flavours.
+* Support both the ReactQL [Javascript (ES6)](https://github.com/reactql/kit) and [Typescript](https://github.com/reactql/kit.ts) kits.
 * Easy command line tool - works on Mac, Windows and Linux.
 * Versioned to a JS/TS kit pair, so you know exactly what you're installing.
 * Trivial to install/upgrade. Just `npm i -g reactql`.
-* Start a new project in just one command.
-* CLI does all the heavy lifting - downloads the kit, install packages, and lets you focus on coding.
+* Start a new project in just one command - `reactql new`
+* CLI does all the heavy lifting - downloads the kit, install packages, and lets you get right to work.
 
 See the [starter kit](https://github.com/reactql/kit) for a full feature list.
 
