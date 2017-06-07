@@ -33,8 +33,8 @@ const pkg = require('../package.json');
 
 const versions = {
   'kit': {
-    version: '1.6.0',
-    date: '2017-06-06',
+    version: '1.7.0',
+    date: '2017-06-08',
   },
   'kit.ts': {
     version: '1.1.2',
