@@ -1,4 +1,4 @@
-<img src="https://reactql.org/docs/images/reactql-logo.svg" alt="ReactQL" width="278" height="77" />
+<img src="https://reactql.org/reactql/logo.svg" alt="ReactQL" width="278" height="77" />
 
 # Universal React+GraphQL starter kit CLI
 
