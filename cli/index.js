@@ -15,7 +15,6 @@ const chalk = require('chalk');
 const yargs = require('yargs');
 const updateNotifier = require('update-notifier');
 const inquirer = require('inquirer');
-const exists = require('command-exists').sync;
 const spdx = require('spdx');
 const fse = require('fs-extra');
 const spawn = require('cross-spawn');
@@ -33,13 +32,18 @@ const pkg = require('../package.json');
 
 const versions = {
   'kit': {
-    version: '1.7.0',
-    date: '2017-06-08',
+    version: '1.8.1',
+    date: '2017-06-15',
   },
+  /*
+    OMITTING TYPESCRIPT KIT FOR NOW, per https://github.com/reactql/kit.ts/issues/18
+
   'kit.ts': {
     version: '1.1.2',
     date: '2017-04-29',
   },
+
+  */
 };
 
 // Check for ReactQL updates automatically
@@ -230,24 +234,24 @@ const args = yargs
           validate: validate.path,
           when: validate.option(args.path, validate.path),
         },
-        {
-          name: 'repo',
-          type: 'list',
-          message: 'Which version of the kit would you like?',
-          choices: [
-            {
-              name: `Javascript (ES6) - v${versions['kit'].version} (${versions['kit'].date})`,
-              value: 'kit',
-            },
-            {
-              name: `Typescript - v${versions['kit.ts'].version} (${versions['kit.ts'].date})`,
-              value: 'kit.ts',
-            },
-          ],
-          when() {
-            return !(args.js || args.ts);
-          },
-        }
+        // {
+        //   name: 'repo',
+        //   type: 'list',
+        //   message: 'Which version of the kit would you like?',
+        //   choices: [
+        //     {
+        //       name: `Javascript (ES6) - v${versions['kit'].version} (${versions['kit'].date})`,
+        //       value: 'kit',
+        //     },
+        //     {
+        //       name: `Typescript - v${versions['kit.ts'].version} (${versions['kit.ts'].date})`,
+        //       value: 'kit.ts',
+        //     },
+        //   ],
+        //   when() {
+        //     return !(args.js || args.ts);
+        //   },
+        // }
       ];
 
       // Once questions have been answered, we'll have an `answers` object
@@ -261,8 +265,12 @@ const args = yargs
         args.path = path.resolve(process.cwd(), args.path);
 
         // Modify repo based on kit flavour
-        if (args.js) args.repo = 'kit';
-        else if (args.ts) args.repo = 'kit.ts';
+        // if (args.js) args.repo = 'kit';
+        // else if (args.ts) args.repo = 'kit.ts';
+
+        // TODO remove this when Typescript support is re-enabled
+        args.repo = 'kit';
+        const version = versions[args.repo].version;
 
         // Create a tmp file stream to save the file locally
         const file = temp.createWriteStream();
@@ -270,11 +278,11 @@ const args = yargs
         // Show the separator to make it clear we've moved on to the
         // next step
         console.log(separator);
-        console.log('Downloading source code from Github...');
+        console.log(`Downloading kit v${version} from Github...`);
 
         // Download the .zip containing the kit's source code
         request
-          .get(`https://github.com/reactql/${args.repo}/archive/${versions[args.repo].version}.zip`)
+          .get(`https://github.com/reactql/${args.repo}/archive/${version}.zip`)
           .pipe(
             file.on('finish', () => {
               console.log('Extracting archive...');
@@ -344,21 +352,8 @@ const args = yargs
                     } catch(_) { /* ignore errors */ }
                   });
 
-                  // Install pakckage dependencies using yarn if we have
-                  // it, otherwise using NPM
-                  let installer;
-
-                  // Prefer yarn (it's faster). If it doesn't exist, fall back to
-                  // npm which every user should have.  Inform the user that yarn is
-                  // the preferred option!
-                  if (exists('yarn')) {
-                    installer = ['yarn', []];
-                    console.log('Installing via Yarn...\n');
-
-                  } else {
-                    installer = ['npm', ['i']];
-                    console.log(`Yarn not found; falling back to NPM. Tip: For faster future builds, install ${chalk.underline('https://yarnpkg.com')}\n`);
-                  }
+                  // Install package dependencies using NPM
+                  const installer = ['npm', ['i']];
 
                   // Create a bottom bar to display the installation spinner at the bottom
                   // of the console.
@@ -420,12 +415,12 @@ const args = yargs
       alias: 'l',
       describe: 'License for pkg.json',
     },
-    js: {
-      describe: 'Install Javascript (ES6) version',
-    },
-    ts: {
-      describe: 'Install Typescript version',
-    }
+    // js: {
+    //   describe: 'Install Javascript (ES6) version',
+    // },
+    // ts: {
+    //   describe: 'Install Typescript version',
+    // }
   })
   .boolean(['js', 'ts'])
   .help()
