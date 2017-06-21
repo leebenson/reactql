@@ -34,3 +34,9 @@ Then run `reactql` for help, or `reactql new` to start a new project.
 # Documentation
 
 ## See **[https://reactql.org](https://reactql.org)** for full features + documentation.
+
+# New to GraphQL?
+
+Watch my free [45 minute YouTube video](https://www.youtube.com/watch?v=DNPVqK_woRQ), for a live coding walk-through of putting together a GraphQL server with a database. Learn how to write queries, mutations and handle nested/related data.
+
+If you want to build your own GraphQL server, check out the [GraphQL Server repo](https://github.com/reactql/examples/tree/master/graphql-server) in [examples](https://github.com/reactql/examples).
