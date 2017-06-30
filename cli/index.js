@@ -32,8 +32,8 @@ const pkg = require('../package.json');
 
 const versions = {
   'kit': {
-    version: '1.10.1',
-    date: '2017-06-21',
+    version: '1.11.0',
+    date: '2017-06-30',
   },
   /*
     OMITTING TYPESCRIPT KIT FOR NOW, per https://github.com/reactql/kit.ts/issues/18
@@ -346,7 +346,7 @@ const args = yargs
                   );
 
                   // Remove root files that irrelevant to the new project
-                  ['README.md', 'CHANGELOG', 'LICENSE'].forEach(file => {
+                  ['README.md', 'CHANGELOG.md', 'LICENSE'].forEach(file => {
                     try {
                       fse.unlinkSync(path.resolve(args.path, file));
                     } catch(_) { /* ignore errors */ }
