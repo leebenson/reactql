@@ -1,5 +1,7 @@
 <img src="https://reactql.org/reactql/logo.svg" alt="ReactQL" width="278" height="77" />
 
+![Travis](https://api.travis-ci.org/reactql/cli.svg?branch=master) ![npm](https://img.shields.io/npm/dt/reactql.svg?style=flat-square) ![license](https://img.shields.io/github/license/reactql/cli.svg?style=flat-square)
+
 # Universal React+GraphQL starter kit CLI
 
 React for UI. Apollo for GraphQL. Redux for stores. Browser + server-side rendering.
