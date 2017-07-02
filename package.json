@@ -1,6 +1,6 @@
 {
   "name": "reactql",
-  "version": "3.3.0",
+  "version": "3.4.0",
   "description": "Universal React+GraphQL starter kit: React, Apollo, Webpack 2, React Router 4, PostCSS, SSR",
   "main": "cli/index.js",
   "scripts": {
@@ -49,7 +49,7 @@
     "yauzl": "^2.8.0"
   },
   "devDependencies": {
-    "eslint": "^4.1.1",
+    "eslint": "^3.19.0",
     "eslint-plugin-import": "^2.6.1"
   }
 }
