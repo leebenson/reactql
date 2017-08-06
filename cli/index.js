@@ -32,8 +32,8 @@ const pkg = require('../package.json');
 
 const versions = {
   'kit': {
-    version: '1.17.1',
-    date: '2017-08-02',
+    version: '2.0.0',
+    date: '2017-08-06',
   },
   /*
     OMITTING TYPESCRIPT KIT FOR NOW, per https://github.com/reactql/kit.ts/issues/18
