@@ -16,6 +16,7 @@ Maintained and updated regularly.
 * Easy command line tool - works on Mac, Windows and Linux.
 * Trivial to install/upgrade. Just `npm i -g reactql`.
 * Start a new project in just one command - `reactql new`
+* Easily bump an existing project to the latest version, with `reactql upgrade`
 * CLI does all the heavy lifting - downloads the kit, install packages, and lets you get right to work.
 
 See the [starter kit](https://github.com/reactql/kit) for a full feature list.
