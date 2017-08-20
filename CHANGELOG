@@ -1,3 +1,50 @@
+4.4.0 - 2017-08-19
+------------------------------------------------------------
+
+This version introduces `reactql upgrade` -- for bumping a ReactQL project in the current folder to the latest (installed CLI) kit.
+
+It follows these steps:
+
+1. In all newly created ReactQL projects from CLI v4.4.0 onwards, a `.reactql` file will be placed at the root of the kit, containing the current semver of the per-project ReactQL kit.
+
+2. When running `reactql upgrade`, the CLI will look for this file and compare it against the kit version associated with the CLI.  If the CLI is newer, it will proceed to upgrade.
+
+3. The newer kit will be downloaded (in .zip format from Github), and extracted into the project folder.  All existing kit files will be overwritten, _except_ for those in `src/` (which is considered userland/app code). If you have new/custom files in `kit/` or other folders, they'll remain intact - only _existing_ files will be overwritten.
+
+4. `README.md`, `LICENSE` and `CHANGELOG.md` will be ignored -- so if your existing project has any of those files, they'll remain intact.
+
+5. The newer `package.json` will be merged with your existing version, against `dependencies`, `devDependencies` and `scripts`.  Any existing keys within those objects will be replaced (e.g. if you have `webpack` as a key, the newer variant will be used.) If you've added any custom NPM packages to either of those keys, or your own custom scripts commands that don't also feature in the newer version of `package.json`, they will be untouched.
+
+6. All existing files in your project that _don't_ have a corresponding version in the newer kit, will be untouched. So if you have any custom folders or files that ReactQL doesn't come with out-the-box, they should remain -- even if they're inside of folders that _are_ replaced.  The upgrade process uses ZIP streaming; rather than overwriting whole directories, files are unzipped individually to be less destructive.
+
+7. The upgrade process is far dumber than version control - don't expect it to recursively merge any changes you may have made to kit files! Files will simply be overwritten with newer variants, so keep as much code as possible in `src/` and away from the core kit.
+
+**Caution: This is a new feature, so proceed with caution. Always have a back-up of your original project, and make sure you test the upgraded version for any changes -- it's possible the kit's API may have changed since the last version, or your changes have been overwritten!**
+
+To upgrade the CLI itself (and the kit version it's linked to), as always, just run `npm i -g reactql`. If a new version is available, it will show you each time you run the CLI.
+
+All changes...
+
+## CLI
+* Adds `reactql upgrade` and `react u` alias, for upgrading an existing project
+* Improves ReactQL update notifications to ensure they're displayed during the current session, and formatted properly
+* Replaces `chalk.blue` with `chalk.cyan` for URLs, for clarity on the majority of terminals
+* Fixed whitespace issue with emojis
+* Adds web server URL after creating new project, to show the SSR endpoint
+
+## NPM
+* Adds packages:
+"boxen": "^1.2.1"
+"semver": "^5.4.1"
+"sort-object": "^3.0.2"
+
+* Bumps packages:
+"chalk": "^2.1.0"
+"fs-extra": "^4.0.1",
+"inquirer": "^3.2.2",
+"eslint": "^4.5.0",
+"eslint-plugin-import": "^2.7.0"
+
 4.3.0 - 2017-08-18
 ------------------------------------------------------------
 * Bumps to kit v2.4.0
