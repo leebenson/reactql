@@ -14,6 +14,7 @@ const path = require('path');
 const boxen = require('boxen');
 const chalk = require('chalk');
 const yargs = require('yargs');
+const emoji = require('node-emoji');
 const updateNotifier = require('update-notifier');
 const semver = require('semver');
 const inquirer = require('inquirer');
@@ -51,10 +52,7 @@ function showNotice() {
   if (notice) console.log(notice);
 }
 
-// Show emoji only on supported platforms.  Otherwise, backspace to erase.
-function emoji(ifSupported, ifNot='\b') {
-  return os.type() === 'Darwin' ? `${ifSupported} ` : ifNot;
-}
+
 
 // Show error message.  We'll use this if yarn/npm throws back a non-zero
 // code, to display the problem back to the console
@@ -71,7 +69,7 @@ ${msg}
 function finished(dir) {
   return `
 ${separator}
-${emoji('\uD83D\uDE80','-->')}We have lift off!  You starter kit is ready.
+${emoji.get('rocket')} We have lift off! Your starter kit is ready.
 
 First, navigate to your new project folder:
 ${chalk.bgRed.white(`cd ${dir}`)}
@@ -87,8 +85,11 @@ ${chalk.bgRed.white('npm run server')}
 
 Docs/help available at ${chalk.cyan.underline('https://reactql.org')}
 
-Don't forget to ${emoji('\u2B50',"'star'")}us on GitHub!
+Don't forget to ${emoji.get('star')} us on GitHub!
 ${chalk.underline('https://github.com/reactql/cli')}
+
+Follow us on ${emoji.get('bird')} Twitter for news/updates:
+${chalk.underline('https://twitter.com/reactql')}
 ${separator}
 
   `.trim();
@@ -337,6 +338,16 @@ function startInstallation(installationPath, isUpgrade = false) {
               .on('close', function () {
                 clearInterval(update);
                 ui.updateBottomBar('');
+
+                // If running on Windows, `node rebuild node-sass` to fix
+                // https://github.com/reactql/cli/issues/64
+                if (os.platform() === 'win32') {
+                  console.log('Rebuilding SASS support for Windows...');
+                  spawn.sync('npm', ['rebuild', 'node-sass'], {
+                    cwd: installationPath,
+                    stdio: 'inherit',
+                  });
+                }
 
                 if (isUpgrade) {
                   console.log(

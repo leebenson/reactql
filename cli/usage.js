@@ -6,7 +6,11 @@ Authored by Lee Benson <lee@leebenson.com>
 // ----------------------
 // IMPORTS
 
+// Node
 const chalk = require('chalk');
+const emoji = require('node-emoji');
+
+// Local
 const banner = require('./banner.js');
 
 // ----------------------
@@ -25,6 +29,9 @@ ${chalk.white.bgRed('reactql help')}
 
 Show the current version / check for latest version:
 ${chalk.white.bgRed('reactql version')}
+
+Follow us on ${emoji.get('bird')} Twitter for news/updates:
+${chalk.underline('https://twitter.com/reactql')}
 
 ================================================================================
 `.trim();

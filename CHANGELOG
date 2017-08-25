@@ -1,3 +1,16 @@
+4.5.2 - 2017-08-25
+------------------------------------------------------------
+
+## General
+* Replaces home-brew emoji support with `node-emoji`
+* Fixes long-time typo in 'you starter kit'
+* Fixes #64 - `node-sass` binaries are now automatically on Windows
+* Adds Twitter link to post-install and new project creation
+
+## NPM
+* Adds packages:
+"node-emoji": "^1.8.1"
+
 4.5.1 - 2017-08-22
 ------------------------------------------------------------
 * Bumps to kit v2.5.1

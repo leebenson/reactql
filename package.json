@@ -1,6 +1,6 @@
 {
   "name": "reactql",
-  "version": "4.5.1",
+  "version": "4.5.2",
   "description": "Universal React+GraphQL starter kit: React, Apollo, Webpack 2, React Router 4, PostCSS, SSR",
   "main": "cli/index.js",
   "scripts": {
@@ -42,6 +42,7 @@
     "fs-extra": "^4.0.1",
     "inquirer": "^3.2.2",
     "mkdirp": "^0.5.1",
+    "node-emoji": "^1.8.1",
     "request": "^2.81.0",
     "semver": "^5.4.1",
     "sort-object": "^3.0.2",
