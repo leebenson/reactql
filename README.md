@@ -39,9 +39,9 @@ Then run `reactql` for help, or `reactql new` to start a new project.
 
 # Follow @reactql for updates
 
-Get the latest updates by following us on Twitter: https://twitter.com/reactql
-
 [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql)
+
+Get the latest updates by following us on Twitter: https://twitter.com/reactql
 
 # New to GraphQL?
 
