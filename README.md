@@ -1,6 +1,6 @@
 <img src="https://reactql.org/reactql/logo.svg" alt="ReactQL" width="278" height="77" />
 
-![Travis](https://api.travis-ci.org/reactql/cli.svg?branch=master) ![npm](https://img.shields.io/npm/dt/reactql.svg?style=flat-square) ![license](https://img.shields.io/github/license/reactql/cli.svg?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)]()
+![Travis](https://api.travis-ci.org/reactql/cli.svg?branch=master) ![npm](https://img.shields.io/npm/dt/reactql.svg?style=flat-square) ![license](https://img.shields.io/github/license/reactql/cli.svg?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql)
 
 # Universal React+GraphQL starter kit CLI
 
@@ -41,7 +41,7 @@ Then run `reactql` for help, or `reactql new` to start a new project.
 
 Get the latest updates by following us on Twitter: https://twitter.com/reactql
 
-[![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)]()
+[![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql)
 
 # New to GraphQL?
 
