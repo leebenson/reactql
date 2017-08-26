@@ -312,7 +312,7 @@ function startInstallation(installationPath, isUpgrade = false) {
             // later upgrades
             fse.writeFileSync(
               path.resolve(installationPath, '.reactql'),
-              pkg.version,
+              kit.version,
             );
 
             // Install package dependencies using NPM

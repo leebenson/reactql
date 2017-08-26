@@ -1,3 +1,7 @@
+4.5.4 - 2017-08-26
+------------------------------------------------------------
+* Fixes error where `.reactql` in new kits were getting the CLI version, and not the kit -- making `reactql upgrade` claim that a project was already at the latest version
+
 4.5.3 - 2017-08-26
 ------------------------------------------------------------
 * Bumps to kit v2.5.2
