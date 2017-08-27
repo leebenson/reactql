@@ -312,7 +312,7 @@ function startInstallation(installationPath, isUpgrade = false) {
             // later upgrades
             fse.writeFileSync(
               path.resolve(installationPath, '.reactql'),
-              kit.version,
+              kit.version
             );
 
             // Install package dependencies using NPM
@@ -511,9 +511,7 @@ const args = yargs
         args.path = path.resolve(process.cwd(), args.path);
 
         // Install the kit's .zip to the required folder
-        startInstallation(args.path, false, () => {
-
-        });
+        startInstallation(args.path, false);
       });
     },
   })

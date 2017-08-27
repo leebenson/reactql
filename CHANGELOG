@@ -1,3 +1,8 @@
+4.5.6 - 2017-08-27
+------------------------------------------------------------
+* Fixes #67 and #68 for older versions of Node
+* Removes redundant third parameter in call to `startInstallation`
+
 4.5.5 - 2017-08-26
 ------------------------------------------------------------
 * Bumps to kit v2.5.3
