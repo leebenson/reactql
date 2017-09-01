@@ -35,8 +35,8 @@ const pkg = require('../package.json');
 // ----------------------
 
 const kit = {
-  version: '2.6.0',
-  date: '2017-08-28',
+  version: '2.7.0',
+  date: '2017-09-01',
 }
 
 // Notice placeholder, for displaying a message back to the user before
@@ -51,8 +51,6 @@ let notice;
 function showNotice() {
   if (notice) console.log(notice);
 }
-
-
 
 // Show error message.  We'll use this if yarn/npm throws back a non-zero
 // code, to display the problem back to the console
@@ -380,6 +378,14 @@ ${banner}
 
 Spawning new project...
 `.trimLeft();
+
+// Check that the installed Node version meets requirements: 7.6+
+if (!semver.gte(process.version, '7.6.0')) {
+  let warning = `${chalk.bold('Warning')}: You need Node.js 7.6 or above for ReactQL to work properly.\n`;
+  warning += `You have ${process.version}. Upgrade @ ${chalk.cyan.underline('https://nodejs.org')}`;
+
+  console.log(boxen(chalk.red(warning), { padding: 1 }));
+}
 
 // Set command / arg options.  A user can specify args/switches to the `reacql`
 // command, or just type `reactql new` and walk through the 'wizard'

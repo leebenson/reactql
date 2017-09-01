@@ -1,3 +1,10 @@
+4.7.0 - 2017-09-01
+------------------------------------------------------------
+* Bumps to kit v2.7.0
+* Prints warning if Node.js version is < 7.6 locally (native async/await required for kit)
+* Bumps packages:
+"inquirer": "^3.2.3"
+
 4.6.0 - 2017-08-28
 ------------------------------------------------------------
 * Bumps to kit v2.6.0
