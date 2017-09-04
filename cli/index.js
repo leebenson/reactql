@@ -35,8 +35,8 @@ const pkg = require('../package.json');
 // ----------------------
 
 const kit = {
-  version: '2.7.0',
-  date: '2017-09-01',
+  version: '2.8.0',
+  date: '2017-09-04',
 }
 
 // Notice placeholder, for displaying a message back to the user before
