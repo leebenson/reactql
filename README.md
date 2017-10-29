@@ -48,3 +48,11 @@ Get the latest updates by following us on Twitter: https://twitter.com/reactql
 Watch my free [45 minute YouTube video](https://www.youtube.com/watch?v=DNPVqK_woRQ), for a live coding walk-through of putting together a GraphQL server with a database. Learn how to write queries, mutations and handle nested/related data.
 
 If you want to build your own GraphQL server, check out the [GraphQL Server repo](https://github.com/reactql/examples/tree/master/graphql-server) in [examples](https://github.com/reactql/examples).
+
+# Sponsorships
+
+<a href='https://ko-fi.com/A6025686' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi1.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+
+<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/oxCNqbK23kM1XR2YkLsCK7v7/reactql/cli'>
+  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/oxCNqbK23kM1XR2YkLsCK7v7/reactql/cli.svg' />
+</a>
