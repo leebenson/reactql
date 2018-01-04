@@ -51,6 +51,4 @@ If you want to build your own GraphQL server, check out the [GraphQL Server repo
 
 # Sponsorships
 
-<a target='_blank' rel='nofollow' href='https://app.codesponsor.io/link/oxCNqbK23kM1XR2YkLsCK7v7/reactql/cli'>
-  <img alt='Sponsor' width='888' height='68' src='https://app.codesponsor.io/embed/oxCNqbK23kM1XR2YkLsCK7v7/reactql/cli.svg' />
-</a>
+
