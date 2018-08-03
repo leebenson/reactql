@@ -1,0 +1,23 @@
+{
+    "defaultSeverity": "error",
+    "enable": true,
+    "extends": [
+        "tslint:recommended"
+    ],
+    "jsRules": {},
+    "rules": {
+      "no-var-requires": false,
+      "arrow-parens": [true, "ban-single-arg-parens"],
+      "max-line-length": false,
+      "no-console": false,
+      "no-floating-promises": true,
+      "no-unused-variable": [true, {"ignore-pattern": "^_"}],
+      "variable-name": [
+          true,
+          "check-format",
+          "allow-leading-underscore",
+          "allow-pascal-case"
+      ]
+    },
+    "rulesDirectory": []
+}

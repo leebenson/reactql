@@ -1,0 +1,35 @@
+{
+  "compilerOptions": {
+    "allowJs": false,
+    "allowUnusedLabels": true,
+    "baseUrl": ".",
+    "experimentalDecorators": true,
+    "declaration": true,
+    "jsx": "react",
+    "lib": [
+      "dom",
+      "es2015",
+      "esnext"
+    ],
+    "module": "commonjs",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "outDir": "dist/ts",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+      "brotli-webpack-plugin": ["types/modules"],
+      "microseconds": ["types/microseconds"]
+    },
+    "removeComments": true,
+    "sourceMap": true,
+    "strict": true,
+    "target": "es2017",
+  },
+  "exclude": [
+    "dist",
+    "__tests__",
+    "wallaby.js"
+  ]
+}
