@@ -68,37 +68,37 @@ The important folder is `src`. Everything happens in there.
 
 Here's a quick run-through of each folder and what you'll find in there:
 
-* [src/components](src/components) - React components. Follow the import flow at [root.tsx](/leebenson/reactql/tree/master/src/components/root.tsx) to figure out the component render chain. I've included an [example](/leebenson/reactql/tree/master/src/components/example) component that shows off some Apollo GraphQL features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
+* [src/components](src/components) - React components. Follow the import flow at [root.tsx](src/components/root.tsx) to figure out the component render chain. I've included an [example](src/components/example) component that shows off some Apollo GraphQL features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
 
-* [src/data](/leebenson/reactql/tree/master/src/data) - Data used throughout your app. You'll find [routes.ts](/leebenson/reactql/tree/master/src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.)
+* [src/data](src/data) - Data used throughout your app. You'll find [routes.ts](src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.)
 
-* [src/entry](/leebenson/reactql/tree/master/src/data) - The client and server entry points, which call on [src/components/root.tsx](/leebenson/reactql/tree/master/src/components/root.tsx) to isomorphically render the React chain in both environments.
+* [src/entry](src/data) - The client and server entry points, which call on [src/components/root.tsx](src/components/root.tsx) to isomorphically render the React chain in both environments.
 
-* [src/global](/leebenson/reactql/tree/master/src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](/leebenson/reactql/tree/master/src/global/styles.ts) that sets globally inlined Styled Components CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
+* [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Styled Components CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
 
-* [src/graphql](/leebenson/reactql/tree/master/src/graphql) - GraphQL initialisation goes here. There's an [apollo.ts](/leebenson/reactql/tree/master/src/graphql/apollo.ts) which builds a universal Apollo Client and enables local state, and [state.ts](/leebenson/reactql/tree/master/src/graphql/state.ts) which sets up default state (automatically rehydrated on the client) and some mutation handlers, for incrementing a local counter.
+* [src/graphql](src/graphql) - GraphQL initialisation goes here. There's an [apollo.ts](src/graphql/apollo.ts) which builds a universal Apollo Client and enables local state, and [state.ts](src/graphql/state.ts) which sets up default state (automatically rehydrated on the client) and some mutation handlers, for incrementing a local counter.
 
-* [src/lib](/leebenson/reactql/tree/master/src/lib) - Library functions to handle hot-code reloading, finding the the right `main.js` / `main.css` in production (which is automatically hashed for versioning), Webpack stats and Styled Components.
+* [src/lib](src/lib) - Library functions to handle hot-code reloading, finding the the right `main.js` / `main.css` in production (which is automatically hashed for versioning), Webpack stats and Styled Components.
 
-* [src/mutations](/leebenson/reactql/tree/master/src/mutations) - Your GraphQL mutations. Out-the-box, you'll find the query to increment the local state counter.
+* [src/mutations](src/mutations) - Your GraphQL mutations. Out-the-box, you'll find the query to increment the local state counter.
 
-* [src/queries](/leebenson/reactql/tree/master/src/queries) - Your GraphQL queries. There are two by default - one that grabs the local counter state, another that pulls the top stories from Hacker News to display in the example component.
+* [src/queries](src/queries) - Your GraphQL queries. There are two by default - one that grabs the local counter state, another that pulls the top stories from Hacker News to display in the example component.
 
-* [src/runner](/leebenson/reactql/tree/master/src/runner) - Development and production runners that spawn the Webpack build process in each environment.
+* [src/runner](src/runner) - Development and production runners that spawn the Webpack build process in each environment.
 
-* [src/themes](/leebenson/reactql/tree/master/src/themes) - A sample [interface](/leebenson/reactql/tree/master/src/themes/interface.ts) type for defining a Styled Components theme, and a [default theme](/leebenson/reactql/tree/master/src/themes/default.ts) that's used in the example component to add an orange hover to Hacker News links.
+* [src/themes](src/themes) - A sample [interface](src/themes/interface.ts) type for defining a Styled Components theme, and a [default theme](src/themes/default.ts) that's used in the example component to add an orange hover to Hacker News links.
 
-* [src/views](/leebenson/reactql/tree/master/src/views) - View components that fall outside of the usual React component chain, for use on the server. In here, [ssr.tsx](/leebenson/reactql/tree/master/views/ssr.tsx) takes care of rendering the root HTML that's sent down the wire to the client. Note this is also a React component - your whole app will render as React!
+* [src/views](src/views) - View components that fall outside of the usual React component chain, for use on the server. In here, [ssr.tsx](views/ssr.tsx) takes care of rendering the root HTML that's sent down the wire to the client. Note this is also a React component - your whole app will render as React!
 
-* [src/webpack](/leebenson/reactql/tree/master/src/webpack) - The Webpack 4 configuration files that do the heavy lifting to transform our Typescript code, images and CSS into optimised and minified assets that wind up in the `dist` folder at the root. Handles both the client and server environments.
+* [src/webpack](src/webpack) - The Webpack 4 configuration files that do the heavy lifting to transform our Typescript code, images and CSS into optimised and minified assets that wind up in the `dist` folder at the root. Handles both the client and server environments.
 
-You'll also find some other useful goodies in the [root](/leebenson/reactql/tree/master/)...
+You'll also find some other useful goodies in the [root]()...
 
-* [types](/leebenson/reactql/tree/master/types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
+* [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
 
-* Typescript configuration via [tsconfig.json](/leebenson/reactql/tree/master/tsconfig.json) and [tslint.json](/leebenson/reactql/tree/master/tslint.json)
+* Typescript configuration via [tsconfig.json](tsconfig.json) and [tslint.json](tslint.json)
 
-* A sample [Dockerfile](/leebenson/reactql/tree/master/Dockerfile) for quickly deploying your code base to production.
+* A sample [Dockerfile](Dockerfile) for quickly deploying your code base to production.
 
 ## Development mode
 
