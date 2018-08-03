@@ -72,7 +72,7 @@ Here's a quick run-through of each folder and what you'll find in there:
 
 * [src/data](src/data) - Data used throughout your app. You'll find [routes.ts](src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.)
 
-* [src/entry](src/data) - The client and server entry points, which call on [src/components/root.tsx](src/components/root.tsx) to isomorphically render the React chain in both environments.
+* [src/entry](src/entry) - The client and server entry points, which call on [src/components/root.tsx](src/components/root.tsx) to isomorphically render the React chain in both environments.
 
 * [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Styled Components CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
 
@@ -88,7 +88,7 @@ Here's a quick run-through of each folder and what you'll find in there:
 
 * [src/themes](src/themes) - A sample [interface](src/themes/interface.ts) type for defining a Styled Components theme, and a [default theme](src/themes/default.ts) that's used in the example component to add an orange hover to Hacker News links.
 
-* [src/views](src/views) - View components that fall outside of the usual React component chain, for use on the server. In here, [ssr.tsx](views/ssr.tsx) takes care of rendering the root HTML that's sent down the wire to the client. Note this is also a React component - your whole app will render as React!
+* [src/views](src/views) - View components that fall outside of the usual React component chain, for use on the server. In here, [ssr.tsx](src/views/ssr.tsx) takes care of rendering the root HTML that's sent down the wire to the client. Note this is also a React component - your whole app will render as React!
 
 * [src/webpack](src/webpack) - The Webpack 4 configuration files that do the heavy lifting to transform our Typescript code, images and CSS into optimised and minified assets that wind up in the `dist` folder at the root. Handles both the client and server environments.
 
