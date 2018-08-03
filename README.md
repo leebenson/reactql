@@ -60,45 +60,18 @@ Clone, and make your own.
 - Written in [Typescript](https://www.typescriptlang.org/) with full type support, out the box (all external `@types/*` packages installed)
 - Heavily documented code
 
-## Usage
+## Quick start
 
-Clone the repo, edit `package.json` with your project name and version, then run `npm i` to install the latest packages.
+Grab and unpack the latest version, install all dependencies, and start a server:
 
-The important folder is `src`. Everything happens in there.
+```
+wget -qO- https://github.com/leebenson/reactql/archive/3.1.0.tar.gz | tar xvz
+cd reactql-3.1.0
+npm i
+npm start
+```
 
-Here's a quick run-through of each folder and what you'll find in there:
-
-* [src/components](src/components) - React components. Follow the import flow at [root.tsx](src/components/root.tsx) to figure out the component render chain. I've included an [example](src/components/example) component that shows off some Apollo GraphQL features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
-
-* [src/data](src/data) - Data used throughout your app. You'll find [routes.ts](src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.)
-
-* [src/entry](src/entry) - The client and server entry points, which call on [src/components/root.tsx](src/components/root.tsx) to isomorphically render the React chain in both environments.
-
-* [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Styled Components CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
-
-* [src/graphql](src/graphql) - GraphQL initialisation goes here. There's an [apollo.ts](src/graphql/apollo.ts) which builds a universal Apollo Client and enables local state, and [state.ts](src/graphql/state.ts) which sets up default state (automatically rehydrated on the client) and some mutation handlers, for incrementing a local counter.
-
-* [src/lib](src/lib) - Library functions to handle hot-code reloading, finding the the right `main.js` / `main.css` in production (which is automatically hashed for versioning), Webpack stats and Styled Components.
-
-* [src/mutations](src/mutations) - Your GraphQL mutations. Out-the-box, you'll find the query to increment the local state counter.
-
-* [src/queries](src/queries) - Your GraphQL queries. There are two by default - one that grabs the local counter state, another that pulls the top stories from Hacker News to display in the example component.
-
-* [src/runner](src/runner) - Development and production runners that spawn the Webpack build process in each environment.
-
-* [src/themes](src/themes) - A sample [interface](src/themes/interface.ts) type for defining a Styled Components theme, and a [default theme](src/themes/default.ts) that's used in the example component to add an orange hover to Hacker News links.
-
-* [src/views](src/views) - View components that fall outside of the usual React component chain, for use on the server. In here, [ssr.tsx](src/views/ssr.tsx) takes care of rendering the root HTML that's sent down the wire to the client. Note this is also a React component - your whole app will render as React!
-
-* [src/webpack](src/webpack) - The Webpack 4 configuration files that do the heavy lifting to transform our Typescript code, images and CSS into optimised and minified assets that wind up in the `dist` folder at the root. Handles both the client and server environments.
-
-You'll also find some other useful goodies in the [root]()...
-
-* [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
-
-* Typescript configuration via [tsconfig.json](tsconfig.json) and [tslint.json](tslint.json)
-
-* A sample [Dockerfile](Dockerfile) for quickly deploying your code base to production.
+Your development server is now running on [http://localhost:3000](http://localhost:3000)
 
 ## Development mode
 
@@ -148,6 +121,44 @@ npm run build
 
 This is used in the [Dockerfile](Dockerfile), for example, to pre-compile assets and ensure faster start-up times when spawning a new container.
 
+## Project layout
+
+The important stuff is in `src`. Everything happens in there.
+
+Here's a quick run-through of each folder and what you'll find in it:
+
+* [src/components](src/components) - React components. Follow the import flow at [root.tsx](src/components/root.tsx) to figure out the component render chain. I've included an [example](src/components/example) component that shows off some Apollo GraphQL features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
+
+* [src/data](src/data) - Data used throughout your app. You'll find [routes.ts](src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.)
+
+* [src/entry](src/entry) - The client and server entry points, which call on [src/components/root.tsx](src/components/root.tsx) to isomorphically render the React chain in both environments.
+
+* [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Styled Components CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
+
+* [src/graphql](src/graphql) - GraphQL initialisation goes here. There's an [apollo.ts](src/graphql/apollo.ts) which builds a universal Apollo Client and enables local state, and [state.ts](src/graphql/state.ts) which sets up default state (automatically rehydrated on the client) and some mutation handlers, for incrementing a local counter.
+
+* [src/lib](src/lib) - Library functions to handle hot-code reloading, finding the the right `main.js` / `main.css` in production (which is automatically hashed for versioning), Webpack stats and Styled Components.
+
+* [src/mutations](src/mutations) - Your GraphQL mutations. Out-the-box, you'll find the query to increment the local state counter.
+
+* [src/queries](src/queries) - Your GraphQL queries. There are two by default - one that grabs the local counter state, another that pulls the top stories from Hacker News to display in the example component.
+
+* [src/runner](src/runner) - Development and production runners that spawn the Webpack build process in each environment.
+
+* [src/themes](src/themes) - A sample [interface](src/themes/interface.ts) type for defining a Styled Components theme, and a [default theme](src/themes/default.ts) that's used in the example component to add an orange hover to Hacker News links.
+
+* [src/views](src/views) - View components that fall outside of the usual React component chain, for use on the server. In here, [ssr.tsx](src/views/ssr.tsx) takes care of rendering the root HTML that's sent down the wire to the client. Note this is also a React component - your whole app will render as React!
+
+* [src/webpack](src/webpack) - The Webpack 4 configuration files that do the heavy lifting to transform our Typescript code, images and CSS into optimised and minified assets that wind up in the `dist` folder at the root. Handles both the client and server environments.
+
+You'll also find some other useful goodies in the [root]()...
+
+* [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
+
+* Typescript configuration via [tsconfig.json](tsconfig.json) and [tslint.json](tslint.json)
+
+* A sample [Dockerfile](Dockerfile) for quickly deploying your code base to production.
+
 # Follow @reactql for updates
 
 Get the latest updates by following us on Twitter: https://twitter.com/reactql
@@ -164,6 +175,6 @@ Watch my free [45 minute YouTube video](https://www.youtube.com/watch?v=DNPVqK_w
 
 # Hire me
 
-I'm a full-stack developer with 20+ years experience. As well as 9 years hands-on dev with Node.js, I'm fluent in Python, Go, SQL and NoSQL. I specialise in building robust, scalable products from scratch, and helping you deploy fast (usually to Kubernetes!)
+I'm a full-stack developer with 20+ years experience. As well as 9 years hands-on dev with Node.js, I'm fluent in Python, Go, SQL and NoSQL. I specialise in building robust, scalable products from scratch, and helping you deploy fast.
 
-If you're looking for a senior developer who can help you get your product out the door quickly, reach me at [lee@leebenson.com](mailto:lee@leebenson.com). I'm occasionally available to take on remote contracts when I'm not working on my own products.
+If you're looking for a senior developer who can help you get your product out the door quickly, reach me at [lee@leebenson.com](mailto:lee@leebenson.com). I'm occasionally available to take on remote contracts when I'm not working on my own projects.
