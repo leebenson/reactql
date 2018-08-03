@@ -97,7 +97,7 @@ In production mode, the following happens:
 
 * All assets are optimised and minified. Javascript, CSS, images, are all compiled down to static files that will appear in `dist`.
 
-* Assets are also compressed into `.gz` (Gzip) and `.br` (Brotli) versions, which are served automatically if the browser can handle them (all modern browsers can.)
+* Assets are also compressed into `.gz` (Gzip) and `.br` (Brotli) versions, which are served automatically to all capable browsers.
 
 * If files have been generated in a previous run, they will be re-used on subsequent runs. This ensures really fast server start-up times after the initial build.
 
@@ -109,7 +109,7 @@ npm run production
 
 Files will be generated in `./dist`, and a server will also be spawned at [http://localhost:3000](http://localhost:3000)
 
-Clean the cached production build with `npm run clean`, or run `npm run clean-production` to both clean and re-run the production build.
+Clean the cached production build with `npm run clean`, or run `npm run clean-production` to both clean and re-run the production build, as needed.
 
 # Build mode
 
@@ -123,9 +123,9 @@ This is used in the [Dockerfile](Dockerfile), for example, to pre-compile assets
 
 ## Project layout
 
-The important stuff is in `src`. Everything happens in there.
+The important stuff is in [src](src).
 
-Here's a quick run-through of each folder and what you'll find in it:
+Here's a quick run-through of each sub-folder and what you'll find in it:
 
 * [src/components](src/components) - React components. Follow the import flow at [root.tsx](src/components/root.tsx) to figure out the component render chain. I've included an [example](src/components/example) component that shows off some Apollo GraphQL features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
 
