@@ -11,7 +11,6 @@
       "max-line-length": false,
       "no-console": false,
       "no-floating-promises": true,
-      "no-unused-variable": [true, {"ignore-pattern": "^_"}],
       "variable-name": [
           true,
           "check-format",

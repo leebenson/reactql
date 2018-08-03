@@ -29,30 +29,30 @@ Clone, and make your own.
 
 ### Real-time
 
-- Hot code reloading; zero refresh, real-time updates in development
-- Development web server that automatically sends patches on code changes, and restarts the built-in Web server for SSR renders that reflect what you'd see in production
+- Hot code reloading; zero refresh, real-time updates in development.
+- Development web server that automatically sends patches on code changes, and restarts the built-in Web server for SSR renders that reflect what you'd see in production.
 
 ### Code optimisation
 
-- [Webpack v4](https://webpack.js.org/), with [tree shaking](https://webpack.js.org/guides/tree-shaking/) (dead code paths are automatically eliminated
-- Asynchronous code loading when `import()`'ing inside a function
-- Aggressive code minification
+- [Webpack v4](https://webpack.js.org/), with [tree shaking](https://webpack.js.org/guides/tree-shaking/) -- dead code paths are automatically eliminated.
+- Asynchronous code loading when `import()`'ing inside a function.
+- Aggressive code minification.
 - CSS code is combined, minified and optimised automatically - even if you use SASS, LESS and CSS together!
 
 ### Styles
 
 - [Styled Components](https://www.styled-components.com/), for writing CSS styles inline and generating the minimal CSS required to properly render your components. Full type inference on themes, too.
-- [PostCSS v6](http://postcss.org/) with [next-gen CSS](http://cssnext.io/) and automatic vendor prefixing when importing `.css`, `.scss` or `.less` files
-- [SASS](http://sass-lang.com) and [LESS](http://lesscss.org/) support (also parsed through PostCSS)
-- Automatic vendor prefixing - write modern CSS, and let the compiler take care of browser compatibility
+- [PostCSS v6](http://postcss.org/) with [next-gen CSS](http://cssnext.io/) and automatic vendor prefixing when importing `.css`, `.scss` or `.less` files.
+- [SASS](http://sass-lang.com) and [LESS](http://lesscss.org/) support (also parsed through PostCSS.)
+- Automatic vendor prefixing - write modern CSS, and let the compiler take care of browser compatibility.
 - Mix and match SASS, LESS and regular CSS - without conflicts!
-- CSS modules - your classes are hashed automatically, to avoid namespace conflicts
-- Compatible with Foundation, Bootstrap, Material and more. Simply configure via a `.global.(css|scss|less)` import to preserve class names
+- CSS modules - your classes are hashed automatically, to avoid namespace conflicts.
+- Compatible with Foundation, Bootstrap, Material and more. Simply configure via a `.global.(css|scss|less)` import to preserve class names.
 
 ### Production-ready
 
-- Production bundling via `npm run production`, that generates optimised server and client code
-- [Static compression](https://webpack.js.org/plugins/compression-webpack-plugin/) using the [Zopfli Gzip](https://en.wikipedia.org/wiki/Zopfli) and [Brotli](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) algorithms for the serving of static assets as pre-compressed `.gz` and `.br` files (default `vendor.js.bz` goes from 346kb -> 89kb!)
+- Production bundling via `npm run production`, that generates optimised server and client code.
+- [Static compression](https://webpack.js.org/plugins/compression-webpack-plugin/) using the Gzip and [Brotli](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) algorithms for the serving of static assets as pre-compressed `.gz` and `.br` files (default `vendor.js.bz` goes from 346kb -> 89kb!)
 - Automatic HTTP hardening against common attack vectors via [Koa Helmet](https://github.com/venables/koa-helmet) (highly configurable)
 
 ### Developer support
@@ -137,6 +137,16 @@ npm run production
 Files will be generated in `./dist`, and a server will also be spawned at [http://localhost:3000](http://localhost:3000)
 
 Clean the cached production build with `npm run clean`, or run `npm run clean-production` to both clean and re-run the production build.
+
+# Build mode
+
+If you only want to build assets and not actually run the server, use:
+
+```
+npm run build
+```
+
+This is used in the [Dockerfile](Dockerfile), for example, to pre-compile assets and ensure faster start-up times when spawning a new container.
 
 # Follow @reactql for updates
 
