@@ -8,9 +8,8 @@ ADD package*.json ./
 RUN npm i
 ADD . .
 
-# Args to set into the build
-ARG GRAPHQL
-RUN GRAPHQL=$GRAPHQL npm run build
+# Build
+RUN npm run build
 
 EXPOSE 3000
 
