@@ -68,7 +68,7 @@ The important folder is `src`. Everything happens in there.
 
 Here's a quick run-through of each folder and what you'll find in there:
 
-* [src/components](/leebenson/reactql/tree/master/src/components) - React components. Follow the import flow at [root.tsx](/leebenson/reactql/tree/master/src/components/root.tsx) to figure out the component render chain. I've included an [example](/leebenson/reactql/tree/master/src/components/example) component that shows off some Apollo GraphQL features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
+* [src/components](src/components) - React components. Follow the import flow at [root.tsx](/leebenson/reactql/tree/master/src/components/root.tsx) to figure out the component render chain. I've included an [example](/leebenson/reactql/tree/master/src/components/example) component that shows off some Apollo GraphQL features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
 
 * [src/data](/leebenson/reactql/tree/master/src/data) - Data used throughout your app. You'll find [routes.ts](/leebenson/reactql/tree/master/src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.)
 
