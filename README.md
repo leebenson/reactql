@@ -2,9 +2,7 @@
 
 ![license](https://img.shields.io/github/license/leebenson/reactql.svg?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql)
 
-Front-end React + GraphQL starter kit, written in Typescript.
-
-Clone, and make your own.
+Universal front-end React + GraphQL starter kit, written in Typescript.
 
 ## Features
 
