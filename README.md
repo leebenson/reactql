@@ -4,6 +4,8 @@
 
 Universal front-end React + GraphQL starter kit, written in Typescript.
 
+https://reactql.org
+
 ## Features
 
 ### Front-end stack
