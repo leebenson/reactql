@@ -42,7 +42,7 @@ https://reactql.org
 ### Styles
 
 - [Styled Components](https://www.styled-components.com/), for writing CSS styles inline and generating the minimal CSS required to properly render your components. Full type inference on themes, too.
-- [PostCSS v6](http://postcss.org/) with [next-gen CSS](http://cssnext.io/) and automatic vendor prefixing when importing `.css`, `.scss` or `.less` files.
+- [PostCSS v7](http://postcss.org/) with [next-gen CSS](http://cssnext.io/) and automatic vendor prefixing when importing `.css`, `.scss` or `.less` files.
 - [SASS](http://sass-lang.com) and [LESS](http://lesscss.org/) support (also parsed through PostCSS.)
 - Automatic vendor prefixing - write modern CSS, and let the compiler take care of browser compatibility.
 - Mix and match SASS, LESS and regular CSS - without conflicts!
