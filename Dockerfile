@@ -1,4 +1,4 @@
-FROM node:10.4.1-alpine
+FROM node:10.9-alpine
 
 ENV NPM_CONFIG_LOGLEVEL notice
 

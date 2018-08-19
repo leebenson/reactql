@@ -80,11 +80,9 @@ export default function(output: Output) {
 
     // Handle 404 Not Found
     if (routerContext.status === 404) {
-      // By default, just set the status code to 404.  Or, we can use
-      // `config.set404Handler()` to pass in a custom handler func that takes
-      // the `ctx` and store
-
-      // TODO - add error handling
+      // By default, just set the status code to 404. You can
+      // modify this section to do things like log errors to a
+      // third-party, or redirect users to a dedicated 404 page
 
       ctx.status = 404;
       ctx.body = "Not found";
