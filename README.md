@@ -52,7 +52,7 @@ https://reactql.org
 ### Production-ready
 
 - Production bundling via `npm run production`, that generates optimised server and client code.
-- [Static compression](https://webpack.js.org/plugins/compression-webpack-plugin/) using the Gzip and [Brotli](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) algorithms for the serving of static assets as pre-compressed `.gz` and `.br` files (default `vendor.js.bz` goes from 346kb -> 89kb!)
+- [Static compression](https://webpack.js.org/plugins/compression-webpack-plugin/) using the Gzip and [Brotli](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) algorithms for the serving of static assets as pre-compressed `.gz` and `.br` files (your entire app's `main.js.bz` - including all dependencies - goes from 346kb -> 89kb!)
 - Automatic HTTP hardening against common attack vectors via [Koa Helmet](https://github.com/venables/koa-helmet) (highly configurable)
 
 ### Developer support
@@ -137,7 +137,7 @@ Here's a quick run-through of each sub-folder and what you'll find in it:
 
 * [src/graphql](src/graphql) - GraphQL initialisation goes here. There's an [apollo.ts](src/graphql/apollo.ts) which builds a universal Apollo Client and enables local state, and [state.ts](src/graphql/state.ts) which sets up default state (automatically rehydrated on the client) and some mutation handlers, for incrementing a local counter.
 
-* [src/lib](src/lib) - Library functions to handle hot-code reloading, finding the the right `main.js` / `main.css` in production (which is automatically hashed for versioning), Webpack stats and Styled Components.
+* [src/lib](src/lib) - Library functions to handle hot-code reloading, finding the right `main.js` / `main.css` in production (which is automatically hashed for versioning), Webpack stats and Styled Components.
 
 * [src/mutations](src/mutations) - Your GraphQL mutations. Out-the-box, you'll find the query to increment the local state counter.
 
