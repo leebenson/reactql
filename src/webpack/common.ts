@@ -98,7 +98,7 @@ export default (_ssr: boolean /* <-- not currently used */) => {
       alias: {
         "@": path.resolve(root, "src"),
       },
-      extensions: [".ts", ".tsx", ".js"],
+      extensions: [".mjs", ".ts", ".tsx", ".jsx", ".js", ".json"],
       modules: [
         path.resolve(root, "node_modules"),
       ],
