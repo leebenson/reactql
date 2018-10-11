@@ -102,9 +102,11 @@ const base: webpack.Configuration = {
       filename: `assets/css/[name]${isProduction ? ".[contenthash]" : ""}.css`,
     }),
 
+    // Add global variables
     new webpack.DefinePlugin({
       GRAPHQL: JSON.stringify(process.env.GRAPHQL),
       SERVER: false,
+      WS_SUBSCRIPTIONS: process.env.WS_SUBSCRIPTIONS,
     }),
   ],
 };

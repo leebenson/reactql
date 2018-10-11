@@ -71,14 +71,12 @@ export default function createState(cache: InMemoryCache): ApolloLink {
     },
   };
 
-  if (SERVER) {
-    opt.defaults = {
-      state: {
-        __typename: "State",
-        count: 0,
-      },
-    } as IRoot;
-  }
+  opt.defaults = {
+    state: {
+      __typename: "State",
+      count: 0,
+    },
+  } as IRoot;
 
   return withClientState(opt);
 }
