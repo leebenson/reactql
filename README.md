@@ -1,6 +1,7 @@
 <img src="https://reactql.org/reactql/logo.svg" alt="ReactQL" width="278" height="77" />
 
-![license](https://img.shields.io/github/license/leebenson/reactql.svg?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql)
+![license](https://img.shields.io/github/license/leebenson/reactql.svg?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql) 
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql)
 
 Universal front-end React + GraphQL starter kit, written in Typescript.
 
@@ -67,8 +68,8 @@ https://reactql.org
 Grab and unpack the latest version, install all dependencies, and start a server:
 
 ```
-wget -qO- https://github.com/leebenson/reactql/archive/3.5.0.tar.gz | tar xvz
-cd reactql-3.5.0
+wget -qO- https://github.com/leebenson/reactql/archive/3.5.1.tar.gz | tar xvz
+cd reactql-3.5.1
 npm i
 npm start
 ```
@@ -156,6 +157,10 @@ Here's a quick run-through of each sub-folder and what you'll find in it:
 You'll also find some other useful goodies in the [root]()...
 
 * [.env](.env) - Change your `GRAPHQL` server endpoint, and `WS_SUBSCRIPTIONS=1` for built-in WebSocket support.
+
+* [.nvmrc](.nvmrc) - Specify your preferred Node.js version, for use with NVM and used by many continuous deployment tools. Defaults to v10.11
+
+* [netlify.toml](netlify.toml) - Build instructions for fast [Netlify](https://www.netlify.com/) deployments. **Tip: To quickly deploy a demo ReactQL app, [click here](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql).**
 
 * [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
 
