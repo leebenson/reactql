@@ -158,6 +158,10 @@ You'll also find some other useful goodies in the [root]()...
 
 * [.env](.env) - Change your `GRAPHQL` server endpoint, and `WS_SUBSCRIPTIONS=1` for built-in WebSocket support.
 
+* [.nvmrc](.nvmrc) - Specify your preferred Node.js version, for use with NVM and used by many continuous deployment tools. Defaults to v10.11
+
+* [netlify.toml](netlify.toml) - Build instructions for fast [Netlify](https://www.netlify.com/) deployments. **Tip: To quickly deploy a demo ReactQL app, [click here](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql).**
+
 * [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
 
 * Typescript configuration via [tsconfig.json](tsconfig.json) and [tslint.json](tslint.json)
