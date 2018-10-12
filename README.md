@@ -31,6 +31,7 @@ https://reactql.org
 
 - Hot code reloading; zero refresh, real-time updates in development.
 - Development web server that automatically sends patches on code changes, and restarts the built-in Web server for SSR renders that reflect what you'd see in production.
+- New in v3.5: WebSocket `subscription` query support for real-time data (just set `WS_SUBSCRIPTIONS=1` in [.env](.env))
 
 ### Code optimisation
 
@@ -54,6 +55,7 @@ https://reactql.org
 - Production bundling via `npm run production`, that generates optimised server and client code.
 - [Static compression](https://webpack.js.org/plugins/compression-webpack-plugin/) using the Gzip and [Brotli](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) algorithms for the serving of static assets as pre-compressed `.gz` and `.br` files (your entire app's `main.js.bz` - including all dependencies - goes from 346kb -> 89kb!)
 - Automatic HTTP hardening against common attack vectors via [Koa Helmet](https://github.com/venables/koa-helmet) (highly configurable)
+- New in v3.5: Static bundling via `npm run static`. Easily deploy a client-only SPA to any static web host (Netlify, etc.)
 
 ### Developer support
 
@@ -65,8 +67,8 @@ https://reactql.org
 Grab and unpack the latest version, install all dependencies, and start a server:
 
 ```
-wget -qO- https://github.com/leebenson/reactql/archive/3.4.0.tar.gz | tar xvz
-cd reactql-3.4.0
+wget -qO- https://github.com/leebenson/reactql/archive/3.5.0.tar.gz | tar xvz
+cd reactql-3.5.0
 npm i
 npm start
 ```
@@ -152,6 +154,8 @@ Here's a quick run-through of each sub-folder and what you'll find in it:
 * [src/webpack](src/webpack) - The Webpack 4 configuration files that do the heavy lifting to transform our Typescript code, images and CSS into optimised and minified assets that wind up in the `dist` folder at the root. Handles both the client and server environments.
 
 You'll also find some other useful goodies in the [root]()...
+
+* [.env](.env) - Change your `GRAPHQL` server endpoint, and `WS_SUBSCRIPTIONS=1` for built-in WebSocket support.
 
 * [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
 
