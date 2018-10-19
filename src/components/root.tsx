@@ -11,11 +11,11 @@ import { Route, Switch } from "react-router-dom";
 
 /* Local */
 
-// Styles - import for side-effects
-import "@/global/styles";
-
 // Components
 import ScrollTop from "@/components/helpers/scrollTop";
+
+// Global styles
+import { GlobalStyles } from "@/global/styles";
 
 // Routes
 import routes from "@/data/routes";
@@ -24,6 +24,7 @@ import routes from "@/data/routes";
 
 const Root = () => (
   <div>
+    <GlobalStyles />
     <Helmet>
       <title>ReactQL starter kit - edit me!</title>
     </Helmet>

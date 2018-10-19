@@ -6,7 +6,6 @@
 // IMPORTS
 
 /* NPM */
-import { ComponentClass } from "react";
 import * as styledComponents from "styled-components";
 
 /* Local */
@@ -18,18 +17,19 @@ export interface IClassNameProps {
   className: string;
 }
 
-const {default: styled } = styledComponents as styledComponents.ThemedStyledComponentsModule<ITheme>;
-
-const css = styledComponents.css;
-const injectGlobal = styledComponents.injectGlobal;
-const keyframes = styledComponents.keyframes;
-const ThemeProvider = styledComponents.ThemeProvider as ComponentClass<styledComponents.ThemeProviderProps<ITheme>>;
+const {
+  default: styled,
+  css,
+  createGlobalStyle,
+  keyframes,
+  ThemeProvider,
+} = styledComponents as styledComponents.ThemedStyledComponentsModule<ITheme>;
 
 export {
+  createGlobalStyle,
   css,
-  keyframes,
-  injectGlobal,
   ITheme,
+  keyframes,
   ThemeProvider,
 };
 

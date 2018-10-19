@@ -17,6 +17,7 @@ export interface IHtmlProps {
   css?: string;
   js: string;
   helmet: HelmetData;
+  html: string;
   scripts?: string[];
   styles?: Array<React.ReactElement<{}>>;
   window?: {
@@ -26,7 +27,7 @@ export interface IHtmlProps {
 
 export default class Html extends React.PureComponent<IHtmlProps> {
     public render() {
-      const { css, helmet, js, styles, window = {} } = this.props;
+      const { css, helmet, html, js, styles, window = {} } = this.props;
       return (
         <html lang="en" prefix="og: http://ogp.me/ns#" {...helmet.htmlAttributes.toString()}>
           <head>
@@ -44,7 +45,7 @@ export default class Html extends React.PureComponent<IHtmlProps> {
             {helmet.noscript.toComponent()}
           </head>
           <body {...helmet.bodyAttributes.toComponent()}>
-          <div id="root">{this.props.children}</div>
+          <div id="root" dangerouslySetInnerHTML={{__html: html }} />
           <script
             dangerouslySetInnerHTML={{
               __html: Object.keys(window).reduce(
