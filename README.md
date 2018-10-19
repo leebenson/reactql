@@ -13,7 +13,7 @@ https://reactql.org
 
 - [React v16](https://facebook.github.io/react/) for UI.
 - [Apollo Client 2.0 (React)](http://dev.apollodata.com/react/) for connecting to GraphQL.
-- Fully typed [Styled Components](https://www.styled-components.com/), with inline `<style>` tag generation that contains only the CSS that needs to be rendered, and full theming.
+- Fully typed [Styled Components v4](https://www.styled-components.com/), with inline `<style>` tag generation that contains only the CSS that needs to be rendered, and full theming.
 - [Sass](https://sass-lang.com/), [Less](http://lesscss.org/) and [PostCSS](https://postcss.org/) when importing `.css/.scss/.less` files.
 - [React Router 4](https://github.com/ReactTraining/react-router/tree/v4) for declarative browser + server routes.
 - [Apollo Link State](https://www.apollographql.com/docs/link/links/state.html) for local flux/store state management (automatically re-hydrated from the server.)
@@ -68,8 +68,8 @@ https://reactql.org
 Grab and unpack the latest version, install all dependencies, and start a server:
 
 ```
-wget -qO- https://github.com/leebenson/reactql/archive/3.5.2.tar.gz | tar xvz
-cd reactql-3.5.2
+wget -qO- https://github.com/leebenson/reactql/archive/3.6.0.tar.gz | tar xvz
+cd reactql-3.6.0
 npm i
 npm start
 ```
