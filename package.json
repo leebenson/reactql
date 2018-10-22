@@ -1,6 +1,6 @@
 {
   "name": "reactql",
-  "version": "3.6.0",
+  "version": "3.6.1",
   "description": "ReactQL - front-end React/GraphQL starter kit",
   "main": "index.js",
   "scripts": {

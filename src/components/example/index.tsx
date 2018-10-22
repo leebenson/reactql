@@ -22,7 +22,7 @@ interface IIndexState {
 }
 
 // Say hello from GraphQL, along with a HackerNews feed fetched by GraphQL
-class Index extends React.PureComponent<void, IIndexState> {
+class Index extends React.PureComponent<{}, IIndexState> {
   public state = {
     dynamic: null,
   };
