@@ -1,0 +1,5 @@
+mutation IncrementCount {
+  incrementCount @client {
+    count
+  }
+}

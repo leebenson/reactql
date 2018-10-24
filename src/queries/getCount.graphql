@@ -1,0 +1,5 @@
+query count {
+    state @client {
+      count
+    }
+  }

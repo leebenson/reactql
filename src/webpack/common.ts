@@ -54,6 +54,12 @@ export default (_ssr: boolean /* <-- not currently used */) => {
     mode: isProduction ? "production" : "development",
     module: {
       rules: [
+        // GraphQL files
+        {
+          exclude: /node_modules/,
+          loader: "graphql-tag/loader",
+          test: /\.(graphql|gql)$/,
+        },
         // Typescript
         {
           exclude: /node_modules/,

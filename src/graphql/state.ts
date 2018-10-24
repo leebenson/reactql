@@ -11,31 +11,20 @@ import { ClientStateConfig, withClientState } from "apollo-link-state";
 /* Local */
 
 // Queries
-import getCountQuery from "@/queries/getCount";
+import { count } from "@/queries/getCount.graphql";
+import { Query, State } from "./graphql-types";
 
 // ----------------------------------------------------------------------------
-
-// Types
-
-/* STATE */
-export interface IState {
-  count: number;
-}
-
-// 'Root', which contains the 'State' key
-export interface IRoot {
-  state: IState;
-}
 
 export default function createState(cache: InMemoryCache): ApolloLink {
 
   // Helper function to retrieve the state from cache
-  function getState(query: any): IState {
-    return cache.readQuery<IRoot>({ query }).state;
+  function getState(query: any): State {
+    return cache.readQuery<Query>({ query }).state;
   }
 
   // Helper function to write data back to the cache
-  function writeState(state: IState) {
+  function writeState(state: State) {
     return cache.writeData({ data: { state } });
   }
 
@@ -48,7 +37,7 @@ export default function createState(cache: InMemoryCache): ApolloLink {
         incrementCount() {
 
           // Get the existing state
-          const state = getState(getCountQuery);
+          const state = getState(count);
 
           // Create new state. Note that we're assigning this to a new
           // constant, and not simply incrementing the existing `count`
@@ -76,7 +65,7 @@ export default function createState(cache: InMemoryCache): ApolloLink {
       __typename: "State",
       count: 0,
     },
-  } as IRoot;
+  } as Query;
 
   return withClientState(opt);
 }

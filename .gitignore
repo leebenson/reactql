@@ -41,3 +41,7 @@ jspm_packages
 
 # Distribution
 dist
+
+# Generated files
+src/graphql/graphql-types.ts
+src/graphql/graphql-modules.d.ts

@@ -10,12 +10,15 @@ import * as KoaWebpack from "koa-webpack";
 /* Local */
 import hotServerMiddleware from "../lib/hotServerMiddleware";
 import { app, common, compiler } from "./app";
+import { generateSchemaTypings } from "./generate";
 
 // ----------------------------------------------------------------------------
 
 common.spinner
   .info(chalk.default.magenta("Development mode"))
   .info("Building development server...");
+
+generateSchemaTypings(true);
 
 app.listen({ port: common.port, host: "localhost" }, async () => {
 

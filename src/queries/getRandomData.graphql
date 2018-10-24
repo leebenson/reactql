@@ -1,0 +1,6 @@
+query allTodos {
+  allTodos {
+    id
+    title
+  }
+}

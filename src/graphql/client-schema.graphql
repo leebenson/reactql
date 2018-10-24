@@ -1,0 +1,13 @@
+directive @client on FIELD
+
+type Query {
+  state: State!
+}
+
+type Mutation {
+  incrementCount: State!
+}
+
+type State {
+  count: Int!
+}

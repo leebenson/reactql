@@ -13,7 +13,7 @@ import * as React from "react";
 import Count from "./count";
 
 // Hacker News GraphQL example
-import HackerNews from "./hackernews";
+import HackerNews from "./todos";
 
 // ----------------------------------------------------------------------------
 
