@@ -1,37 +1,32 @@
-import { CLIOptions, generate } from "graphql-code-generator";
-import { join } from "path";
+import { generate } from "graphql-code-generator";
+import { Types } from "graphql-codegen-core";
 
 export const generateSchemaTypings = async (watch: boolean = false) => {
-  const operationsFiles = ["./src/{queries,mutations}/*.{ts,tsx,graphql,gql}"];
-  const templates = [{
-    out: join(process.cwd(), "./src/graphql/graphql-types.tsx"),
-    template: "graphql-codegen-typescript-react-apollo-template",
-  }, {
-    out: join(process.cwd(), "./src/graphql/graphql-modules.d.ts"),
-    template: "graphql-codegen-graphql-files-typescript-modules",
-  }];
-  const clientSchema = "./src/graphql/client-schema.graphql";
+  const documents = ["src/{queries,mutations}/*.{ts,tsx,graphql,gql}"];
+  const clientSchema = "src/graphql/client-schema.graphql";
   const remoteSchema = process.env.GRAPHQL;
-  let baseOptions: Partial<CLIOptions>;
+  const schema = [remoteSchema, clientSchema].filter(e => e);
 
-  process.env.CODEGEN_RESOLVERS = "false";
+  const config: Types.Config = {
+    generates: {
+      "src/graphql/graphql-modules.d.ts": {
+        documents,
+        plugins: ["typescript-graphql-files-modules"],
+        schema,
+      },
+      "src/graphql/graphql-types.tsx": {
+        documents,
+        plugins: ["typescript-common", "typescript-client", "typescript-react-apollo"],
+        schema,
+      },
+    },
+    overwrite: true,
+    watch,
+  };
 
-  if (remoteSchema) {
-    baseOptions = {
-      args: operationsFiles,
-      clientSchema,
-      overwrite: true,
-      schema: remoteSchema,
-      watch,
-    };
-  } else {
-    baseOptions = {
-      args: operationsFiles,
-      overwrite: true,
-      schema: clientSchema,
-      watch,
-    };
+  try {
+    return await generate(config, true);
+  } catch (e) {
+    console.log(e);
   }
-
-  return Promise.all(templates.map(template => generate({ ...template , ...baseOptions })));
 };
