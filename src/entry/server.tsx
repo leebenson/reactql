@@ -90,18 +90,20 @@ export default function(output: Output) {
       return;
     }
 
+    // Create response HTML
+    const html = ReactDOMServer.renderToString(components);
+
     // Create the React render via React Helmet
     const reactRender = ReactDOMServer.renderToString(
       <Html
         css={output.client.main("css")!}
         helmet={Helmet.renderStatic()}
+        html={html}
         js={output.client.main("js")!}
         styles={sheet.getStyleElement()}
         window={{
           __APOLLO_STATE__: client.extract(),
-        }}>
-        {components}
-      </Html>,
+        }} />,
     );
 
     // Set the return type to `text/html`, and stream the response back to

@@ -32,8 +32,9 @@ import * as webpack from "webpack";
 import * as ora from "ora";
 
 /* Local */
-import client from "../webpack/client";
-import server from "../webpack/server";
+import clientConfig from "../webpack/client";
+import serverConfig from "../webpack/server";
+import staticConfig from "../webpack/static";
 
 // ----------------------------------------------------------------------------
 
@@ -82,12 +83,17 @@ export const common = {
 };
 
 // Webpack compiler
-export const compiler = webpack([server, client]);
+export const compiler = webpack([serverConfig, clientConfig]);
+export const staticCompiler = webpack([staticConfig]);
 
 // Build function
-export function build() {
+export function build(buildStatic = false) {
+
+  // Determine which compiler to run
+  const buildCompiler = buildStatic ? staticCompiler : compiler;
+
   return new Promise(resolve => {
-    compiler.run((e, fullStats) => {
+    buildCompiler.run((e, fullStats) => {
 
       // If there's an error, exit out to the console
       if (e) {
@@ -104,12 +110,14 @@ export function build() {
         process.exit(1);
       }
 
-      // All good - save the stats
-      [common.compiled.serverStats, common.compiled.clientStats].forEach((file, i) => {
-        fs.writeFileSync(file, JSON.stringify(stats.children[i]), {
-          encoding: "utf8",
+      // All good - save the stats (if we're not building a static bundle)
+      if (!buildStatic) {
+        [common.compiled.serverStats, common.compiled.clientStats].forEach((file, i) => {
+          fs.writeFileSync(file, JSON.stringify(stats.children[i]), {
+            encoding: "utf8",
+          });
         });
-      });
+      }
 
       resolve();
     });

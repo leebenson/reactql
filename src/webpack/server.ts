@@ -88,9 +88,11 @@ const base: webpack.Configuration = {
       raw: true,
     }),
 
+    // Add global variables
     new webpack.DefinePlugin({
       GRAPHQL: JSON.stringify(process.env.GRAPHQL),
       SERVER: true,
+      WS_SUBSCRIPTIONS: JSON.stringify(process.env.WS_SUBSCRIPTIONS),
     }),
   ],
 

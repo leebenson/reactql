@@ -1,6 +1,7 @@
 <img src="https://reactql.org/reactql/logo.svg" alt="ReactQL" width="278" height="77" />
 
-![license](https://img.shields.io/github/license/leebenson/reactql.svg?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql)
+![license](https://img.shields.io/github/license/leebenson/reactql.svg?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql) 
+[![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql)
 
 Universal front-end React + GraphQL starter kit, written in Typescript.
 
@@ -12,7 +13,7 @@ https://reactql.org
 
 - [React v16](https://facebook.github.io/react/) for UI.
 - [Apollo Client 2.0 (React)](http://dev.apollodata.com/react/) for connecting to GraphQL.
-- Fully typed [Styled Components](https://www.styled-components.com/), with inline `<style>` tag generation that contains only the CSS that needs to be rendered, and full theming.
+- Fully typed [Styled Components v4](https://www.styled-components.com/), with inline `<style>` tag generation that contains only the CSS that needs to be rendered, and full theming.
 - [Sass](https://sass-lang.com/), [Less](http://lesscss.org/) and [PostCSS](https://postcss.org/) when importing `.css/.scss/.less` files.
 - [React Router 4](https://github.com/ReactTraining/react-router/tree/v4) for declarative browser + server routes.
 - [Apollo Link State](https://www.apollographql.com/docs/link/links/state.html) for local flux/store state management (automatically re-hydrated from the server.)
@@ -31,6 +32,7 @@ https://reactql.org
 
 - Hot code reloading; zero refresh, real-time updates in development.
 - Development web server that automatically sends patches on code changes, and restarts the built-in Web server for SSR renders that reflect what you'd see in production.
+- New in v3.5: WebSocket `subscription` query support for real-time data (just set `WS_SUBSCRIPTIONS=1` in [.env](.env))
 
 ### Code optimisation
 
@@ -41,7 +43,7 @@ https://reactql.org
 
 ### Styles
 
-- [Styled Components](https://www.styled-components.com/), for writing CSS styles inline and generating the minimal CSS required to properly render your components. Full type inference on themes, too.
+- [Styled Components v4](https://www.styled-components.com/), for writing CSS styles inline and generating the minimal CSS required to properly render your components. Full type inference on themes, too.
 - [PostCSS v7](http://postcss.org/) with [next-gen CSS](http://cssnext.io/) and automatic vendor prefixing when importing `.css`, `.scss` or `.less` files.
 - [SASS](http://sass-lang.com) and [LESS](http://lesscss.org/) support (also parsed through PostCSS.)
 - Automatic vendor prefixing - write modern CSS, and let the compiler take care of browser compatibility.
@@ -54,6 +56,7 @@ https://reactql.org
 - Production bundling via `npm run production`, that generates optimised server and client code.
 - [Static compression](https://webpack.js.org/plugins/compression-webpack-plugin/) using the Gzip and [Brotli](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) algorithms for the serving of static assets as pre-compressed `.gz` and `.br` files (your entire app's `main.js.bz` - including all dependencies - goes from 346kb -> 89kb!)
 - Automatic HTTP hardening against common attack vectors via [Koa Helmet](https://github.com/venables/koa-helmet) (highly configurable)
+- New in v3.5: Static bundling via `npm run static`. Easily deploy a client-only SPA to any static web host (Netlify, etc.)
 
 ### Developer support
 
@@ -65,8 +68,8 @@ https://reactql.org
 Grab and unpack the latest version, install all dependencies, and start a server:
 
 ```
-wget -qO- https://github.com/leebenson/reactql/archive/3.2.1.tar.gz | tar xvz
-cd reactql-3.2.1
+wget -qO- https://github.com/leebenson/reactql/archive/3.6.1.tar.gz | tar xvz
+cd reactql-3.6.1
 npm i
 npm start
 ```
@@ -152,6 +155,12 @@ Here's a quick run-through of each sub-folder and what you'll find in it:
 * [src/webpack](src/webpack) - The Webpack 4 configuration files that do the heavy lifting to transform our Typescript code, images and CSS into optimised and minified assets that wind up in the `dist` folder at the root. Handles both the client and server environments.
 
 You'll also find some other useful goodies in the [root]()...
+
+* [.env](.env) - Change your `GRAPHQL` server endpoint, and `WS_SUBSCRIPTIONS=1` for built-in WebSocket support.
+
+* [.nvmrc](.nvmrc) - Specify your preferred Node.js version, for use with NVM and used by many continuous deployment tools. Defaults to v10.11
+
+* [netlify.toml](netlify.toml) - Build instructions for fast [Netlify](https://www.netlify.com/) deployments. **Tip: To quickly deploy a demo ReactQL app, [click here](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql).**
 
 * [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
 
