@@ -51,5 +51,5 @@ ReactDOM.hydrate(
       </Router>
     </ApolloProvider>
   </ThemeProvider>,
-  document.getElementById("root"),
+  document.getElementById("root")
 );

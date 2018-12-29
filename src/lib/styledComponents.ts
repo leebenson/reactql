@@ -22,15 +22,9 @@ const {
   css,
   createGlobalStyle,
   keyframes,
-  ThemeProvider,
+  ThemeProvider
 } = styledComponents as styledComponents.ThemedStyledComponentsModule<ITheme>;
 
-export {
-  createGlobalStyle,
-  css,
-  ITheme,
-  keyframes,
-  ThemeProvider,
-};
+export { createGlobalStyle, css, ITheme, keyframes, ThemeProvider };
 
 export default styled;

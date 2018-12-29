@@ -18,20 +18,17 @@ common.spinner
   .info("Building development server...");
 
 app.listen({ port: common.port, host: "localhost" }, async () => {
-
   // Init Koa-Webpack dev middleware
   const koaWebpackMiddleware = await KoaWebpack({
     compiler: compiler as any,
     devMiddleware: {
       logLevel: "info",
       publicPath: "/",
-      stats: false,
-    },
+      stats: false
+    }
   });
 
-  app
-    .use(koaWebpackMiddleware)
-    .use(hotServerMiddleware(compiler));
+  app.use(koaWebpackMiddleware).use(hotServerMiddleware(compiler));
 
   // Emit the listener when Webpack has finished bundling
   (compiler as any).hooks.done.tap("built", () => {

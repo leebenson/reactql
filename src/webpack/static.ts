@@ -27,9 +27,9 @@ const base: webpack.Configuration = {
     new HtmlWebpackPlugin({
       inject: false,
       template: "src/views/static.html",
-      title: "ReactQL app",
-    }),
-  ],
+      title: "ReactQL app"
+    })
+  ]
 };
 
 export default mergeWith({}, client, base, defaultMerger);

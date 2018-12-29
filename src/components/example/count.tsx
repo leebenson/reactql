@@ -28,29 +28,26 @@ import incrementCount from "@/mutations/incrementCount";
 
 export default () => (
   <Mutation mutation={incrementCount}>
-    {
-      doIncrementCount => {
-        return (
-          <Query<IRoot> query={getCount}>
-          {
-            ({ data }) => {
-
-              // Create an `onClick` handler to run the mutation
-              function buttonClick() {
-                return doIncrementCount();
-              }
-
-              return (
-                <>
-                  <h3>Current count (from local GraphQL state): {data!.state.count}</h3>
-                  <button onClick={buttonClick}>Increment</button>
-                </>
-              );
+    {doIncrementCount => {
+      return (
+        <Query<IRoot> query={getCount}>
+          {({ data }) => {
+            // Create an `onClick` handler to run the mutation
+            function buttonClick() {
+              return doIncrementCount();
             }
-          }
-          </Query>
-        );
-      }
-    }
+
+            return (
+              <>
+                <h3>
+                  Current count (from local GraphQL state): {data!.state.count}
+                </h3>
+                <button onClick={buttonClick}>Increment</button>
+              </>
+            );
+          }}
+        </Query>
+      );
+    }}
   </Mutation>
 );

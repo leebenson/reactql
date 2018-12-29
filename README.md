@@ -1,6 +1,6 @@
 <img src="https://reactql.org/reactql/logo.svg" alt="ReactQL" width="278" height="77" />
 
-![license](https://img.shields.io/github/license/leebenson/reactql.svg?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql) 
+![license](https://img.shields.io/github/license/leebenson/reactql.svg?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql)
 [![Deploy to Netlify](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql)
 
 Universal front-end React + GraphQL starter kit, written in Typescript.
@@ -80,11 +80,11 @@ Your development server is now running on [http://localhost:3000](http://localho
 
 Development mode offers a few useful features:
 
-* Hot code reloading. Make a change anywhere in your code base (outside of the Webpack config), and changes will be pushed down the browser automatically - without page reloads. This happens for React, Styled Components, SASS - pretty much anything.
+- Hot code reloading. Make a change anywhere in your code base (outside of the Webpack config), and changes will be pushed down the browser automatically - without page reloads. This happens for React, Styled Components, SASS - pretty much anything.
 
-* Full source maps for Javascript and CSS
+- Full source maps for Javascript and CSS
 
-* Full server-side rendering, with automatic Koa web server restarting on code changes. This ensures the initial HTML render will always reflect your latest code changes
+- Full server-side rendering, with automatic Koa web server restarting on code changes. This ensures the initial HTML render will always reflect your latest code changes
 
 To get started, simply run:
 
@@ -98,11 +98,11 @@ A server will be started on [http://localhost:3000](http://localhost:3000)
 
 In production mode, the following happens:
 
-* All assets are optimised and minified. Javascript, CSS, images, are all compiled down to static files that will appear in `dist`.
+- All assets are optimised and minified. Javascript, CSS, images, are all compiled down to static files that will appear in `dist`.
 
-* Assets are also compressed into `.gz` (Gzip) and `.br` (Brotli) versions, which are served automatically to all capable browsers.
+- Assets are also compressed into `.gz` (Gzip) and `.br` (Brotli) versions, which are served automatically to all capable browsers.
 
-* If files have been generated in a previous run, they will be re-used on subsequent runs. This ensures really fast server start-up times after the initial build.
+- If files have been generated in a previous run, they will be re-used on subsequent runs. This ensures really fast server start-up times after the initial build.
 
 To build and run for production, use:
 
@@ -130,43 +130,43 @@ The important stuff is in [src](src).
 
 Here's a quick run-through of each sub-folder and what you'll find in it:
 
-* [src/components](src/components) - React components. Follow the import flow at [root.tsx](src/components/root.tsx) to figure out the component render chain. I've included an [example](src/components/example) component that shows off some Apollo GraphQL features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
+- [src/components](src/components) - React components. Follow the import flow at [root.tsx](src/components/root.tsx) to figure out the component render chain. I've included an [example](src/components/example) component that shows off some Apollo GraphQL features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
 
-* [src/data](src/data) - Data used throughout your app. You'll find [routes.ts](src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.)
+- [src/data](src/data) - Data used throughout your app. You'll find [routes.ts](src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.)
 
-* [src/entry](src/entry) - The client and server entry points, which call on [src/components/root.tsx](src/components/root.tsx) to isomorphically render the React chain in both environments.
+- [src/entry](src/entry) - The client and server entry points, which call on [src/components/root.tsx](src/components/root.tsx) to isomorphically render the React chain in both environments.
 
-* [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Styled Components CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
+- [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Styled Components CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
 
-* [src/graphql](src/graphql) - GraphQL initialisation goes here. There's an [apollo.ts](src/graphql/apollo.ts) which builds a universal Apollo Client and enables local state, and [state.ts](src/graphql/state.ts) which sets up default state (automatically rehydrated on the client) and some mutation handlers, for incrementing a local counter.
+- [src/graphql](src/graphql) - GraphQL initialisation goes here. There's an [apollo.ts](src/graphql/apollo.ts) which builds a universal Apollo Client and enables local state, and [state.ts](src/graphql/state.ts) which sets up default state (automatically rehydrated on the client) and some mutation handlers, for incrementing a local counter.
 
-* [src/lib](src/lib) - Library functions to handle hot-code reloading, finding the right `main.js` / `main.css` in production (which is automatically hashed for versioning), Webpack stats and Styled Components.
+- [src/lib](src/lib) - Library functions to handle hot-code reloading, finding the right `main.js` / `main.css` in production (which is automatically hashed for versioning), Webpack stats and Styled Components.
 
-* [src/mutations](src/mutations) - Your GraphQL mutations. Out-the-box, you'll find the query to increment the local state counter.
+- [src/mutations](src/mutations) - Your GraphQL mutations. Out-the-box, you'll find the query to increment the local state counter.
 
-* [src/queries](src/queries) - Your GraphQL queries. There are two by default - one that grabs the local counter state, another that pulls the top stories from Hacker News to display in the example component.
+- [src/queries](src/queries) - Your GraphQL queries. There are two by default - one that grabs the local counter state, another that pulls the top stories from Hacker News to display in the example component.
 
-* [src/runner](src/runner) - Development and production runners that spawn the Webpack build process in each environment.
+- [src/runner](src/runner) - Development and production runners that spawn the Webpack build process in each environment.
 
-* [src/themes](src/themes) - A sample [interface](src/themes/interface.ts) type for defining a Styled Components theme, and a [default theme](src/themes/default.ts) that's used in the example component to add an orange hover to Hacker News links.
+- [src/themes](src/themes) - A sample [interface](src/themes/interface.ts) type for defining a Styled Components theme, and a [default theme](src/themes/default.ts) that's used in the example component to add an orange hover to Hacker News links.
 
-* [src/views](src/views) - View components that fall outside of the usual React component chain, for use on the server. In here, [ssr.tsx](src/views/ssr.tsx) takes care of rendering the root HTML that's sent down the wire to the client. Note this is also a React component - your whole app will render as React!
+- [src/views](src/views) - View components that fall outside of the usual React component chain, for use on the server. In here, [ssr.tsx](src/views/ssr.tsx) takes care of rendering the root HTML that's sent down the wire to the client. Note this is also a React component - your whole app will render as React!
 
-* [src/webpack](src/webpack) - The Webpack 4 configuration files that do the heavy lifting to transform our Typescript code, images and CSS into optimised and minified assets that wind up in the `dist` folder at the root. Handles both the client and server environments.
+- [src/webpack](src/webpack) - The Webpack 4 configuration files that do the heavy lifting to transform our Typescript code, images and CSS into optimised and minified assets that wind up in the `dist` folder at the root. Handles both the client and server environments.
 
 You'll also find some other useful goodies in the [root]()...
 
-* [.env](.env) - Change your `GRAPHQL` server endpoint, and `WS_SUBSCRIPTIONS=1` for built-in WebSocket support.
+- [.env](.env) - Change your `GRAPHQL` server endpoint, and `WS_SUBSCRIPTIONS=1` for built-in WebSocket support.
 
-* [.nvmrc](.nvmrc) - Specify your preferred Node.js version, for use with NVM and used by many continuous deployment tools. Defaults to v10.11
+- [.nvmrc](.nvmrc) - Specify your preferred Node.js version, for use with NVM and used by many continuous deployment tools. Defaults to v10.11
 
-* [netlify.toml](netlify.toml) - Build instructions for fast [Netlify](https://www.netlify.com/) deployments. **Tip: To quickly deploy a demo ReactQL app, [click here](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql).**
+- [netlify.toml](netlify.toml) - Build instructions for fast [Netlify](https://www.netlify.com/) deployments. **Tip: To quickly deploy a demo ReactQL app, [click here](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql).**
 
-* [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
+- [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
 
-* Typescript configuration via [tsconfig.json](tsconfig.json) and [tslint.json](tslint.json)
+- Typescript configuration via [tsconfig.json](tsconfig.json) and [tslint.json](tslint.json)
 
-* A sample [Dockerfile](Dockerfile) for quickly deploying your code base to production.
+- A sample [Dockerfile](Dockerfile) for quickly deploying your code base to production.
 
 # Follow @reactql for updates
 

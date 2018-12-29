@@ -38,10 +38,8 @@ export interface IRouterContext {
 }
 
 export default function(output: Output) {
-
   // Create Koa middleware to handle React requests
   return async (ctx: Context) => {
-
     // Create a new Apollo client
     const client = createClient();
 
@@ -102,8 +100,9 @@ export default function(output: Output) {
         js={output.client.main("js")!}
         styles={sheet.getStyleElement()}
         window={{
-          __APOLLO_STATE__: client.extract(),
-        }} />,
+          __APOLLO_STATE__: client.extract()
+        }}
+      />
     );
 
     // Set the return type to `text/html`, and stream the response back to

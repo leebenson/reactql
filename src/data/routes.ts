@@ -27,8 +27,8 @@ const routes: RouteProps[] = [
   {
     component: Example, // <-- this is the component that'll be rendered
     exact: true, // <-- this says to ONLY match when the path is exactly '/'
-    path: "/", // <-- ... and this is the actual path to match on
-  },
+    path: "/" // <-- ... and this is the actual path to match on
+  }
 ];
 
 export default routes;

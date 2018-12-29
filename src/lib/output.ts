@@ -22,7 +22,6 @@ export interface IOutput {
 const config = new WeakMap<Output, IOutput>();
 
 export default class Output {
-
   // --------------------------------------------------------------------------
   /* PUBLIC METHODS */
   // --------------------------------------------------------------------------

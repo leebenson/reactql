@@ -23,7 +23,6 @@ function getStats(file: string): IStats {
 common.spinner.info(chalk.default.green("Production mode"));
 
 void (async () => {
-
   // Get a list of file accessibility
   const files = Object.values(common.compiled).map(file => {
     try {
@@ -45,7 +44,7 @@ void (async () => {
   // Create an Output
   const output = new Output({
     client: new Stats(getStats(common.compiled.clientStats)),
-    server: new Stats(getStats(common.compiled.serverStats)),
+    server: new Stats(getStats(common.compiled.serverStats))
   });
 
   // Attach middleware

@@ -19,7 +19,6 @@ import createState from "./state";
 // ----------------------------------------------------------------------------
 
 export function createClient(): ApolloClient<NormalizedCacheObject> {
-
   // Create the cache first, which we'll share across Apollo tooling.
   // This is an in-memory cache. Since we'll be calling `createClient` on
   // universally, the cache will survive until the HTTP request is
@@ -32,7 +31,7 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
   // set to an external playground at https://graphqlhub.com/graphql
   const httpLink = new HttpLink({
     credentials: "same-origin",
-    uri: GRAPHQL,
+    uri: GRAPHQL
   });
 
   // If we're in the browser, we'd have received initial state from the
@@ -47,7 +46,6 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
   return new ApolloClient({
     cache,
     link: ApolloLink.from([
-
       // General error handler, to log errors back to the console.
       // Replace this in production with whatever makes sense in your
       // environment. Remember you can use the global `SERVER` variable to
@@ -57,8 +55,8 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
         if (graphQLErrors) {
           graphQLErrors.map(({ message, locations, path }) =>
             console.log(
-              `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-            ),
+              `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+            )
           );
         }
         if (networkError) {
@@ -71,23 +69,28 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
       createState(cache),
 
       // Split on HTTP and WebSockets
-      WS_SUBSCRIPTIONS && !SERVER ? split(
-        ({ query }) => {
-          const definition = getMainDefinition(query);
-          return definition.kind === "OperationDefinition" && definition.operation === "subscription";
-        },
-        // Use WebSockets for subscriptions
-        new WebSocketLink(
-          // Replace http(s) with `ws` for connecting via WebSockts
-          new SubscriptionClient(GRAPHQL.replace(/^https?/, "ws"), {
-            reconnect: true, // <-- automatically redirect as needed
-          }),
-        ),
-        // ... fall-back to HTTP for everything else
-        httpLink,
-      ) : httpLink, // <-- just use HTTP on the server
+      WS_SUBSCRIPTIONS && !SERVER
+        ? split(
+            ({ query }) => {
+              const definition = getMainDefinition(query);
+              return (
+                definition.kind === "OperationDefinition" &&
+                definition.operation === "subscription"
+              );
+            },
+            // Use WebSockets for subscriptions
+            new WebSocketLink(
+              // Replace http(s) with `ws` for connecting via WebSockts
+              new SubscriptionClient(GRAPHQL.replace(/^https?/, "ws"), {
+                reconnect: true // <-- automatically redirect as needed
+              })
+            ),
+            // ... fall-back to HTTP for everything else
+            httpLink
+          )
+        : httpLink // <-- just use HTTP on the server
     ]),
     // On the server, enable SSR mode
-    ssrMode: SERVER,
+    ssrMode: SERVER
   });
 }

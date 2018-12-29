@@ -42,18 +42,15 @@ function staticMiddleware(root: string, immutable = true): Koa.Middleware {
   return async (ctx, next) => {
     try {
       if (ctx.path !== "/") {
-
         // If we're in production, try <dist>/public first
-        return await koaSend(
-          ctx,
-          ctx.path,
-          {
-            immutable,
-            root,
-          },
-        );
+        return await koaSend(ctx, ctx.path, {
+          immutable,
+          root
+        });
       }
-    } catch (e) { /* Error? Go to next middleware... */ }
+    } catch (e) {
+      /* Error? Go to next middleware... */
+    }
     return next();
   };
 }
@@ -66,7 +63,7 @@ export const common = {
   compiled: {
     clientStats: path.resolve(dist, "client.stats.json"),
     server: path.resolve(dist, "server.js"),
-    serverStats: path.resolve(dist, "server.stats.json"),
+    serverStats: path.resolve(dist, "server.stats.json")
   },
 
   // Distribution folder
@@ -79,7 +76,7 @@ export const common = {
   port: process.env.PORT || 3000,
 
   // Spinner
-  spinner: ora() as any,
+  spinner: ora() as any
 };
 
 // Webpack compiler
@@ -88,13 +85,11 @@ export const staticCompiler = webpack([staticConfig]);
 
 // Build function
 export function build(buildStatic = false) {
-
   // Determine which compiler to run
   const buildCompiler = buildStatic ? staticCompiler : compiler;
 
   return new Promise(resolve => {
     buildCompiler.run((e, fullStats) => {
-
       // If there's an error, exit out to the console
       if (e) {
         common.spinner.fail(e.message);
@@ -112,11 +107,13 @@ export function build(buildStatic = false) {
 
       // All good - save the stats (if we're not building a static bundle)
       if (!buildStatic) {
-        [common.compiled.serverStats, common.compiled.clientStats].forEach((file, i) => {
-          fs.writeFileSync(file, JSON.stringify(stats.children[i]), {
-            encoding: "utf8",
-          });
-        });
+        [common.compiled.serverStats, common.compiled.clientStats].forEach(
+          (file, i) => {
+            fs.writeFileSync(file, JSON.stringify(stats.children[i]), {
+              encoding: "utf8"
+            });
+          }
+        );
       }
 
       resolve();
@@ -155,7 +152,7 @@ export const app = new Koa()
     const start = ms.now();
     await next();
     const end = ms.parse(ms.since(start));
-    const total = end.microseconds + (end.milliseconds * 1e3) + (end.seconds * 1e6);
+    const total = end.microseconds + end.milliseconds * 1e3 + end.seconds * 1e6;
     ctx.set("Response-Time", `${total / 1e3}ms`);
   });
 
@@ -163,17 +160,11 @@ export const app = new Koa()
 
 // In production, check <dist>/public first
 if (common.isProduction) {
-  app.use(staticMiddleware(
-    path.resolve(common.dist, "public"),
-  ));
+  app.use(staticMiddleware(path.resolve(common.dist, "public")));
 }
 
 // ... and then fall-back to <root>/public
-app.use(staticMiddleware(
-  path.resolve(common.dist, "..", "public"),
-  false,
-));
+app.use(staticMiddleware(path.resolve(common.dist, "..", "public"), false));
 
 // Router
-app.use(router.allowedMethods())
-  .use(router.routes());
+app.use(router.allowedMethods()).use(router.routes());

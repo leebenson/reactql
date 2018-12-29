@@ -28,7 +28,6 @@ export interface IRoot {
 }
 
 export default function createState(cache: InMemoryCache): ApolloLink {
-
   // Helper function to retrieve the state from cache
   function getState(query: any): IState {
     return cache.readQuery<IRoot>({ query }).state;
@@ -43,10 +42,8 @@ export default function createState(cache: InMemoryCache): ApolloLink {
     cache,
     resolvers: {
       Mutation: {
-
         // Sample mutation to increment the local `count` by 1
         incrementCount() {
-
           // Get the existing state
           const state = getState(getCountQuery);
 
@@ -57,7 +54,7 @@ export default function createState(cache: InMemoryCache): ApolloLink {
           // to the cache
           const newState = {
             ...state,
-            count: state.count + 1,
+            count: state.count + 1
           };
 
           // Write the new count var to the cache
@@ -66,16 +63,16 @@ export default function createState(cache: InMemoryCache): ApolloLink {
           // ... and return it back to the calling function, which will
           // then become our response data
           return newState;
-        },
-      },
-    },
+        }
+      }
+    }
   };
 
   opt.defaults = {
     state: {
       __typename: "State",
-      count: 0,
-    },
+      count: 0
+    }
   } as IRoot;
 
   return withClientState(opt);

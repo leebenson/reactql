@@ -33,7 +33,7 @@ export interface IRule {
 function getExtensionSettings(ext: string): ModuleSettings[] {
   return [
     [`^(?!.*\\.global\\.${ext}$).*\\.${ext}$`, { modules: true }],
-    [`\\.global\\.${ext}$`, { modules: false }],
+    [`\\.global\\.${ext}$`, { modules: false }]
   ];
 }
 
@@ -41,44 +41,42 @@ function getExtensionSettings(ext: string): ModuleSettings[] {
 export const rules: IRule[] = [
   {
     ext: "css",
-    use: [],
+    use: []
   },
   {
     ext: "s(c|a)ss",
     use: [
       {
-        loader: "resolve-url-loader",
+        loader: "resolve-url-loader"
       },
       {
         loader: "sass-loader",
         options: {
-          sourceMap: true,
-        },
-      },
-    ],
+          sourceMap: true
+        }
+      }
+    ]
   },
   {
     ext: "less",
-    use: ["less-loader"],
-  },
+    use: ["less-loader"]
+  }
 ];
 
 const isProduction = process.env.NODE_ENV === "production";
 
 // Create generator to get rules
-export default function *css(isClient = true) {
-
+export default function* css(isClient = true) {
   // Source maps depend on us being in development
   const sourceMap = !isProduction;
 
   for (const loader of rules) {
     // Iterate over CSS/SASS/LESS and yield local and global mod configs
     for (const [test, modules] of getExtensionSettings(loader.ext)) {
-
       // Build the use rules
       const use = [
         // CSS hot loading on the client, in development
-        (isClient && !isProduction) && "css-hot-loader",
+        isClient && !isProduction && "css-hot-loader",
 
         // Add MiniCSS if we're on the client
         isClient && MiniCssExtractPlugin.loader,
@@ -86,7 +84,8 @@ export default function *css(isClient = true) {
         // Set-up `css-loader`
         {
           // If we're on the server, we only want to output the name
-          loader: isClient ? "css-loader" : "css-loader/locals",
+          // loader: isClient ? "css-loader" : "css-loader/locals",
+          loader: "css-loader",
 
           options: {
             // Calculate how many loaders follow this one
@@ -95,15 +94,12 @@ export default function *css(isClient = true) {
             // Format for 'localised' CSS modules
             localIdentName: "[local]-[hash:base64]",
 
-            // No need to minimize-- CSSNano already did it for us
-            minimize: false,
-
             // Add sourcemaps if we're in dev
             sourceMap,
 
             // Specify modules options
-            ...modules,
-          },
+            ...modules
+          }
         },
 
         // Add PostCSS
@@ -116,20 +112,19 @@ export default function *css(isClient = true) {
                 // TODO - MAKE PLUGINS WORK WITH SASS!
                 require("postcss-cssnext")({
                   features: {
-                      autoprefixer: false,
-                    },
-                  },
-                ),
-                require("cssnano")(),
+                    autoprefixer: false
+                  }
+                }),
+                require("cssnano")()
               ];
             },
             // Enable sourcemaps in development
-            sourceMap,
-          },
+            sourceMap
+          }
         },
 
         // Copy over the loader's specific rules
-        ...loader.use,
+        ...loader.use
       ];
 
       // Yield the full rule
@@ -137,7 +132,7 @@ export default function *css(isClient = true) {
         test: new RegExp(test),
 
         // Remove all falsy values
-        use: use.filter(l => l) as Loader[],
+        use: use.filter(l => l) as Loader[]
       };
     }
   }

@@ -10,8 +10,8 @@ import { ITheme } from "./interface";
 
 const theme: ITheme = {
   colors: {
-    orange: "#FFA500",
-  },
+    orange: "#FFA500"
+  }
 };
 
 export default theme;

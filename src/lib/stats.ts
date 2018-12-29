@@ -21,14 +21,12 @@ export interface IStats {
 const config = new WeakMap<Stats, IStats>();
 
 export default class Stats {
-
   // --------------------------------------------------------------------------
   /* PUBLIC METHODS */
   // --------------------------------------------------------------------------
 
   /* CONSTRUCTOR */
   public constructor(stats: IStats = {}) {
-
     // Store a raw copy of the config
     config.set(this, stats);
   }
@@ -42,8 +40,14 @@ export default class Stats {
 
   // Get main built asset based on file extension
   public main(ext: string): string | undefined {
-    const main: string | string[] = lodash.get(config.get(this)!, "assetsByChunkName.main", []);
-    const file = (Array.isArray(main) ? main : [main]).find((c: string) => c.endsWith(`.${ext}`));
+    const main: string | string[] = lodash.get(
+      config.get(this)!,
+      "assetsByChunkName.main",
+      []
+    );
+    const file = (Array.isArray(main) ? main : [main]).find((c: string) =>
+      c.endsWith(`.${ext}`)
+    );
     return file && `/${file}`;
   }
 }

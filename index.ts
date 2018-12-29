@@ -10,7 +10,8 @@ process.on("SIGINT", () => {
 
 // Build mode?
 const script = ["build", "static"].includes(process.env.npm_lifecycle_event!)
-  ? process.env.npm_lifecycle_event! : process.env.NODE_ENV || "development";
+  ? process.env.npm_lifecycle_event!
+  : process.env.NODE_ENV || "development";
 
 // Start the script
 require(`./src/runner/${script}`);

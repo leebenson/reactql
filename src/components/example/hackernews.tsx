@@ -53,41 +53,34 @@ const Story = styled.li`
 // while the data is being retrieved
 export default () => (
   <Query<IHackerNewsTopStories> query={hackerNewsQuery}>
-    {
-      result => {
-
-        // Any errors? Say so!
-        if (result.error) {
-          return (
-            <h1>Error retrieving news stories! &mdash; {result.error}</h1>
-          );
-        }
-
-        // If the data is still loading, return with a basic
-        // message to alert the user
-        if (result.loading) {
-          return (
-            <h1>Loading Hacker News stories...</h1>
-          );
-        }
-
-        // Otherwise, we have data to work with... map over it with a
-        // bullet-point list
-        return (
-          <>
-            <h3>Top stories from Hacker News</h3>
-            <ul>
-              {
-                result.data!.hn.topStories.map(story => (
-                  <Story key={story.id}>
-                    <a href={story.url} target="_blank">{story.title}</a>
-                  </Story>
-                ))
-              }
-            </ul>
-          </>
-        );
+    {result => {
+      // Any errors? Say so!
+      if (result.error) {
+        return <h1>Error retrieving news stories! &mdash; {result.error}</h1>;
       }
-    }
+
+      // If the data is still loading, return with a basic
+      // message to alert the user
+      if (result.loading) {
+        return <h1>Loading Hacker News stories...</h1>;
+      }
+
+      // Otherwise, we have data to work with... map over it with a
+      // bullet-point list
+      return (
+        <>
+          <h3>Top stories from Hacker News</h3>
+          <ul>
+            {result.data!.hn.topStories.map(story => (
+              <Story key={story.id}>
+                <a href={story.url} target="_blank">
+                  {story.title}
+                </a>
+              </Story>
+            ))}
+          </ul>
+        </>
+      );
+    }}
   </Query>
 );
