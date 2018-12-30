@@ -69,7 +69,7 @@ Grab and unpack the latest version, install all dependencies, and start a server
 
 ```
 wget -qO- https://github.com/leebenson/reactql/archive/3.7.0.tar.gz | tar xvz
-cd reactql-3.6.1
+cd reactql-3.7.0
 npm i
 npm start
 ```
