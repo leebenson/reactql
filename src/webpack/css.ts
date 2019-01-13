@@ -110,7 +110,7 @@ export default function* css(isClient = true) {
             plugins() {
               return [
                 // TODO - MAKE PLUGINS WORK WITH SASS!
-                require("postcss-cssnext")({
+                require("postcss-preset-env")({
                   features: {
                     autoprefixer: false
                   }
