@@ -1,7 +1,7 @@
 // Run the right environment...
 
 // Load env vars, for the `GRAPHQL` endpoint and anything else we need
-require("dotenv").config();
+require("dotenv");
 
 // Catch CTRL/CMD+C interrupts cleanly
 process.on("SIGINT", () => {
