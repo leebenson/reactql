@@ -8,6 +8,7 @@
     "clean": "rimraf dist",
     "clean-production": "npm run clean && npm run production",
     "lint": "tslint --project .",
+    "format": "prettier --write '{src,types}/**/*.{json,{j,t}s{,x},css,s{c,a}ss,less}'",
     "production": "cross-env NODE_ENV=production ts-node index.ts",
     "static": "cross-env NODE_ENV=production ts-node index.ts",
     "start": "cross-env ts-node index.ts",
@@ -93,6 +94,7 @@
     "lodash": "^4.17.11",
     "microseconds": "^0.1.0",
     "ora": "^3.0.0",
+    "prettier": "^1.16.1",
     "react": "^16.7.0",
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-transition-group": "^15.6.2",
@@ -103,5 +105,12 @@
     "react-router-dom": "^4.3.1",
     "styled-components": "^4.1.3",
     "subscriptions-transport-ws": "^0.9.15"
+  },
+  "prettier": {
+    "trailingComma": "none",
+    "tabWidth": 2,
+    "semi": true,
+    "singleQuote": false,
+    "printWidth": 80
   }
 }
