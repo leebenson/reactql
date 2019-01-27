@@ -140,7 +140,7 @@ Here's a quick run-through of each sub-folder and what you'll find in it:
 
 - [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Emotion CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
 
-- [src/lib](src/lib) - Internal libraries/helpers. There's an [apollo.ts](src/lib/apollo.ts) which builds a universal Apollo Client, and [mobx.ts](src/graphql/mobx.ts) which sets up default state (automatically rehydrated on the client), for incrementing a local counter. Plus, functions to handle hot-code reloading, Webpack stats helpers (used by the server to automatically load the right `<script>` tags, and some internal stuff to help with hot-code reloading the server when code changes in developmnt.
+- [src/lib](src/lib) - Internal libraries/helpers. There's an [apollo.ts](src/lib/apollo.ts) which builds a universal Apollo Client, and [mobx.ts](src/lib/mobx.ts) which sets up default state (automatically rehydrated on the client), for incrementing a local counter. Plus, functions to handle hot-code reloading, Webpack stats helpers (used by the server to automatically load the right `<script>` tags, and some internal stuff to help with hot-code reloading the server when code changes in developmnt.
 
 - [src/queries](src/queries) - Your GraphQL queries. There's just one by default - for pilling the top stories from Hacker News to display in the example component.
 
