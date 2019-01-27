@@ -141,7 +141,7 @@ export const app = new Koa()
     try {
       await next();
     } catch (e) {
-      console.log("Error:", e.message);
+      console.log("Error:", e);
       ctx.status = 500;
       ctx.body = "There was an error. Please try again later.";
     }

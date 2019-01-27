@@ -26,30 +26,34 @@ import { Router } from "react-router-dom";
 import Root from "@/components/root";
 
 // Helper function that creates a new Apollo client per request
-import { createClient } from "@/graphql/apollo";
+import { createClient } from "@/lib/apollo";
 
-// For Styled Components theming
-import { ThemeProvider } from "@/lib/styledComponents";
-
-// ... and the actual Styled Components theme
-import defaultTheme from "@/themes/default";
+// MobX state
+import { State } from "@/data/state";
+import { rehydrate, StateProvider } from "@/lib/mobx";
 
 // ----------------------------------------------------------------------------
 
 // Create Apollo client
 const client = createClient();
 
+// Create new MobX state
+const state = new State();
+
 // Create a browser history
 const history = createBrowserHistory();
 
+// Rehydrate MobX state, if applicable
+rehydrate(state);
+
 // Render
 ReactDOM.hydrate(
-  <ThemeProvider theme={defaultTheme}>
+  <StateProvider value={state}>
     <ApolloProvider client={client}>
       <Router history={history}>
         <Root />
       </Router>
     </ApolloProvider>
-  </ThemeProvider>,
+  </StateProvider>,
   document.getElementById("root")
 );

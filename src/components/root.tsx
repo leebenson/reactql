@@ -8,6 +8,7 @@ import * as React from "react";
 import Helmet from "react-helmet";
 import { hot } from "react-hot-loader";
 import { Route, Switch } from "react-router-dom";
+import { Global } from "@emotion/core";
 
 /* Local */
 
@@ -15,7 +16,7 @@ import { Route, Switch } from "react-router-dom";
 import ScrollTop from "@/components/helpers/scrollTop";
 
 // Global styles
-import { GlobalStyles } from "@/global/styles";
+import globalStyles from "@/global/styles";
 
 // Routes
 import routes from "@/data/routes";
@@ -24,7 +25,7 @@ import routes from "@/data/routes";
 
 const Root = () => (
   <div>
-    <GlobalStyles />
+    <Global styles={globalStyles} />
     <Helmet>
       <title>ReactQL starter kit - edit me!</title>
     </Helmet>

@@ -50,4 +50,20 @@ export default class Stats {
     );
     return file && `/${file}`;
   }
+
+  public scripts(): string[] {
+    const initial = this.raw.chunks.find((chunk: any) => chunk.initial);
+
+    const scripts: string[] = initial.siblings
+      .map((sibling: any) =>
+        this.raw.chunks.find((chunk: any) => chunk.id === sibling)
+      )
+      .map((sibling: any) => sibling.files)
+      .concat(initial.files)
+      .flat()
+      .filter((file: string) => file.endsWith(".js"))
+      .map((file: string) => `/${file}`);
+
+    return scripts;
+  }
 }

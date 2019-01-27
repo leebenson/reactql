@@ -13,10 +13,11 @@ https://reactql.org
 
 - [React v16](https://facebook.github.io/react/) for UI.
 - [Apollo Client 2.0 (React)](http://dev.apollodata.com/react/) for connecting to GraphQL.
-- Fully typed [Styled Components v4](https://www.styled-components.com/), with inline `<style>` tag generation that contains only the CSS that needs to be rendered, and full theming.
+- [MobX](https://mobx.js.org/) for declarative, type-safe flux/store state management (automatically re-hydrated from the server.)
+- [Emotion](https://emotion.sh/) CSS-in-JS, with inline `<style>` tag generation that contains only the CSS that needs to be rendered.
 - [Sass](https://sass-lang.com/), [Less](http://lesscss.org/) and [PostCSS](https://postcss.org/) when importing `.css/.scss/.less` files.
 - [React Router 4](https://github.com/ReactTraining/react-router/tree/v4) for declarative browser + server routes.
-- [Apollo Link State](https://www.apollographql.com/docs/link/links/state.html) for local flux/store state management (automatically re-hydrated from the server.)
+
 - Declarative/dynamic `<head>` section, using [react-helmet](https://github.com/nfl/react-helmet).
 
 ### Server-side rendering
@@ -24,7 +25,8 @@ https://reactql.org
 - Built-in [Koa 2](http://koajs.com/) web server, with async/await routing.
 - Full route-aware server-side rendering (SSR) of initial HTML.
 - Universal building - both browser + Node.js web server compile down to static files, for fast server re-spawning.
-- Per-request GraphQL local state. Store state is dehydrated via SSR, and rehydrated automatically on the client.
+- Per-request GraphQL store. Store state is dehydrated via SSR, and rehydrated automatically on the client.
+- MobX for app-wide flux/store state, with a built-in `<StateConsumer>` for automatically re-rendering any React component that 'listens' to state and full client-side rehydration. Fully typed state!
 - Full page React via built-in SSR component - every byte of your HTML is React.
 - SSR in both development and production, even with hot-code reload.
 
@@ -32,31 +34,31 @@ https://reactql.org
 
 - Hot code reloading; zero refresh, real-time updates in development.
 - Development web server that automatically sends patches on code changes, and restarts the built-in Web server for SSR renders that reflect what you'd see in production.
-- New in v3.5: WebSocket `subscription` query support for real-time data (just set `WS_SUBSCRIPTIONS=1` in [.env](.env))
+- WebSocket `subscription` query support for real-time data (just set `WS_SUBSCRIPTIONS=1` in [.env](.env))
 
 ### Code optimisation
 
 - [Webpack v4](https://webpack.js.org/), with [tree shaking](https://webpack.js.org/guides/tree-shaking/) -- dead code paths are automatically eliminated.
 - Asynchronous code loading when `import()`'ing inside a function.
-- Aggressive code minification.
+- Automatic per-vendor chunk splitting/hashing, for aggressive caching (especially good behind a HTTP/2 proxy!)
+- Gzip/Brotli minification of static assets.
 - CSS code is combined, minified and optimised automatically - even if you use SASS, LESS and CSS together!
 
 ### Styles
 
-- [Styled Components v4](https://www.styled-components.com/), for writing CSS styles inline and generating the minimal CSS required to properly render your components. Full type inference on themes, too.
+- [Emotion](https://emotion.sh/), for writing CSS styles inline and generating the minimal CSS required to properly render your components.
 - [PostCSS v7](http://postcss.org/) with [next-gen CSS](https://preset-env.cssdb.org/) and automatic vendor prefixing when importing `.css`, `.scss` or `.less` files.
 - [SASS](http://sass-lang.com) and [LESS](http://lesscss.org/) support (also parsed through PostCSS.)
 - Automatic vendor prefixing - write modern CSS, and let the compiler take care of browser compatibility.
 - Mix and match SASS, LESS and regular CSS - without conflicts!
 - CSS modules - your classes are hashed automatically, to avoid namespace conflicts.
-- Compatible with Foundation, Bootstrap, Material and more. Simply configure via a `.global.(css|scss|less)` import to preserve class names.
+- Compatible with Foundation, Bootstrap, Material UI and more. Simply configure via a `.global.(css|scss|less)` import to preserve class names.
 
 ### Production-ready
 
 - Production bundling via `npm run production`, that generates optimised server and client code.
 - [Static compression](https://webpack.js.org/plugins/compression-webpack-plugin/) using the Gzip and [Brotli](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) algorithms for the serving of static assets as pre-compressed `.gz` and `.br` files (your entire app's `main.js.bz` - including all dependencies - goes from 346kb -> 89kb!)
-- Automatic HTTP hardening against common attack vectors via [Koa Helmet](https://github.com/venables/koa-helmet) (highly configurable)
-- New in v3.5: Static bundling via `npm run static`. Easily deploy a client-only SPA to any static web host (Netlify, etc.)
+- Static bundling via `npm run static`. Don't need server-side rendering? No problem. Easily deploy a client-only SPA to any static web host (Netlify, etc.)
 
 ### Developer support
 
@@ -68,8 +70,8 @@ https://reactql.org
 Grab and unpack the latest version, install all dependencies, and start a server:
 
 ```
-wget -qO- https://github.com/leebenson/reactql/archive/3.7.1.tar.gz | tar xvz
-cd reactql-3.7.1
+wget -qO- https://github.com/leebenson/reactql/archive/4.0.0.tar.gz | tar xvz
+cd reactql-4.0.0
 npm i
 npm start
 ```
@@ -80,11 +82,11 @@ Your development server is now running on [http://localhost:3000](http://localho
 
 Development mode offers a few useful features:
 
-- Hot code reloading. Make a change anywhere in your code base (outside of the Webpack config), and changes will be pushed down the browser automatically - without page reloads. This happens for React, Styled Components, SASS - pretty much anything.
+- Hot code reloading. Make a change anywhere in your code base (outside of the Webpack config), and changes will be pushed down the browser automatically - without page reloads. This happens for React, Emotion, SASS - pretty much anything.
 
-- Full source maps for Javascript and CSS
+- Full source maps for Javascript and CSS.
 
-- Full server-side rendering, with automatic Koa web server restarting on code changes. This ensures the initial HTML render will always reflect your latest code changes
+- Full server-side rendering, with automatic Koa web server restarting on code changes. This ensures the initial HTML render will always reflect your latest code changes.
 
 To get started, simply run:
 
@@ -130,27 +132,21 @@ The important stuff is in [src](src).
 
 Here's a quick run-through of each sub-folder and what you'll find in it:
 
-- [src/components](src/components) - React components. Follow the import flow at [root.tsx](src/components/root.tsx) to figure out the component render chain. I've included an [example](src/components/example) component that shows off some Apollo GraphQL features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
+- [src/components](src/components) - React components. Follow the import flow at [root.tsx](src/components/root.tsx) to figure out the component render chain. I've included an [example](src/components/example) component that shows off some Apollo GraphQL and MobX features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
 
-- [src/data](src/data) - Data used throughout your app. You'll find [routes.ts](src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.)
+- [src/data](src/data) - Data used throughout your app. You'll find [routes.ts](src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.) and [state.ts](src/data/state.ts), to show you how simple it is to define your own state data fields that, when modified, automatically re-render any 'observing' component.
 
 - [src/entry](src/entry) - The client and server entry points, which call on [src/components/root.tsx](src/components/root.tsx) to isomorphically render the React chain in both environments.
 
-- [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Styled Components CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
+- [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Emotion CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
 
-- [src/graphql](src/graphql) - GraphQL initialisation goes here. There's an [apollo.ts](src/graphql/apollo.ts) which builds a universal Apollo Client and enables local state, and [state.ts](src/graphql/state.ts) which sets up default state (automatically rehydrated on the client) and some mutation handlers, for incrementing a local counter.
+- [src/lib](src/lib) - Internal libraries/helpers. There's an [apollo.ts](src/lib/apollo.ts) which builds a universal Apollo Client, and [mobx.ts](src/graphql/mobx.ts) which sets up default state (automatically rehydrated on the client), for incrementing a local counter. Plus, functions to handle hot-code reloading, Webpack stats helpers (used by the server to automatically load the right `<script>` tags, and some internal stuff to help with hot-code reloading the server when code changes in developmnt.
 
-- [src/lib](src/lib) - Library functions to handle hot-code reloading, finding the right `main.js` / `main.css` in production (which is automatically hashed for versioning), Webpack stats and Styled Components.
-
-- [src/mutations](src/mutations) - Your GraphQL mutations. Out-the-box, you'll find the query to increment the local state counter.
-
-- [src/queries](src/queries) - Your GraphQL queries. There are two by default - one that grabs the local counter state, another that pulls the top stories from Hacker News to display in the example component.
+- [src/queries](src/queries) - Your GraphQL queries. There's just one by default - for pilling the top stories from Hacker News to display in the example component.
 
 - [src/runner](src/runner) - Development and production runners that spawn the Webpack build process in each environment.
 
-- [src/themes](src/themes) - A sample [interface](src/themes/interface.ts) type for defining a Styled Components theme, and a [default theme](src/themes/default.ts) that's used in the example component to add an orange hover to Hacker News links.
-
-- [src/views](src/views) - View components that fall outside of the usual React component chain, for use on the server. In here, [ssr.tsx](src/views/ssr.tsx) takes care of rendering the root HTML that's sent down the wire to the client. Note this is also a React component - your whole app will render as React!
+- [src/views](src/views) - View components that fall outside of the usual React component chain, for use on the server. In here, [ssr.tsx](src/views/ssr.tsx) takes care of rendering the root HTML that's sent down the wire to the client. Note this is also a React component - your whole app will render as React! - and [static.html](src/views/static.html) serves as a template for rendering a client-side SPA. Update it as needed.
 
 - [src/webpack](src/webpack) - The Webpack 4 configuration files that do the heavy lifting to transform our Typescript code, images and CSS into optimised and minified assets that wind up in the `dist` folder at the root. Handles both the client and server environments.
 
@@ -158,15 +154,15 @@ You'll also find some other useful goodies in the [root]()...
 
 - [.env](.env) - Change your `GRAPHQL` server endpoint, and `WS_SUBSCRIPTIONS=1` for built-in WebSocket support.
 
-- [.nvmrc](.nvmrc) - Specify your preferred Node.js version, for use with NVM and used by many continuous deployment tools. Defaults to v10.11
+- [.nvmrc](.nvmrc) - Specify your preferred Node.js version, for use with NVM and used by many continuous deployment tools. Defaults to v11.8.0
 
 - [netlify.toml](netlify.toml) - Build instructions for fast [Netlify](https://www.netlify.com/) deployments. **Tip: To quickly deploy a demo ReactQL app, [click here](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql).**
 
 - [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
 
-- Typescript configuration via [tsconfig.json](tsconfig.json) and [tslint.json](tslint.json)
+- Typescript configuration via [tsconfig.json](tsconfig.json)
 
-- A sample [Dockerfile](Dockerfile) for quickly deploying your code base to production.
+- A sample multi-build [Dockerfile](Dockerfile) based on Node 11.8 and Alpine, for quickly deploying your code base to production.
 
 # Follow @reactql for updates
 

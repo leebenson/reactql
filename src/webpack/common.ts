@@ -72,13 +72,7 @@ export default (_ssr: boolean /* <-- not currently used */) => {
                 plugins: [
                   "@babel/plugin-syntax-dynamic-import",
                   "react-hot-loader/babel",
-                  [
-                    "styled-components",
-                    {
-                      displayName: !isProduction,
-                      ssr: true
-                    }
-                  ]
+                  "emotion"
                 ]
               }
             },

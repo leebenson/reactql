@@ -9,15 +9,15 @@
    which is automatically included along with our SSR / initial HTML. This
    is for processing CSS through the SASS/LESS -> PostCSS pipeline.
 
-  2. It exports a <GlobalStyles /> component which is used by @components/root.tsx
-   to add global styles to the React render.
+  2. It exports a global styles template which is used by Emotion to generate
+  styles that apply to all pages.
 /*
 
 // ----------------------------------------------------------------------------
 // IMPORTS
 
 /* NPM */
-import { createGlobalStyle } from "@/lib/styledComponents";
+import { css } from "@emotion/core";
 
 /* Local */
 
@@ -28,13 +28,10 @@ import "./styles.global.scss";
 
 // ----------------------------------------------------------------------------
 
-// Inject Styled-Components output onto the page. You can add global styles to
-// the template tags below, and will be picked up in @components/root.tsx
-export const GlobalStyles = createGlobalStyle`
-
-  /* Set a default style for all <h1> tags
-  */
+// Global styles to apply
+export default css`
+  /* Make all <h1> tags orange  */
   h1 {
-    background-color: ${props => props.theme.colors.orange};
+    background-color: orange;
   }
 `;
