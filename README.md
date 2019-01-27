@@ -16,7 +16,7 @@ https://reactql.org
 - [MobX](https://mobx.js.org/) for declarative, type-safe flux/store state management (automatically re-hydrated from the server.)
 - [Emotion](https://emotion.sh/) CSS-in-JS, with inline `<style>` tag generation that contains only the CSS that needs to be rendered.
 - [Sass](https://sass-lang.com/), [Less](http://lesscss.org/) and [PostCSS](https://postcss.org/) when importing `.css/.scss/.less` files.
-- [React Router 4](https://github.com/ReactTraining/react-router/tree/v4) for declarative browser + server routes.
+- [React Router 4](https://reacttraining.com/react-router/) for declarative browser + server routes.
 
 - Declarative/dynamic `<head>` section, using [react-helmet](https://github.com/nfl/react-helmet).
 
