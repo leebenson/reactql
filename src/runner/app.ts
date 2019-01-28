@@ -28,8 +28,14 @@ import * as ms from "microseconds";
 // Webpack 4
 import * as webpack from "webpack";
 
+// Koa-specific Webpack handlers
+import * as KoaWebpack from "koa-webpack";
+
 /* Ora spinner */
 import * as ora from "ora";
+
+// Lodash utility for merging objects
+import { mergeWith } from "lodash";
 
 /* Local */
 import clientConfig from "../webpack/client";
@@ -37,6 +43,8 @@ import serverConfig from "../webpack/server";
 import staticConfig from "../webpack/static";
 
 // ----------------------------------------------------------------------------
+
+type PartialAll<T> = { [P in keyof T]?: PartialAll<T[P]> };
 
 function staticMiddleware(root: string, immutable = true): Koa.Middleware {
   return async (ctx, next) => {
@@ -118,6 +126,34 @@ export function build(buildStatic = false) {
 
       resolve();
     });
+  });
+}
+
+// Dev server
+export async function devServer(
+  koaApp: Koa,
+  compiler: webpack.MultiCompiler,
+  opt: PartialAll<KoaWebpack.Options> = {}
+) {
+  // Set default options for KoaWebpack
+  const defaultOptions: KoaWebpack.Options = {
+    compiler: compiler as any,
+    devMiddleware: {
+      logLevel: "info",
+      publicPath: "/",
+      stats: false
+    }
+  };
+
+  // Create the middlware, by merging in any overrides
+  const koaWebpackMiddleware = await KoaWebpack(mergeWith(defaultOptions, opt));
+
+  // Attach middleware to our passed Koa app
+  koaApp.use(koaWebpackMiddleware);
+
+  // Emit the listener when Webpack has finished bundling
+  (compiler as any).hooks.done.tap("built", () => {
+    common.spinner.succeed(`Running on http://localhost:${common.port}`);
   });
 }
 

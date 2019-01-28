@@ -31,6 +31,7 @@ import { createClient } from "@/lib/apollo";
 // MobX state
 import { State } from "@/data/state";
 import { rehydrate, StateProvider } from "@/lib/mobx";
+import { resolvePtr } from "dns";
 
 // ----------------------------------------------------------------------------
 
@@ -47,7 +48,8 @@ const history = createBrowserHistory();
 rehydrate(state);
 
 // Render
-ReactDOM.hydrate(
+const root = document.getElementById("root")!;
+ReactDOM[root.innerHTML ? "hydrate" : "render"](
   <StateProvider value={state}>
     <ApolloProvider client={client}>
       <Router history={history}>

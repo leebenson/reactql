@@ -58,7 +58,7 @@ https://reactql.org
 
 - Production bundling via `npm run production`, that generates optimised server and client code.
 - [Static compression](https://webpack.js.org/plugins/compression-webpack-plugin/) using the Gzip and [Brotli](https://opensource.googleblog.com/2015/09/introducing-brotli-new-compression.html) algorithms for the serving of static assets as pre-compressed `.gz` and `.br` files (your entire app's `main.js.bz` - including all dependencies - goes from 346kb -> 89kb!)
-- Static bundling via `npm run static`. Don't need server-side rendering? No problem. Easily deploy a client-only SPA to any static web host (Netlify, etc.)
+- Static bundling via `npm run build:static`. Don't need server-side rendering? No problem. Easily deploy a client-only SPA to any static web host (Netlify, etc.)
 
 ### Developer support
 
@@ -121,10 +121,61 @@ Clean the cached production build with `npm run clean`, or run `npm run clean-pr
 If you only want to build assets and not actually run the server, use:
 
 ```
-npm run build
+npm run build:production
 ```
 
 This is used in the [Dockerfile](Dockerfile), for example, to pre-compile assets and ensure faster start-up times when spawning a new container.
+
+# Static bundling for client-only SPAs
+
+If you're targeting a client-only SPA and hosting statically, you probably don't want to run a Koa web server to handle HTTP requests and render React.
+
+Instead, you can use _**static mode**_, which produces the client-side JS, CSS and assets files, along with an `index.html` for minimal bootstrapping, and dumps them in `dist/public`.
+
+You can then upload the contents of that folder wherever you like - et voila, you'll have a working client-side Single Page App!
+
+There are two static modes available -- for dev and production:
+
+### Development (hot-code reload)
+
+Just like the full-stack version, dev mode gives you hot code reloading, so changes to your local files will be pushed to the browser.
+
+To activate static dev mode, just run:
+
+```
+npm run dev:static
+```
+
+Your client-side SPA will be online at [http://localhost:3000](http://localhost:3000), just like normal.
+
+### Production (static deployment)
+
+To build your client-side files ready for production deployment, run:
+
+```
+npm run build:static
+```
+
+You'll get everything in that 'regular' building provides you with plus a `index.html` to bootstrap your JS, just without the server parts.
+
+### Modifying the `index.html` template
+
+If you want to make changes to the `index.html` file that's used for static bundling, edit [src/views/static.html](src/views/static.html)
+
+## NPM commands
+
+Here's a list of all the NPM script commands available out-the-box:
+
+| Command                    | What it does                                                                                                                                                 |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| `npm run build:production` | Builds production-ready client/server bundles, but _doesn't_ start a server.                                                                                 |
+| `npm run build:static`     | Builds production-ready client bundle and `index.html`; ignores server bundling.                                                                             |
+| `npm run clean`            | Removes the `dist` folder, and any previously built client/server bundle.                                                                                    |
+| `npm run dev`              | Runs a univeral dev server in memory; auto restarts on code changes _and_ uses hot-code reload in the browser. Does _not_ output anything to `dist`.         |
+| `npm run dev:static`       | Runs a client-only dev server using [src/views/static.html] as the template; full hot-code reload. Also doesn't output anything to `dist`.                   |
+| `npm run production`       | Builds _and_ runs a production-ready client/server bundle. If previously built, will re-use cached files automatically (run `npm run clean` to clear cache.) |
+| `npm run production:clean` | Same as above, but cleans `dist` first to ensure a fresh re-build.                                                                                           |
+| `npm start`                | Shortcut for `npm run dev`.                                                                                                                                  |
 
 ## Project layout
 
@@ -140,7 +191,7 @@ Here's a quick run-through of each sub-folder and what you'll find in it:
 
 - [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Emotion CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
 
-- [src/lib](src/lib) - Internal libraries/helpers. There's an [apollo.ts](src/lib/apollo.ts) which builds a universal Apollo Client, and [mobx.ts](src/lib/mobx.tsx) which sets up default state (automatically rehydrated on the client), for incrementing a local counter. Plus, functions to handle hot-code reloading, Webpack stats helpers (used by the server to automatically load the right `<script>` tags, and some internal stuff to help with hot-code reloading the server when code changes in developmnt.
+- [src/lib](src/lib) - Internal libraries/helpers. There's an [apollo.ts](src/lib/apollo.ts) which builds a universal Apollo Client, and [mobx.ts](src/lib/mobx.tsx) which sets up default state (automatically rehydrated on the client), for incrementing a local counter. Plus, Koa middleware to handle hot-code reloading in development and some other Webpack helpers.
 
 - [src/queries](src/queries) - Your GraphQL queries. There's just one by default - for pilling the top stories from Hacker News to display in the example component.
 
