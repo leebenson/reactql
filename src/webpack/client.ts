@@ -7,11 +7,11 @@
 import * as path from "path";
 
 /* NPM */
-import BrotliCompression = require("brotli-webpack-plugin");
 import * as CompressionPlugin from "compression-webpack-plugin";
 import { mergeWith } from "lodash";
 import * as MiniCssExtractPlugin from "mini-css-extract-plugin";
 import * as webpack from "webpack";
+const BrotliCompression = require("brotli-webpack-plugin");
 
 /* Local */
 import common, { defaultMerger, files } from "./common";
@@ -73,8 +73,8 @@ const base: webpack.Configuration = {
 
   // Output
   output: {
-    path: path.resolve(__dirname, "..", "..", "dist", "public")
-    // publicPath: "/",
+    path: path.resolve(__dirname, "..", "..", "dist", "public"),
+    publicPath: "/"
   },
 
   // The client bundle will be responsible for building the resulting

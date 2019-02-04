@@ -15,10 +15,9 @@ import { HelmetData } from "react-helmet";
 
 export interface IHtmlProps {
   css?: string;
-  js: string;
   helmet: HelmetData;
   html: string;
-  scripts?: string[];
+  scripts: string[];
   styles?: Array<React.ReactElement<{}>>;
   window?: {
     [key: string]: object;
@@ -27,7 +26,7 @@ export interface IHtmlProps {
 
 export default class Html extends React.PureComponent<IHtmlProps> {
   public render() {
-    const { css, helmet, html, js, styles, window = {} } = this.props;
+    const { css, helmet, html, scripts, styles, window = {} } = this.props;
     return (
       <html
         lang="en"
@@ -60,7 +59,9 @@ export default class Html extends React.PureComponent<IHtmlProps> {
             }}
           />
         </body>
-        <script src={js} />
+        {scripts.map(script => (
+          <script key={script} src={script} />
+        ))}
       </html>
     );
   }

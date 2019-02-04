@@ -10,10 +10,10 @@ import * as React from "react";
 // fetch the GraphQL data, to display as part of our component
 import { Query } from "react-apollo";
 
-/* Local */
+// Emotion styled component
+import styled from "@emotion/styled";
 
-// Styled component lib for generating CSS in lieu of using SASS
-import styled from "@/lib/styledComponents";
+/* Local */
 
 // Query to get top stories from HackerNews
 import hackerNewsQuery from "@/queries/getHackerNewsTopStories";
@@ -36,13 +36,17 @@ interface IHackerNewsTopStories {
   };
 }
 
+// Unstyled Emotion parent block, to avoid repeating <style> tags
+// on child elements -- see https://github.com/emotion-js/emotion/issues/1061
+const List = styled.ul``;
+
 // Style the list item so it overrides the default font
-const Story = styled.li`
+const Story = styled("li")`
   font-size: 16px;
 
   a:hover {
     /* shows an example of how we can use themes */
-    color: ${props => props.theme.colors.orange};
+    color: orange;
   }
 `;
 
@@ -70,7 +74,7 @@ export default () => (
       return (
         <>
           <h3>Top stories from Hacker News</h3>
-          <ul>
+          <List>
             {result.data!.hn.topStories.map(story => (
               <Story key={story.id}>
                 <a href={story.url} target="_blank">
@@ -78,7 +82,7 @@ export default () => (
                 </a>
               </Story>
             ))}
-          </ul>
+          </List>
         </>
       );
     }}

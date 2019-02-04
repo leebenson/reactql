@@ -1,16 +1,29 @@
-FROM node:10.11-alpine
+FROM node:11.8.0-alpine AS builder
 
+# log most things
 ENV NPM_CONFIG_LOGLEVEL notice
 
-# Install NPM packages
-WORKDIR /app
+# OS packages for compilation
+RUN apk add --no-cache python2 make g++
+
+# install NPM packages
+WORKDIR /build
 ADD package*.json ./
 RUN npm i
+
+# add source
 ADD . .
 
-# Build
+# build
 RUN npm run build
 
-EXPOSE 3000
+########################
 
+FROM node:11.8.0-alpine
+WORKDIR /app
+
+# copy source + compiled `node_modules` 
+COPY --from=builder /build .
+
+# by default, run in production mode
 CMD npm run production

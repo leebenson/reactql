@@ -7,6 +7,7 @@
 
 import { mergeWith } from "lodash";
 import * as webpack from "webpack";
+import {} from "webpack-dev-server";
 
 // Plugin for generating `index.html` file for static hosting
 import * as HtmlWebpackPlugin from "html-webpack-plugin";

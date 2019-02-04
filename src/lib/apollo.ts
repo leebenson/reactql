@@ -13,9 +13,6 @@ import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 
-/* Local */
-import createState from "./state";
-
 // ----------------------------------------------------------------------------
 
 export function createClient(): ApolloClient<NormalizedCacheObject> {
@@ -63,10 +60,6 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
           console.log(`[Network error]: ${networkError}`);
         }
       }),
-
-      // Connect local Apollo state. This is our primary mechanism for
-      // managing 'flux'/local app data, in lieu of Redux or MobX
-      createState(cache),
 
       // Split on HTTP and WebSockets
       WS_SUBSCRIPTIONS && !SERVER

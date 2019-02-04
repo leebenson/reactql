@@ -11,7 +11,8 @@
   </head>
   <body>
     <div id="root"></div>
-    <% for (const chunk in htmlWebpackPlugin.files.chunks) { %><script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script
-    ><% } %>
+    <% for (const chunk in htmlWebpackPlugin.files.chunks) { %>
+    <script src="<%= htmlWebpackPlugin.files.chunks[chunk].entry %>"></script>
+    <% } %>
   </body>
 </html>
