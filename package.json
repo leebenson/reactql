@@ -12,6 +12,7 @@
     "gen:graphql": "gql-gen --config codegen.yml",
     "lint": "prettier -c \"src/**\"",
     "lint:save": "prettier --write \"src/**\"",
+    "precommit": "npm run lint:save && npm test",
     "production": "cross-env RUNNER=production NODE_ENV=production ts-node index.ts",
     "production:clean": "npm run clean && npm run production",
     "start": "npm run dev",
