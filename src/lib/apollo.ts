@@ -13,9 +13,15 @@ import { WebSocketLink } from "apollo-link-ws";
 import { getMainDefinition } from "apollo-utilities";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 
+/* Local */
+import { Store } from "@/data/store";
+
 // ----------------------------------------------------------------------------
 
-export function createClient(): ApolloClient<NormalizedCacheObject> {
+export function createClient(
+  // @ts-ignore - useful to pass in the store for `Authorization` headers, etc
+  store: Store,
+): ApolloClient<NormalizedCacheObject> {
   // Create the cache first, which we'll share across Apollo tooling.
   // This is an in-memory cache. Since we'll be calling `createClient` on
   // universally, the cache will survive until the HTTP request is
@@ -28,13 +34,13 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
   // set to an external playground at https://graphqlhub.com/graphql
   const httpLink = new HttpLink({
     credentials: "same-origin",
-    uri: GRAPHQL
+    uri: GRAPHQL,
   });
 
   // If we're in the browser, we'd have received initial state from the
   // server. Restore it, so the client app can continue with the same data.
   if (!SERVER) {
-    cache.restore((window as any).__APOLLO_STATE__);
+    cache.restore((window as any).__APOLLO__);
   }
 
   // Return a new Apollo Client back, with the cache we've just created,
@@ -52,8 +58,8 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
         if (graphQLErrors) {
           graphQLErrors.map(({ message, locations, path }) =>
             console.log(
-              `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
-            )
+              `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
+            ),
           );
         }
         if (networkError) {
@@ -75,15 +81,15 @@ export function createClient(): ApolloClient<NormalizedCacheObject> {
             new WebSocketLink(
               // Replace http(s) with `ws` for connecting via WebSockts
               new SubscriptionClient(GRAPHQL.replace(/^https?/, "ws"), {
-                reconnect: true // <-- automatically redirect as needed
-              })
+                reconnect: true, // <-- automatically redirect as needed
+              }),
             ),
             // ... fall-back to HTTP for everything else
-            httpLink
+            httpLink,
           )
-        : httpLink // <-- just use HTTP on the server
+        : httpLink, // <-- just use HTTP on the server
     ]),
     // On the server, enable SSR mode
-    ssrMode: SERVER
+    ssrMode: SERVER,
   });
 }

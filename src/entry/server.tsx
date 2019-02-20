@@ -63,11 +63,11 @@ export interface IRouterContext {
 export default function(output: Output) {
   // Create Koa middleware to handle React requests
   return async (ctx: Context) => {
-    // Create a new Apollo client
-    const client = createClient();
-
-    // Create new MobX state
+    // Create new MobX store
     const store = new Store();
+
+    // Create a new Apollo client
+    const client = createClient(store);
 
     // Create a fresh 'context' for React Router
     const routerContext: IRouterContext = {};
@@ -123,8 +123,8 @@ export default function(output: Output) {
         html={html}
         scripts={output.client.scripts()}
         window={{
-          __APOLLO_STATE__: client.extract(), // <-- GraphQL store
-          __STORE__: toJS(store), // <-- MobX state
+          __APOLLO__: client.extract(), // <-- GraphQL store
+          __STORE__: toJS(store), // <-- MobX store
         }}
       />,
     );

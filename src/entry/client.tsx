@@ -37,11 +37,11 @@ import { rehydrate, autosave } from "@/lib/store";
 
 // ----------------------------------------------------------------------------
 
-// Create Apollo client
-const client = createClient();
-
 // Create new MobX state
 const store = ((window as any).store = new Store());
+
+// Create Apollo client
+const client = createClient(store);
 
 // Create a browser history
 const history = createBrowserHistory();
