@@ -13,11 +13,11 @@ https://reactql.org
 
 - [React v16](https://facebook.github.io/react/) for UI.
 - [Apollo Client 2.0 (React)](http://dev.apollodata.com/react/) for connecting to GraphQL.
-- [MobX](https://mobx.js.org/) for declarative, type-safe flux/store state management (automatically re-hydrated from the server.)
+- [MobX](https://mobx.js.org/) for declarative, type-safe flux/store state management (automatically re-hydrated from the server.) which is auto-saved and reloaded to `localStorage` in the client (simple to disable if you don't need it.)
 - [Emotion](https://emotion.sh/) CSS-in-JS, with inline `<style>` tag generation that contains only the CSS that needs to be rendered.
 - [Sass](https://sass-lang.com/), [Less](http://lesscss.org/) and [PostCSS](https://postcss.org/) when importing `.css/.scss/.less` files.
 - [React Router 4](https://reacttraining.com/react-router/) for declarative browser + server routes.
-
+- [GraphQL Code Generator](https://graphql-code-generator.com/) for parsing remote GraphQL server schemas, for automatically building fully-typed Apollo React HOCs instead of writing `<Query>` / `<Mutation>` queries manually 
 - Declarative/dynamic `<head>` section, using [react-helmet](https://github.com/nfl/react-helmet).
 
 ### Server-side rendering
@@ -70,13 +70,44 @@ https://reactql.org
 Grab and unpack the latest version, install all dependencies, and start a server:
 
 ```
-wget -qO- https://github.com/leebenson/reactql/archive/4.2.0.tar.gz | tar xvz
-cd reactql-4.2.0
+wget -qO- https://github.com/leebenson/reactql/archive/4.2.1.tar.gz | tar xvz
+cd reactql-4.2.1
 npm i
 npm start
 ```
 
 Your development server is now running on [http://localhost:3000](http://localhost:3000)
+
+## Building GraphQL HOCs
+
+By default, your GraphQL schema lives in [schema/schema.graphql](schema/schema.graphql)
+
+To create fully Typescript-typed Apollo React HOCs based on your schema, simply put the query in a `.graphql` anywhere inside the source folder, and run:
+
+```
+npm run gen:graphql
+```
+
+You can then import the query like we do in the [HackerNews demo component](src/components/example/hackernews.tsx):
+
+```ts
+// Query to get top stories from HackerNews
+import { GetHackerNewsTopStories } from "@/graphql";
+```
+
+And use it as follows:
+
+```ts
+<GetHackerNewsTopStories.Component>
+    {({ data, loading, error }) => (...)
+</GetHackerNewsTopStories.Component>
+```
+
+To get access to the underlying `gql`-templated query (in case you need it for refetching, etc), in this case it'd be `GetHackerNewsTopStories.Document`.
+
+See [GraphQL Code Generator](https://graphql-code-generator.com/) for more details on how it works.
+
+You can also edit [codegen.yml](codegen.yml) in the root to point to a remote schema, or change the file location.
 
 ## Development mode
 
@@ -203,9 +234,11 @@ Here's a quick run-through of each sub-folder and what you'll find in it:
 
 You'll also find some other useful goodies in the [root]()...
 
-- [.env](.env) - Change your `GRAPHQL` server endpoint, and `WS_SUBSCRIPTIONS=1` for built-in WebSocket support.
+- [.env](.env) - Change your `GRAPHQL` server endpoint, `WS_SUBSCRIPTIONS=1` for built-in WebSocket support, `HOST` if you want to bind the server to something other than localhost, and `LOCAL_STORAGE_KEY` to set the root key for saving MobX state locally in the client for automatic re-loading in a later session.
 
 - [.nvmrc](.nvmrc) - Specify your preferred Node.js version, for use with NVM and used by many continuous deployment tools. Defaults to v11.8.0
+
+- [codegen.yml](codegen.yml) - Settings for [GraphQL Code Generator](https://graphql-code-generator.com/) (which you can run with `npm run gen:graphql` to generate types/HOCs based on your GraphQL queries/mutations.)
 
 - [netlify.toml](netlify.toml) - Build instructions for fast [Netlify](https://www.netlify.com/) deployments. **Tip: To quickly deploy a demo ReactQL app, [click here](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql).**
 
