@@ -1,6 +1,6 @@
 {
   "name": "reactql",
-  "version": "4.2.0",
+  "version": "4.2.1",
   "description": "ReactQL - front-end React/GraphQL starter kit",
   "main": "index.js",
   "scripts": {
@@ -10,10 +10,23 @@
     "dev": "cross-env RUNNER=development NODE_ENV=development ts-node index.ts",
     "dev:static": "cross-env RUNNER=static NODE_ENV=development ts-node index.ts",
     "gen:graphql": "gql-gen --config codegen.yml",
+    "lint": "prettier -c \"src/**\"",
+    "lint:save": "prettier --write \"src/**\"",
     "production": "cross-env RUNNER=production NODE_ENV=production ts-node index.ts",
     "production:clean": "npm run clean && npm run production",
     "start": "npm run dev",
     "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "prettier --write \"src/**\"",
+      "git add"
+    ]
   },
   "author": "Lee Benson <lee@leebenson.com>",
   "license": "MIT",
@@ -58,13 +71,16 @@
     "graphql-codegen-typescript-common": "^0.16.1",
     "graphql-codegen-typescript-react-apollo": "^0.16.1",
     "html-webpack-plugin": "^3.2.0",
+    "husky": "^1.3.1",
     "koa-webpack": "^5.2.1",
     "less": "^3.9.0",
     "less-loader": "^4.1.0",
+    "lint-staged": "^8.1.4",
     "mini-css-extract-plugin": "^0.5.0",
     "node-sass": "^4.11.0",
     "postcss-loader": "^3.0.0",
     "postcss-preset-env": "^6.5.0",
+    "prettier": "^1.16.4",
     "require-from-string": "^2.0.2",
     "resolve-url-loader": "^3.0.1",
     "rimraf": "^2.6.3",

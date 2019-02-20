@@ -38,7 +38,7 @@ void (async () => {
       const filename = path.resolve(clientConfig.output.path, "index.html");
       ctx.response.type = "html";
       ctx.response.body = middleware.devMiddleware.fileSystem.createReadStream(
-        filename,
+        filename
       );
     });
   });

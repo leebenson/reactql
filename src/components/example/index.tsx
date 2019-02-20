@@ -24,7 +24,7 @@ interface IIndexState {
 // Say hello from GraphQL, along with a HackerNews feed fetched by GraphQL
 class Index extends React.PureComponent<{}, IIndexState> {
   public state = {
-    dynamic: null,
+    dynamic: null
   };
 
   public componentDidMount = async () => {
@@ -33,7 +33,7 @@ class Index extends React.PureComponent<{}, IIndexState> {
 
     // ... and keep ahold of it locally
     this.setState({
-      dynamic: dynamic.default,
+      dynamic: dynamic.default
     });
   };
 

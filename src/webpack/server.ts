@@ -37,10 +37,10 @@ const base: webpack.Configuration = {
             loader: "file-loader",
             query: {
               emitFile: false,
-              name: `assets/img/[name]${isProduction ? ".[hash]" : ""}.[ext]`,
-            },
-          },
-        ],
+              name: `assets/img/[name]${isProduction ? ".[hash]" : ""}.[ext]`
+            }
+          }
+        ]
       },
 
       // Fonts
@@ -51,12 +51,12 @@ const base: webpack.Configuration = {
             loader: "file-loader",
             query: {
               emitFile: false,
-              name: `assets/fonts/[name]${isProduction ? ".[hash]" : ""}.[ext]`,
-            },
-          },
-        ],
-      },
-    ],
+              name: `assets/fonts/[name]${isProduction ? ".[hash]" : ""}.[ext]`
+            }
+          }
+        ]
+      }
+    ]
   },
 
   // Name
@@ -67,14 +67,14 @@ const base: webpack.Configuration = {
     filename: "../server.js",
     libraryTarget: "commonjs2",
     path: path.resolve(__dirname, "..", "..", "dist", "public"),
-    publicPath: "/",
+    publicPath: "/"
   },
 
   // Plugins
   plugins: [
     // Only emit a single `server.js` chunk
     new webpack.optimize.LimitChunkCountPlugin({
-      maxChunks: 1,
+      maxChunks: 1
     }),
 
     // Add source map support to the server-side bundle
@@ -82,7 +82,7 @@ const base: webpack.Configuration = {
       banner: `require("source-map-support").install();`,
       entryOnly: false,
       include: ["server.js"],
-      raw: true,
+      raw: true
     }),
 
     // Add global variables
@@ -90,26 +90,26 @@ const base: webpack.Configuration = {
       GRAPHQL: JSON.stringify(process.env.GRAPHQL),
       SERVER: true,
       WS_SUBSCRIPTIONS: JSON.stringify(process.env.WS_SUBSCRIPTIONS),
-      LOCAL_STORAGE_KEY: JSON.stringify(process.env.LOCAL_STORAGE_KEY),
-    }),
+      LOCAL_STORAGE_KEY: JSON.stringify(process.env.LOCAL_STORAGE_KEY)
+    })
   ],
 
   resolve: {
-    modules: [path.resolve(__dirname, "..", "..", "node_modules")],
+    modules: [path.resolve(__dirname, "..", "..", "node_modules")]
   },
 
   // Target
-  target: "node",
+  target: "node"
 };
 
 // Development config
 const dev: webpack.Configuration = {
-  devtool: "eval-source-map",
+  devtool: "eval-source-map"
 };
 
 // Production config
 const prod: webpack.Configuration = {
-  devtool: "source-map",
+  devtool: "source-map"
 };
 
 export default mergeWith(
@@ -117,5 +117,5 @@ export default mergeWith(
   common(true),
   base,
   process.env.NODE_ENV === "production" ? prod : dev,
-  defaultMerger,
+  defaultMerger
 );

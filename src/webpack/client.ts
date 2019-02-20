@@ -41,10 +41,10 @@ const base: webpack.Configuration = {
           {
             loader: "file-loader",
             query: {
-              name: `assets/img/[name]${isProduction ? ".[hash]" : ""}.[ext]`,
-            },
-          },
-        ],
+              name: `assets/img/[name]${isProduction ? ".[hash]" : ""}.[ext]`
+            }
+          }
+        ]
       },
 
       // Fonts
@@ -54,12 +54,12 @@ const base: webpack.Configuration = {
           {
             loader: "file-loader",
             query: {
-              name: `assets/fonts/[name]${isProduction ? ".[hash]" : ""}.[ext]`,
-            },
-          },
-        ],
-      },
-    ],
+              name: `assets/fonts/[name]${isProduction ? ".[hash]" : ""}.[ext]`
+            }
+          }
+        ]
+      }
+    ]
   },
 
   // Set-up some common mocks/polyfills for features available in node, so
@@ -68,13 +68,13 @@ const base: webpack.Configuration = {
     console: true,
     fs: "empty",
     net: "empty",
-    tls: "empty",
+    tls: "empty"
   },
 
   // Output
   output: {
     path: path.resolve(__dirname, "..", "..", "dist", "public"),
-    publicPath: "/",
+    publicPath: "/"
   },
 
   // The client bundle will be responsible for building the resulting
@@ -87,18 +87,18 @@ const base: webpack.Configuration = {
           enforce: true,
           name: "main",
           test: new RegExp(
-            `\\.${rules.map(rule => `(${rule.ext})`).join("|")}$`,
-          ),
-        },
-      },
-    },
+            `\\.${rules.map(rule => `(${rule.ext})`).join("|")}$`
+          )
+        }
+      }
+    }
   },
 
   // Add `MiniCssExtractPlugin`
   plugins: [
     new MiniCssExtractPlugin({
       chunkFilename: "assets/css/[id].css",
-      filename: `assets/css/[name]${isProduction ? ".[contenthash]" : ""}.css`,
+      filename: `assets/css/[name]${isProduction ? ".[contenthash]" : ""}.css`
     }),
 
     // Add global variables
@@ -106,9 +106,9 @@ const base: webpack.Configuration = {
       GRAPHQL: JSON.stringify(process.env.GRAPHQL),
       SERVER: false,
       WS_SUBSCRIPTIONS: process.env.WS_SUBSCRIPTIONS,
-      LOCAL_STORAGE_KEY: JSON.stringify(process.env.LOCAL_STORAGE_KEY),
-    }),
-  ],
+      LOCAL_STORAGE_KEY: JSON.stringify(process.env.LOCAL_STORAGE_KEY)
+    })
+  ]
 };
 
 // Development client config
@@ -118,8 +118,8 @@ const dev: webpack.Configuration = {
   // Output
   output: {
     chunkFilename: "[name].js",
-    filename: "[name].js",
-  },
+    filename: "[name].js"
+  }
 };
 
 // Production client config
@@ -127,18 +127,18 @@ const prod: webpack.Configuration = {
   // Output
   output: {
     chunkFilename: "assets/js/[name].[chunkhash].js",
-    filename: "assets/js/[name].[chunkhash].js",
+    filename: "assets/js/[name].[chunkhash].js"
   },
 
   plugins: [
     new CompressionPlugin({
       cache: true,
-      minRatio: 0.99,
+      minRatio: 0.99
     }),
     new BrotliCompression({
-      minRatio: 0.99,
-    }),
-  ],
+      minRatio: 0.99
+    })
+  ]
 };
 
 export default mergeWith(
@@ -146,5 +146,5 @@ export default mergeWith(
   common(false),
   base,
   process.env.NODE_ENV === "production" ? prod : dev,
-  defaultMerger,
+  defaultMerger
 );

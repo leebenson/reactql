@@ -53,7 +53,7 @@ function staticMiddleware(root: string, immutable = true): Koa.Middleware {
         // If we're in production, try <dist>/public first
         return await koaSend(ctx, ctx.path, {
           immutable,
-          root,
+          root
         });
       }
     } catch (e) {
@@ -71,7 +71,7 @@ export const common = {
   compiled: {
     clientStats: path.resolve(dist, "client.stats.json"),
     server: path.resolve(dist, "server.js"),
-    serverStats: path.resolve(dist, "server.stats.json"),
+    serverStats: path.resolve(dist, "server.stats.json")
   },
 
   // Distribution folder
@@ -91,7 +91,7 @@ export const common = {
     (process.env.WS_PORT && parseInt(process.env.WS_PORT)) || undefined,
 
   // Spinner
-  spinner: ora() as any,
+  spinner: ora() as any
 };
 
 // Webpack compiler
@@ -125,9 +125,9 @@ export function build(buildStatic = false) {
         [common.compiled.serverStats, common.compiled.clientStats].forEach(
           (file, i) => {
             fs.writeFileSync(file, JSON.stringify(stats.children[i]), {
-              encoding: "utf8",
+              encoding: "utf8"
             });
-          },
+          }
         );
       }
 
@@ -140,11 +140,11 @@ export function build(buildStatic = false) {
 export async function devServer(
   koaApp: Koa,
   compiler: webpack.MultiCompiler,
-  opt: PartialAll<KoaWebpack.Options> = {},
+  opt: PartialAll<KoaWebpack.Options> = {}
 ) {
   // Set hot client options
   const hotClient: any = {
-    host: common.host,
+    host: common.host
   };
 
   // Is a custom WebSocket defined?
@@ -158,9 +158,9 @@ export async function devServer(
     devMiddleware: {
       logLevel: "info",
       publicPath: "/",
-      stats: false,
+      stats: false
     },
-    hotClient,
+    hotClient
   };
 
   // Create the middlware, by merging in any overrides

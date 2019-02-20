@@ -124,9 +124,9 @@ export default function(output: Output) {
         scripts={output.client.scripts()}
         window={{
           __APOLLO__: client.extract(), // <-- GraphQL store
-          __STORE__: toJS(store), // <-- MobX store
+          __STORE__: toJS(store) // <-- MobX store
         }}
-      />,
+      />
     );
 
     // Set the return type to `text/html`, and dump the response back to

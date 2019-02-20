@@ -17,10 +17,10 @@ export type WithStore<T> = T & {
 };
 
 export function withStore<P>(
-  Component: React.ComponentType<WithStore<P>>,
+  Component: React.ComponentType<WithStore<P>>
 ): React.ComponentType<P> {
   return inject<{ store: Store }, {}, {}, {}>(stores => ({
-    store: stores.store,
+    store: stores.store
   }))(observer(Component as any));
 }
 

@@ -20,7 +20,7 @@ import { Store } from "@/data/store";
 
 export function createClient(
   // @ts-ignore - useful to pass in the store for `Authorization` headers, etc
-  store: Store,
+  store: Store
 ): ApolloClient<NormalizedCacheObject> {
   // Create the cache first, which we'll share across Apollo tooling.
   // This is an in-memory cache. Since we'll be calling `createClient` on
@@ -34,7 +34,7 @@ export function createClient(
   // set to an external playground at https://graphqlhub.com/graphql
   const httpLink = new HttpLink({
     credentials: "same-origin",
-    uri: GRAPHQL,
+    uri: GRAPHQL
   });
 
   // If we're in the browser, we'd have received initial state from the
@@ -58,8 +58,8 @@ export function createClient(
         if (graphQLErrors) {
           graphQLErrors.map(({ message, locations, path }) =>
             console.log(
-              `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`,
-            ),
+              `[GraphQL error]: Message: ${message}, Location: ${locations}, Path: ${path}`
+            )
           );
         }
         if (networkError) {
@@ -81,15 +81,15 @@ export function createClient(
             new WebSocketLink(
               // Replace http(s) with `ws` for connecting via WebSockts
               new SubscriptionClient(GRAPHQL.replace(/^https?/, "ws"), {
-                reconnect: true, // <-- automatically redirect as needed
-              }),
+                reconnect: true // <-- automatically redirect as needed
+              })
             ),
             // ... fall-back to HTTP for everything else
-            httpLink,
+            httpLink
           )
-        : httpLink, // <-- just use HTTP on the server
+        : httpLink // <-- just use HTTP on the server
     ]),
     // On the server, enable SSR mode
-    ssrMode: SERVER,
+    ssrMode: SERVER
   });
 }

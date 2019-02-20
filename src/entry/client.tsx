@@ -56,7 +56,7 @@ ReactDOM[root.innerHTML ? "hydrate" : "render"](
       </Router>
     </ApolloProvider>
   </Provider>,
-  document.getElementById("root"),
+  document.getElementById("root")
 );
 
 // Rehydrate MobX store and save changes
