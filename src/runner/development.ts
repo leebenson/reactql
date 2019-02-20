@@ -16,7 +16,7 @@ common.spinner
   .info(chalk.default.magenta("Development mode"))
   .info("Building development server...");
 
-app.listen({ port: common.port, host: "localhost" }, async () => {
+app.listen({ port: common.port, host: common.host }, async () => {
   await devServer(app, compiler);
   app.use(hotServerMiddleware(compiler));
 });

@@ -6,7 +6,7 @@
 /* NPM */
 import * as React from "react";
 import Helmet from "react-helmet";
-import { hot } from "react-hot-loader";
+import { hot } from "react-hot-loader/root";
 import { Route, Switch } from "react-router-dom";
 import { Global } from "@emotion/core";
 
@@ -39,4 +39,4 @@ const Root = () => (
   </div>
 );
 
-export default hot(module)(Root);
+export default hot(Root);

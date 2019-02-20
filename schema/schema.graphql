@@ -1,0 +1,17 @@
+type Story {
+  id: String
+  title: String
+  url: String
+}
+
+type HackerNews {
+  topStories: [Story]
+}
+
+type Query {
+  hn: HackerNews
+}
+
+schema {
+  query: Query
+}

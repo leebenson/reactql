@@ -30,6 +30,9 @@ import Helmet from "react-helmet";
 // React SSR routers
 import { StaticRouter } from "react-router";
 
+// MobX provider
+import { Provider } from "mobx-react";
+
 /* Local */
 
 // Root component
@@ -39,10 +42,7 @@ import Root from "@/components/root";
 import { createClient } from "@/lib/apollo";
 
 // State class, containing all of our user-land state fields
-import { State } from "@/data/state";
-
-// <StateProvider> lets us send per-request state down a React chain
-import { StateProvider } from "@/lib/mobx";
+import { Store } from "@/data/store";
 
 // Class for handling Webpack stats output
 import Output from "@/lib/output";
@@ -67,7 +67,7 @@ export default function(output: Output) {
     const client = createClient();
 
     // Create new MobX state
-    const state = new State();
+    const store = new Store();
 
     // Create a fresh 'context' for React Router
     const routerContext: IRouterContext = {};
@@ -75,13 +75,13 @@ export default function(output: Output) {
     // Render our components - passing down MobX state, a GraphQL client,
     // and a router for rendering based on our route config
     const components = (
-      <StateProvider value={state}>
+      <Provider store={store}>
         <ApolloProvider client={client}>
           <StaticRouter location={ctx.request.url} context={routerContext}>
             <Root />
           </StaticRouter>
         </ApolloProvider>
-      </StateProvider>
+      </Provider>
     );
 
     // Await GraphQL data coming from the API server
@@ -124,9 +124,9 @@ export default function(output: Output) {
         scripts={output.client.scripts()}
         window={{
           __APOLLO_STATE__: client.extract(), // <-- GraphQL store
-          __STATE__: toJS(state) // <-- MobX state
+          __STORE__: toJS(store), // <-- MobX state
         }}
-      />
+      />,
     );
 
     // Set the return type to `text/html`, and dump the response back to

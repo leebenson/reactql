@@ -3,13 +3,15 @@
 // ----------------------------------------------------------------------------
 // IMPORTS
 
+/* Node */
+import * as path from "path";
+
 /* NPM */
 import * as chalk from "chalk";
-const historyFallback = require("koa2-history-api-fallback");
 
 /* Local */
-// import staticMiddleware from "../lib/staticMiddleware";
 import { build, common, app, staticCompiler, devServer } from "./app";
+import clientConfig from "../webpack/client";
 
 // ----------------------------------------------------------------------------
 
@@ -27,11 +29,17 @@ void (async () => {
   // Development...
   common.spinner.info("Building development server...");
 
-  app.listen({ port: common.port, host: "localhost" }, async () => {
-    // Fallback to /index.html on 404 routes, for client-side SPAs
-    app.use(historyFallback());
-
+  app.listen({ port: common.port, host: common.host }, async () => {
     // Build the static dev server
-    await devServer(app, staticCompiler);
+    const middleware = await devServer(app, staticCompiler);
+
+    // Fallback to /index.html on 404 routes, for client-side SPAs
+    app.use(async ctx => {
+      const filename = path.resolve(clientConfig.output.path, "index.html");
+      ctx.response.type = "html";
+      ctx.response.body = middleware.devMiddleware.fileSystem.createReadStream(
+        filename,
+      );
+    });
   });
 })();

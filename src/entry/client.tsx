@@ -20,6 +20,9 @@ import * as ReactDOM from "react-dom";
 // Single page app routing
 import { Router } from "react-router-dom";
 
+// MobX provider
+import { Provider } from "mobx-react";
+
 /* Local */
 
 // Our main component, and the starting point for server/browser loading
@@ -29,9 +32,8 @@ import Root from "@/components/root";
 import { createClient } from "@/lib/apollo";
 
 // MobX state
-import { State } from "@/data/state";
-import { rehydrate, StateProvider } from "@/lib/mobx";
-import { resolvePtr } from "dns";
+import { Store } from "@/data/store";
+import { rehydrate, autosave } from "@/lib/store";
 
 // ----------------------------------------------------------------------------
 
@@ -39,23 +41,23 @@ import { resolvePtr } from "dns";
 const client = createClient();
 
 // Create new MobX state
-const state = new State();
+const store = ((window as any).store = new Store());
 
 // Create a browser history
 const history = createBrowserHistory();
 
-// Rehydrate MobX state, if applicable
-rehydrate(state);
-
 // Render
 const root = document.getElementById("root")!;
 ReactDOM[root.innerHTML ? "hydrate" : "render"](
-  <StateProvider value={state}>
+  <Provider store={store}>
     <ApolloProvider client={client}>
       <Router history={history}>
         <Root />
       </Router>
     </ApolloProvider>
-  </StateProvider>,
-  document.getElementById("root")
+  </Provider>,
+  document.getElementById("root"),
 );
+
+// Rehydrate MobX store and save changes
+[rehydrate, autosave].forEach(fn => fn(store));

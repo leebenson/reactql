@@ -1,0 +1,9 @@
+query GetHackerNewsTopStories {
+  hn {
+    topStories {
+      id
+      title
+      url
+    }
+  }
+}
