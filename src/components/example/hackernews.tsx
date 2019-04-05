@@ -12,7 +12,7 @@ import styled from "@emotion/styled";
 /* Local */
 
 // Query to get top stories from HackerNews
-import { GetHackerNewsTopStories } from "@/graphql";
+import { GetHackerNewsTopStoriesComponent } from "@/graphql";
 
 // ----------------------------------------------------------------------------
 
@@ -36,7 +36,7 @@ const Story = styled("li")`
 // doesn't already have data from the server -- it'll display a loading message
 // while the data is being retrieved
 export const HackerNews: React.FunctionComponent = () => (
-  <GetHackerNewsTopStories.Component>
+  <GetHackerNewsTopStoriesComponent>
     {({ data, loading, error }) => {
       // Any errors? Say so!
       if (error) {
@@ -66,5 +66,5 @@ export const HackerNews: React.FunctionComponent = () => (
         </>
       );
     }}
-  </GetHackerNewsTopStories.Component>
+  </GetHackerNewsTopStoriesComponent>
 );

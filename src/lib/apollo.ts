@@ -4,7 +4,11 @@
 // IMPORTS
 
 /* NPM */
-import { InMemoryCache, NormalizedCacheObject } from "apollo-cache-inmemory";
+import {
+  InMemoryCache,
+  NormalizedCacheObject,
+  IntrospectionFragmentMatcher
+} from "apollo-cache-inmemory";
 import { ApolloClient } from "apollo-client";
 import { ApolloLink, split } from "apollo-link";
 import { onError } from "apollo-link-error";
@@ -15,8 +19,14 @@ import { SubscriptionClient } from "subscriptions-transport-ws";
 
 /* Local */
 import { Store } from "@/data/store";
+import introspectionQueryResultData from "@/graphql/fragments";
 
 // ----------------------------------------------------------------------------
+
+// Match up fragments
+const fragmentMatcher = new IntrospectionFragmentMatcher({
+  introspectionQueryResultData
+});
 
 export function createClient(
   // @ts-ignore - useful to pass in the store for `Authorization` headers, etc
@@ -27,7 +37,7 @@ export function createClient(
   // universally, the cache will survive until the HTTP request is
   // responded to (on the server) or for the whole of the user's visit (in
   // the browser)
-  const cache = new InMemoryCache();
+  const cache = new InMemoryCache({ fragmentMatcher });
 
   // Create a HTTP client (both server/client). It takes the GraphQL
   // server from the `GRAPHQL` environment variable, which by default is

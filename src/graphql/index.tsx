@@ -1,85 +1,97 @@
-export type Maybe<T> = T | null;
+type Maybe<T> = T | null;
+/** All built-in and custom scalars, mapped to their actual values */
+export type Scalars = {
+  ID: string;
+  String: string;
+  Boolean: boolean;
+  Int: number;
+  Float: number;
+};
 
-// ====================================================
-// Documents
-// ====================================================
+export type HackerNews = {
+  topStories?: Maybe<Array<Maybe<Story>>>;
+};
 
-export namespace GetHackerNewsTopStories {
-  export type Variables = {};
+export type Query = {
+  hn?: Maybe<HackerNews>;
+};
 
-  export type Query = {
-    __typename?: "Query";
+export type Story = {
+  id?: Maybe<Scalars["String"]>;
+  title?: Maybe<Scalars["String"]>;
+  url?: Maybe<Scalars["String"]>;
+};
+export type GetHackerNewsTopStoriesQueryVariables = {};
 
-    hn: Maybe<Hn>;
-  };
-
-  export type Hn = {
-    __typename?: "HackerNews";
-
-    topStories: Maybe<(Maybe<TopStories>)[]>;
-  };
-
-  export type TopStories = {
-    __typename?: "Story";
-
-    id: Maybe<string>;
-
-    title: Maybe<string>;
-
-    url: Maybe<string>;
-  };
-}
-
-import * as ReactApollo from "react-apollo";
-import * as React from "react";
+export type GetHackerNewsTopStoriesQuery = { __typename?: "Query" } & {
+  hn: Maybe<
+    { __typename?: "HackerNews" } & {
+      topStories: Maybe<
+        Array<
+          Maybe<{ __typename?: "Story" } & Pick<Story, "id" | "title" | "url">>
+        >
+      >;
+    }
+  >;
+};
 
 import gql from "graphql-tag";
+import * as React from "react";
+import * as ReactApollo from "react-apollo";
 
-// ====================================================
-// Components
-// ====================================================
-
-export namespace GetHackerNewsTopStories {
-  export const Document = gql`
-    query GetHackerNewsTopStories {
-      hn {
-        topStories {
-          id
-          title
-          url
-        }
+export const GetHackerNewsTopStoriesDocument = gql`
+  query GetHackerNewsTopStories {
+    hn {
+      topStories {
+        id
+        title
+        url
       }
     }
-  `;
-  export class Component extends React.Component<
-    Partial<ReactApollo.QueryProps<Query, Variables>>
-  > {
-    render() {
-      return (
-        <ReactApollo.Query<Query, Variables>
-          query={Document}
-          {...(this as any)["props"] as any}
-        />
-      );
-    }
   }
-  export type Props<TChildProps = any> = Partial<
-    ReactApollo.DataProps<Query, Variables>
-  > &
-    TChildProps;
-  export function HOC<TProps, TChildProps = any>(
-    operationOptions:
-      | ReactApollo.OperationOption<
-          TProps,
-          Query,
-          Variables,
-          Props<TChildProps>
-        >
-      | undefined
-  ) {
-    return ReactApollo.graphql<TProps, Query, Variables, Props<TChildProps>>(
-      Document,
-      operationOptions
+`;
+
+export class GetHackerNewsTopStoriesComponent extends React.Component<
+  Partial<
+    ReactApollo.QueryProps<
+      GetHackerNewsTopStoriesQuery,
+      GetHackerNewsTopStoriesQueryVariables
+    >
+  >
+> {
+  render() {
+    return (
+      <ReactApollo.Query<
+        GetHackerNewsTopStoriesQuery,
+        GetHackerNewsTopStoriesQueryVariables
+      >
+        query={GetHackerNewsTopStoriesDocument}
+        {...(this as any)["props"] as any}
+      />
     );
   }
+}
+export type GetHackerNewsTopStoriesProps<TChildProps = {}> = Partial<
+  ReactApollo.DataProps<
+    GetHackerNewsTopStoriesQuery,
+    GetHackerNewsTopStoriesQueryVariables
+  >
+> &
+  TChildProps;
+export function withGetHackerNewsTopStories<TProps, TChildProps = {}>(
+  operationOptions:
+    | ReactApollo.OperationOption<
+        TProps,
+        GetHackerNewsTopStoriesQuery,
+        GetHackerNewsTopStoriesQueryVariables,
+        GetHackerNewsTopStoriesProps<TChildProps>
+      >
+    | undefined
+) {
+  return ReactApollo.withQuery<
+    TProps,
+    GetHackerNewsTopStoriesQuery,
+    GetHackerNewsTopStoriesQueryVariables,
+    GetHackerNewsTopStoriesProps<TChildProps>
+  >(GetHackerNewsTopStoriesDocument, operationOptions);
 }

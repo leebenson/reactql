@@ -32,7 +32,7 @@ import * as webpack from "webpack";
 import * as KoaWebpack from "koa-webpack";
 
 /* Ora spinner */
-import * as ora from "ora";
+import ora from "ora";
 
 // Lodash utility for merging objects
 import { mergeWith } from "lodash";
@@ -91,7 +91,7 @@ export const common = {
     (process.env.WS_PORT && parseInt(process.env.WS_PORT)) || undefined,
 
   // Spinner
-  spinner: ora() as any
+  spinner: ora()
 };
 
 // Webpack compiler

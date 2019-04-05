@@ -4,6 +4,9 @@ documents: "src/**/*.graphql"
 generates:
   src/graphql/index.tsx:
     plugins:
-      - "typescript-common"
-      - "typescript-client"
-      - "typescript-react-apollo"
+      - typescript
+      - typescript-operations
+      - typescript-react-apollo
+  src/graphql/fragments.tsx:
+    plugins:
+      - fragment-matcher

@@ -1,0 +1,15 @@
+# git
+.github
+**/.gitattributes
+
+# editors
+.vscode
+*.un~
+*.swp
+
+# NPM
+**/node_modules
+
+# ext to ignore
+**/*.svg
+**/.DS_Store

@@ -17,7 +17,7 @@ https://reactql.org
 - [Emotion](https://emotion.sh/) CSS-in-JS, with inline `<style>` tag generation that contains only the CSS that needs to be rendered.
 - [Sass](https://sass-lang.com/), [Less](http://lesscss.org/) and [PostCSS](https://postcss.org/) when importing `.css/.scss/.less` files.
 - [React Router 4](https://reacttraining.com/react-router/) for declarative browser + server routes.
-- [GraphQL Code Generator](https://graphql-code-generator.com/) for parsing remote GraphQL server schemas, for automatically building fully-typed Apollo React HOCs instead of writing `<Query>` / `<Mutation>` queries manually 
+- [GraphQL Code Generator v1](https://graphql-code-generator.com/) for parsing remote GraphQL server schemas, for automatically building fully-typed Apollo React HOCs instead of writing `<Query>` / `<Mutation>` queries manually
 - Declarative/dynamic `<head>` section, using [react-helmet](https://github.com/nfl/react-helmet).
 
 ### Server-side rendering
@@ -92,18 +92,18 @@ You can then import the query like we do in the [HackerNews demo component](src/
 
 ```ts
 // Query to get top stories from HackerNews
-import { GetHackerNewsTopStories } from "@/graphql";
+import { GetHackerNewsTopStoriesComponent } from "@/graphql";
 ```
 
 And use it as follows:
 
 ```ts
-<GetHackerNewsTopStories.Component>
+<GetHackerNewsTopStoriesComponent>
     {({ data, loading, error }) => (...)
-</GetHackerNewsTopStories.Component>
+</GetHackerNewsTopStoriesComponent>
 ```
 
-To get access to the underlying `gql`-templated query (in case you need it for refetching, etc), in this case it'd be `GetHackerNewsTopStories.Document`.
+To get access to the underlying `gql`-templated query (in case you need it for refetching, etc), in this case it'd be `GetHackerNewsTopStoriesDocument`.
 
 See [GraphQL Code Generator](https://graphql-code-generator.com/) for more details on how it works.
 

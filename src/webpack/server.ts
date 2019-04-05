@@ -9,7 +9,6 @@ import * as path from "path";
 /* NPM */
 import { mergeWith } from "lodash";
 import * as webpack from "webpack";
-import * as nodeModules from "webpack-node-externals";
 
 /* Local */
 import common, { defaultMerger, files } from "./common";
@@ -22,9 +21,6 @@ const isProduction = process.env.NODE_ENV === "production";
 // Base server config
 const base: webpack.Configuration = {
   entry: [path.resolve(__dirname, "..", "entry", "server.tsx")],
-
-  // External modules that we avoid transpiling
-  externals: nodeModules(),
 
   module: {
     rules: [
