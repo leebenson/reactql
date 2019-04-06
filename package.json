@@ -1,6 +1,6 @@
 {
   "name": "reactql",
-  "version": "4.3.0",
+  "version": "4.3.1",
   "description": "ReactQL - front-end React/GraphQL starter kit",
   "main": "index.js",
   "scripts": {
@@ -41,6 +41,7 @@
     "@graphql-codegen/typescript-react-apollo": "^1.0.6",
     "@hot-loader/react-dom": "^16.8.6",
     "@types/compression-webpack-plugin": "^2.0.0",
+    "@types/graphql": "^14.2.0",
     "@types/history": "^4.7.2",
     "@types/html-webpack-plugin": "^3.2.0",
     "@types/kcors": "^2.2.3",
@@ -63,6 +64,7 @@
     "@types/webpack": "^4.4.27",
     "@types/webpack-dev-server": "^3.1.5",
     "@types/webpack-node-externals": "^1.6.3",
+    "@types/ws": "^6.0.1",
     "babel-core": "^6.26.3",
     "babel-loader": "^8.0.5",
     "babel-plugin-emotion": "^10.0.9",
@@ -91,7 +93,7 @@
     "ts-loader": "^5.3.3",
     "ts-node": "^8.0.3",
     "tslint": "^5.15.0",
-    "typescript": "^3.4.1",
+    "typescript": "^3.4.2",
     "webpack": "^4.29.6"
   },
   "dependencies": {
@@ -105,6 +107,7 @@
     "apollo-link-state": "^0.4.2",
     "apollo-link-ws": "^1.0.17",
     "apollo-utilities": "^1.2.1",
+    "bufferutil": "^4.0.1",
     "chalk": "^2.4.2",
     "cross-env": "^5.2.0",
     "cross-fetch": "^3.0.2",
@@ -125,11 +128,12 @@
     "react": "^16.8.6",
     "react-addons-css-transition-group": "^15.6.2",
     "react-addons-transition-group": "^15.6.2",
-    "react-apollo": "^2.5.3",
+    "react-apollo": "^2.5.4",
     "react-dom": "^16.8.6",
     "react-helmet": "^5.2.0",
-    "react-hot-loader": "^4.8.2",
+    "react-hot-loader": "^4.8.3",
     "react-router-dom": "^5.0.0",
-    "subscriptions-transport-ws": "^0.9.16"
+    "subscriptions-transport-ws": "^0.9.16",
+    "utf-8-validate": "^5.0.2"
   }
 }

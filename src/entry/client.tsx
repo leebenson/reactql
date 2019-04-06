@@ -6,7 +6,7 @@
 /* NPM */
 
 // Create browser history, for navigation a la single page apps
-import createBrowserHistory from "history/createBrowserHistory";
+import { createBrowserHistory } from "history";
 
 // React, our UI engine
 import * as React from "react";
