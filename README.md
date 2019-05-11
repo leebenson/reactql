@@ -70,8 +70,8 @@ https://reactql.org
 Grab and unpack the latest version, install all dependencies, and start a server:
 
 ```
-wget -qO- https://github.com/leebenson/reactql/archive/4.3.1.tar.gz | tar xvz
-cd reactql-4.3.1
+wget -qO- https://github.com/leebenson/reactql/archive/4.4.0.tar.gz | tar xvz
+cd reactql-4.4.0
 npm i
 npm start
 ```
