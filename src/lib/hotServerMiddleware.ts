@@ -85,7 +85,7 @@ function findStats(multiStats: any, name: string) {
 
 function getFilename(serverStats: webpack.Stats, outputPath: string) {
   const assetsByChunkName = serverStats.toJson().assetsByChunkName;
-  const filename = assetsByChunkName.main || "";
+  const filename = (assetsByChunkName && assetsByChunkName.main) || "";
   // If source maps are generated `assetsByChunkName.main`
   // will be an array of filenames.
   return path.join(
