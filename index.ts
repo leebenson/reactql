@@ -5,9 +5,15 @@ import * as fs from "fs";
 require("dotenv").config();
 
 // Catch CTRL/CMD+C interrupts cleanly
-process.on("SIGINT", () => {
-  process.exit(0);
-});
+const signals: NodeJS.Signals[] = [
+  "SIGHUP",
+  "SIGINT",
+  "SIGQUIT",
+  "SIGABRT",
+  "SIGTERM"
+];
+
+signals.forEach(s => process.on(s, () => process.exit(0)));
 
 // Check that we have a specified Webpack runner
 if (!process.env.RUNNER) {

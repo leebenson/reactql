@@ -124,9 +124,11 @@ export function build(buildStatic = false) {
       if (!buildStatic) {
         [common.compiled.serverStats, common.compiled.clientStats].forEach(
           (file, i) => {
-            fs.writeFileSync(file, JSON.stringify(stats.children[i]), {
-              encoding: "utf8"
-            });
+            if (stats.children && stats.children[i]) {
+              fs.writeFileSync(file, JSON.stringify(stats.children[i]), {
+                encoding: "utf8"
+              });
+            }
           }
         );
       }
