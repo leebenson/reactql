@@ -1,5 +1,5 @@
 [build]
-  command = "npm run static"
+  command = "npm run build:static"
   publish = "dist/public"
 
 [[redirects]]
