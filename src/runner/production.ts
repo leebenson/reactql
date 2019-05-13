@@ -4,10 +4,10 @@
 // IMPORTS
 
 /* Node */
-import * as fs from "fs";
+import fs from "fs";
 
 /* NPM */
-import * as chalk from "chalk";
+import chalk from "chalk";
 
 /* Local */
 import Output from "../lib/output";
@@ -20,7 +20,7 @@ function getStats(file: string): IStats {
   return JSON.parse(fs.readFileSync(file, "utf8")) as IStats;
 }
 
-common.spinner.info(chalk.default.green("Production mode"));
+common.spinner.info(chalk.green("Production mode"));
 
 void (async () => {
   // Get a list of file accessibility

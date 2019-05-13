@@ -4,11 +4,11 @@
 // IMPORTS
 
 /* Node */
-import * as path from "path";
+import path from "path";
 
 /* NPM */
 import { mergeWith } from "lodash";
-import * as webpack from "webpack";
+import webpack from "webpack";
 
 /* Local */
 import common, { defaultMerger, files } from "./common";

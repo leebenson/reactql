@@ -18,7 +18,6 @@ import { getMainDefinition } from "apollo-utilities";
 import { SubscriptionClient } from "subscriptions-transport-ws";
 
 /* Local */
-import { Store } from "@/data/store";
 import introspectionQueryResultData from "@/graphql/fragments";
 
 // ----------------------------------------------------------------------------
@@ -28,10 +27,7 @@ const fragmentMatcher = new IntrospectionFragmentMatcher({
   introspectionQueryResultData
 });
 
-export function createClient(
-  // @ts-ignore - useful to pass in the store for `Authorization` headers, etc
-  store: Store
-): ApolloClient<NormalizedCacheObject> {
+export function createClient(): ApolloClient<NormalizedCacheObject> {
   // Create the cache first, which we'll share across Apollo tooling.
   // This is an in-memory cache. Since we'll be calling `createClient` on
   // universally, the cache will survive until the HTTP request is

@@ -31,14 +31,14 @@
 // IMPORTS
 
 /* Node */
-import * as fs from "fs";
-import * as path from "path";
+import fs from "fs";
+import path from "path";
 
 /* NPM */
-import * as Koa from "koa";
-import * as requireFromString from "require-from-string";
-import * as sourceMapSupport from "source-map-support";
-import * as webpack from "webpack";
+import Koa from "koa";
+import requireFromString from "require-from-string";
+import sourceMapSupport from "source-map-support";
+import webpack from "webpack";
 
 /* Launch.js */
 import Output from "./output";

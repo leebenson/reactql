@@ -4,10 +4,10 @@
 // IMPORTS
 
 /* Node */
-import * as path from "path";
+import path from "path";
 
 /* NPM */
-import * as chalk from "chalk";
+import chalk from "chalk";
 
 /* Local */
 import { build, common, app, staticCompiler, devServer } from "./app";
@@ -15,7 +15,7 @@ import clientConfig from "../webpack/client";
 
 // ----------------------------------------------------------------------------
 
-common.spinner.info(chalk.default.bgBlue("Static mode"));
+common.spinner.info(chalk.bgBlue("Static mode"));
 
 void (async () => {
   // Production?

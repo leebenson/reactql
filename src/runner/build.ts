@@ -4,14 +4,14 @@
 // IMPORTS
 
 /* NPM */
-import * as chalk from "chalk";
+import chalk from "chalk";
 
 /* Local */
 import { build, common } from "./app";
 
 // ----------------------------------------------------------------------------
 
-common.spinner.info(chalk.default.bgBlue("Build mode"));
+common.spinner.info(chalk.bgBlue("Build mode"));
 
 void (async () => {
   await build();

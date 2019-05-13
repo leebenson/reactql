@@ -4,7 +4,7 @@
 // IMPORTS
 
 /* NPM */
-import * as React from "react";
+import React from "react";
 
 // Emotion styled component
 import styled from "@emotion/styled";

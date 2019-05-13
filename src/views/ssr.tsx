@@ -6,7 +6,7 @@
 // IMPORTS
 
 /* NPM */
-import * as React from "react";
+import React from "react";
 import { HelmetData } from "react-helmet";
 
 // ----------------------------------------------------------------------------

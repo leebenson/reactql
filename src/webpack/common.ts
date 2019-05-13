@@ -4,11 +4,11 @@
 // IMPORTS
 
 /* Node */
-import * as path from "path";
+import path from "path";
 
 /* NPM */
-import * as lodash from "lodash";
-import * as webpack from "webpack";
+import lodash from "lodash";
+import webpack from "webpack";
 
 // ----------------------------------------------------------------------------
 
@@ -69,24 +69,14 @@ export default (_ssr: boolean /* <-- not currently used */) => {
               loader: "babel-loader",
               options: {
                 cacheDirectory: true,
+                presets: ["@babel/typescript", "@babel/react"],
                 plugins: [
+                  ["@babel/proposal-class-properties", { loose: true }],
+                  "@babel/proposal-object-rest-spread",
                   "@babel/plugin-syntax-dynamic-import",
                   "react-hot-loader/babel",
                   "emotion"
                 ]
-              }
-            },
-            {
-              loader: "ts-loader",
-              options: {
-                compilerOptions: {
-                  module: "esnext"
-                },
-
-                // Avoid typechecking, to speed up bundling. To avoid the
-                // complexity of type checking *both* @launch/app and a project's
-                // `tsconfig.json`, this should be a userland exercise
-                transpileOnly: true
               }
             }
           ]

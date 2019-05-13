@@ -1,26 +1,30 @@
 {
   "compilerOptions": {
+    // Incremental mode
     "incremental": true,
-    "allowJs": false,
-    "allowUnusedLabels": true,
-    "baseUrl": ".",
-    "experimentalDecorators": true,
-    "declaration": true,
-    "jsx": "react",
-    "lib": ["dom", "es2015", "esnext"],
+    // Target latest version of ECMAScript.
+    "target": "esnext",
+    // Search under node_modules for non-relative imports.
+    "moduleResolution": "node",
+    // Set module format
     "module": "commonjs",
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "outDir": "dist/ts",
+    // Process & infer types from .js files.
+    "allowJs": true,
+    // Don't emit; allow Babel to transform files.
+    "noEmit": true,
+    // Enable strictest settings like strictNullChecks & noImplicitAny.
+    "strict": true,
+    // Import non-ES modules as default imports.
+    "esModuleInterop": true,
+    // Enable React
+    "jsx": "preserve",
+    // Set the base path
+    "baseUrl": ".",
+    // Source paths
     "paths": {
       "@/*": ["src/*"],
-      "brotli-webpack-plugin": ["types/modules"],
-      "microseconds": ["types/microseconds"]
-    },
-    "removeComments": true,
-    "sourceMap": true,
-    "strict": true,
-    "target": "es2017"
+      "microseconds": ["types/microseconds.d.ts"]
+    }
   },
-  "exclude": ["dist", "__tests__", "wallaby.js"]
+  "include": ["src", "types"]
 }

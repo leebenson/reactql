@@ -1,4 +1,4 @@
-FROM node:11.8.0-alpine AS builder
+FROM node:12.2.0-alpine AS builder
 
 # log most things
 ENV NPM_CONFIG_LOGLEVEL notice
@@ -15,11 +15,11 @@ RUN npm i
 ADD . .
 
 # build
-RUN npm run build
+RUN npm run build:production
 
 ########################
 
-FROM node:11.8.0-alpine
+FROM node:12.2.0-alpine
 WORKDIR /app
 
 # copy source + compiled `node_modules` 
