@@ -11,13 +11,13 @@ https://reactql.org
 
 ### Front-end stack
 
-- [React v16](https://facebook.github.io/react/) for UI.
-- [Apollo Client 2.0 (React)](http://dev.apollodata.com/react/) for connecting to GraphQL.
-- [MobX](https://mobx.js.org/) for declarative, type-safe flux/store state management (automatically re-hydrated from the server.) which is auto-saved and reloaded to `localStorage` in the client (simple to disable if you don't need it.)
+- [React v16.8](https://facebook.github.io/react/) (the one with [hooks](https://reactjs.org/docs/hooks-intro.html)!) for UI.
+- [Apollo Client 2.5 (React)](http://dev.apollodata.com/react/) for connecting to GraphQL.
+- [MobX-React-Lite](https://github.com/mobxjs/mobx-react-lite) for declarative, type-safe flux/store state management.
 - [Emotion](https://emotion.sh/) CSS-in-JS, with inline `<style>` tag generation that contains only the CSS that needs to be rendered.
 - [Sass](https://sass-lang.com/), [Less](http://lesscss.org/) and [PostCSS](https://postcss.org/) when importing `.css/.scss/.less` files.
 - [React Router 4](https://reacttraining.com/react-router/) for declarative browser + server routes.
-- [GraphQL Code Generator v1](https://graphql-code-generator.com/) for parsing remote GraphQL server schemas, for automatically building fully-typed Apollo React HOCs instead of writing `<Query>` / `<Mutation>` queries manually
+- [GraphQL Code Generator v1.1](https://graphql-code-generator.com/) for parsing remote GraphQL server schemas, for automatically building fully-typed Apollo React HOCs instead of writing `<Query>` / `<Mutation>` queries manually
 - Declarative/dynamic `<head>` section, using [react-helmet](https://github.com/nfl/react-helmet).
 
 ### Server-side rendering
@@ -26,7 +26,7 @@ https://reactql.org
 - Full route-aware server-side rendering (SSR) of initial HTML.
 - Universal building - both browser + Node.js web server compile down to static files, for fast server re-spawning.
 - Per-request GraphQL store. Store state is dehydrated via SSR, and rehydrated automatically on the client.
-- MobX for app-wide flux/store state, with a built-in `<StateConsumer>` for automatically re-rendering any React component that 'listens' to state and full client-side rehydration. Fully typed state!
+- MobX for app-wide flux/store state, for automatically re-rendering any React component that 'listens' to state. Fully typed state!
 - Full page React via built-in SSR component - every byte of your HTML is React.
 - SSR in both development and production, even with hot-code reload.
 
@@ -214,17 +214,15 @@ The important stuff is in [src](src).
 
 Here's a quick run-through of each sub-folder and what you'll find in it:
 
-- [src/components](src/components) - React components. Follow the import flow at [root.tsx](src/components/root.tsx) to figure out the component render chain. I've included an [example](src/components/example) component that shows off some Apollo GraphQL and MobX features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
-
-- [src/data](src/data) - Data used throughout your app. You'll find [routes.ts](src/data/routes.ts), which defines your React Router routes (currently, just the home page -- but you can easily extend this.) and [state.ts](src/data/state.ts), to show you how simple it is to define your own state data fields that, when modified, automatically re-render any 'observing' component.
+- [src/components](src/components) - React components. Follow the import flow at [root.tsx](src/components/root.tsx) to figure out the component render chain and routing. I've included an [example](src/components/example) component that shows off some Apollo GraphQL and MobX features, including incrementing a local counter and pulling top news stories from Hacker News (a live GraphQL server endpoint.)
 
 - [src/entry](src/entry) - The client and server entry points, which call on [src/components/root.tsx](src/components/root.tsx) to isomorphically render the React chain in both environments.
 
 - [src/global](src/global) - A good place for anything that's used through your entire app, like global styles. I've started you off with a [styles.ts](src/global/styles.ts) that sets globally inlined Emotion CSS, as well as pulls in a global `.scss` file -- to show you how both types of CSS work.
 
-- [src/lib](src/lib) - Internal libraries/helpers. There's an [apollo.ts](src/lib/apollo.ts) which builds a universal Apollo Client, and [mobx.ts](src/lib/mobx.tsx) which sets up default state (automatically rehydrated on the client), for incrementing a local counter. Plus, Koa middleware to handle hot-code reloading in development and some other Webpack helpers.
+- [src/lib](src/lib) - Internal libraries/helpers. There's an [apollo.ts](src/lib/apollo.ts) which builds a universal Apollo Client. Plus, Koa middleware to handle hot-code reloading in development and some other Webpack helpers.
 
-- [src/queries](src/queries) - Your GraphQL queries. There's just one by default - for pilling the top stories from Hacker News to display in the example component.
+- [src/queries](src/queries) - Your GraphQL queries. There's just one by default - for pulling the top stories from Hacker News to display in the example component.
 
 - [src/runner](src/runner) - Development and production runners that spawn the Webpack build process in each environment.
 
@@ -236,13 +234,13 @@ You'll also find some other useful goodies in the [root]()...
 
 - [.env](.env) - Change your `GRAPHQL` server endpoint, `WS_SUBSCRIPTIONS=1` for built-in WebSocket support, `HOST` if you want to bind the server to something other than localhost, and `LOCAL_STORAGE_KEY` to set the root key for saving MobX state locally in the client for automatic re-loading in a later session.
 
-- [.nvmrc](.nvmrc) - Specify your preferred Node.js version, for use with NVM and used by many continuous deployment tools. Defaults to v11.8.0
+- [.nvmrc](.nvmrc) - Specify your preferred Node.js version, for use with NVM and used by many continuous deployment tools. Defaults to v12.2.0
 
 - [codegen.yml](codegen.yml) - Settings for [GraphQL Code Generator](https://graphql-code-generator.com/) (which you can run with `npm run gen:graphql` to generate types/HOCs based on your GraphQL queries/mutations.)
 
 - [netlify.toml](netlify.toml) - Build instructions for fast [Netlify](https://www.netlify.com/) deployments. **Tip: To quickly deploy a demo ReactQL app, [click here](https://app.netlify.com/start/deploy?repository=https://github.com/leebenson/reactql).**
 
-- [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean in your IDE.
+- [types](types) - Some basic types that allow you to import fonts, images, CSS/SASS/LESS files, and allow use of the global `SERVER` boolean and `GRAPHQL` endpoint data in your IDE.
 
 - Typescript configuration via [tsconfig.json](tsconfig.json)
 

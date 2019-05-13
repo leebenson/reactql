@@ -9,7 +9,7 @@
 import "cross-fetch/polyfill";
 
 // React for UI
-import * as React from "react";
+import React from "react";
 
 // The `Context` type for the Koa HTTP server
 import { Context } from "koa";
@@ -18,10 +18,10 @@ import { Context } from "koa";
 import { ApolloProvider, getDataFromTree } from "react-apollo";
 
 // MobX state management
-import { toJS } from "mobx";
+import { useStaticRendering } from "mobx-react-lite";
 
 // React utility to transform JSX to HTML (to send back to the client)
-import * as ReactDOMServer from "react-dom/server";
+import ReactDOMServer from "react-dom/server";
 
 // <Helmet> component for retrieving <head> section, so we can set page
 // title, meta info, etc along with the initial HTML
@@ -30,9 +30,6 @@ import Helmet from "react-helmet";
 // React SSR routers
 import { StaticRouter } from "react-router";
 
-// MobX provider
-import { Provider } from "mobx-react";
-
 /* Local */
 
 // Root component
@@ -40,9 +37,6 @@ import Root from "@/components/root";
 
 // Utility for creating a per-request Apollo client
 import { createClient } from "@/lib/apollo";
-
-// State class, containing all of our user-land state fields
-import { Store } from "@/data/store";
 
 // Class for handling Webpack stats output
 import Output from "@/lib/output";
@@ -58,16 +52,16 @@ export interface IRouterContext {
   url?: string;
 }
 
+// Enable SSR-mode with MobX to avoid memory leaks
+useStaticRendering(true);
+
 // Everything from this point will be Webpack'd and dumped in `dist/server.js`
 // and then loaded into an active Koa server
 export default function(output: Output) {
   // Create Koa middleware to handle React requests
   return async (ctx: Context) => {
-    // Create new MobX store
-    const store = new Store();
-
     // Create a new Apollo client
-    const client = createClient(store);
+    const client = createClient();
 
     // Create a fresh 'context' for React Router
     const routerContext: IRouterContext = {};
@@ -75,13 +69,11 @@ export default function(output: Output) {
     // Render our components - passing down MobX state, a GraphQL client,
     // and a router for rendering based on our route config
     const components = (
-      <Provider store={store}>
-        <ApolloProvider client={client}>
-          <StaticRouter location={ctx.request.url} context={routerContext}>
-            <Root />
-          </StaticRouter>
-        </ApolloProvider>
-      </Provider>
+      <ApolloProvider client={client}>
+        <StaticRouter location={ctx.request.url} context={routerContext}>
+          <Root />
+        </StaticRouter>
+      </ApolloProvider>
     );
 
     // Await GraphQL data coming from the API server
@@ -123,8 +115,7 @@ export default function(output: Output) {
         html={html}
         scripts={output.client.scripts()}
         window={{
-          __APOLLO__: client.extract(), // <-- GraphQL store
-          __STORE__: toJS(store) // <-- MobX store
+          __APOLLO__: client.extract() // <-- GraphQL store
         }}
       />
     );

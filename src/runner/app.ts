@@ -4,32 +4,32 @@
 // IMPORTS
 
 /* Node */
-import * as fs from "fs";
-import * as path from "path";
+import fs from "fs";
+import path from "path";
 
 /* NPM */
 
 // Koa 2 web server.  Handles incoming HTTP requests, and will serve back
 // the React render, or any of the static assets being compiled
-import * as Koa from "koa";
+import Koa from "koa";
 
 // Static file handler
-import * as koaSend from "koa-send";
+import koaSend from "koa-send";
 
 // Enable cross-origin requests
-import * as koaCors from "kcors";
+import koaCors from "kcors";
 
 // Koa Router, for handling URL requests
-import * as KoaRouter from "koa-router";
+import KoaRouter from "koa-router";
 
 // High-precision timing, so we can debug response time to serve a request
-import * as ms from "microseconds";
+import ms from "microseconds";
 
 // Webpack 4
-import * as webpack from "webpack";
+import webpack from "webpack";
 
 // Koa-specific Webpack handlers
-import * as KoaWebpack from "koa-webpack";
+import KoaWebpack from "koa-webpack";
 
 /* Ora spinner */
 import ora from "ora";

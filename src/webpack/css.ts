@@ -4,7 +4,7 @@
 // IMPORTS
 
 /* NPM */
-import * as MiniCssExtractPlugin from "mini-css-extract-plugin";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
 import { Loader } from "webpack";
 
 // ----------------------------------------------------------------------------

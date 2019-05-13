@@ -4,13 +4,13 @@
 // IMPORTS
 
 /* Node */
-import * as path from "path";
+import path from "path";
 
 /* NPM */
-import * as CompressionPlugin from "compression-webpack-plugin";
+import CompressionPlugin from "compression-webpack-plugin";
 import { mergeWith } from "lodash";
-import * as MiniCssExtractPlugin from "mini-css-extract-plugin";
-import * as webpack from "webpack";
+import MiniCssExtractPlugin from "mini-css-extract-plugin";
+import webpack from "webpack";
 const BrotliCompression = require("brotli-webpack-plugin");
 
 /* Local */

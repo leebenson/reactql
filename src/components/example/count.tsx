@@ -4,19 +4,20 @@
 // IMPORTS
 
 /* NPM */
-import * as React from "react";
-
-/* Local */
-
-// `withStore` gives us access to MobX store state
-import { withStore } from "@/lib/store";
+import React from "react";
+import { Observer, useObservable } from "mobx-react-lite";
 
 // ----------------------------------------------------------------------------
 
-export const Count = withStore(({ store }) => (
-  <>
-    <h3>Current count (from MobX): {store.count}</h3>
-    <button onClick={store.increment}>Increment</button>
-    <button onClick={() => (store.count = 0)}>Reset</button>
-  </>
-));
+export const Count: React.FunctionComponent = () => {
+  const store = useObservable({ count: 0 });
+  return (
+    <>
+      <Observer>
+        {() => <h3>Current count (from MobX): {store.count}</h3>}
+      </Observer>
+      <button onClick={() => store.count++}>Increment</button>
+      <button onClick={() => (store.count = 0)}>Reset</button>
+    </>
+  );
+};

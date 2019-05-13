@@ -5,12 +5,12 @@
 
 /* NPM */
 
-import * as React from "react";
+import React from "react";
 
 // ----------------------------------------------------------------------------
 
 // Say hello from GraphQL, along with a HackerNews feed fetched by GraphQL
-const Dynamic: React.SFC = () => (
+const Dynamic: React.FunctionComponent = () => (
   <>
     <h2>This component was loaded dynamically!</h2>
   </>

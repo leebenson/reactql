@@ -4,7 +4,7 @@
 // IMPORTS
 
 /* NPM */
-import * as React from "react";
+import React from "react";
 import Helmet from "react-helmet";
 import { hot } from "react-hot-loader/root";
 import { Route, Switch } from "react-router-dom";
@@ -18,12 +18,14 @@ import ScrollTop from "@/components/helpers/scrollTop";
 // Global styles
 import globalStyles from "@/global/styles";
 
-// Routes
-import routes from "@/data/routes";
+// By default, pull in the ReactQL example. In your own project, just nix
+// the `src/components/example` folder and replace the following line with
+// your own React components
+import Example from "@/components/example";
 
 // ----------------------------------------------------------------------------
 
-const Root = () => (
+const Root: React.FunctionComponent = () => (
   <div>
     <Global styles={globalStyles} />
     <Helmet>
@@ -31,9 +33,7 @@ const Root = () => (
     </Helmet>
     <ScrollTop>
       <Switch>
-        {routes.map(route => (
-          <Route key={route.path} {...route} />
-        ))}
+        <Route path="/" exact component={Example} />
       </Switch>
     </ScrollTop>
   </div>
