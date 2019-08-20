@@ -99,7 +99,7 @@ And use it as follows:
 
 ```ts
 <GetHackerNewsTopStoriesComponent>
-    {({ data, loading, error }) => (...)
+    {({ data, loading, error }) => (...)}
 </GetHackerNewsTopStoriesComponent>
 ```
 
