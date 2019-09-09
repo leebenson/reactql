@@ -69,12 +69,25 @@ export default (_ssr: boolean /* <-- not currently used */) => {
               loader: "babel-loader",
               options: {
                 cacheDirectory: true,
-                presets: ["@babel/typescript", "@babel/react"],
+                presets: ["@babel/typescript"],
                 plugins: [
                   ["@babel/proposal-class-properties", { loose: true }],
                   "@babel/proposal-object-rest-spread",
                   "@babel/plugin-syntax-dynamic-import",
                   "react-hot-loader/babel",
+                  "transform-inline-environment-variables",
+                  [
+                    "babel-plugin-jsx-pragmatic",
+                    {
+                      export: "jsx",
+                      module: "@emotion/core",
+                      import: "___EmotionJSX"
+                    }
+                  ],
+                  [
+                    "@babel/plugin-transform-react-jsx",
+                    { pragma: "___EmotionJSX", pragmaFrag: "React.Fragment" }
+                  ],
                   "emotion"
                 ]
               }
