@@ -22,6 +22,7 @@ import globalStyles from "@/global/styles";
 // the `src/components/example` folder and replace the following line with
 // your own React components
 import Example from "@/components/example";
+import Login from "@/components/LoginModule";
 
 // ----------------------------------------------------------------------------
 
@@ -34,6 +35,9 @@ const Root: React.FunctionComponent = () => (
     <ScrollTop>
       <Switch>
         <Route path="/" exact component={Example} />
+      </Switch>
+      <Switch>
+        <Route path="/login" exact component={Login} />
       </Switch>
     </ScrollTop>
   </div>

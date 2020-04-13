@@ -1,0 +1,21 @@
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  width: 100%;
+  text-align: center;
+  margin: 10% 0;
+  min-height: 200px;
+  align-items: center;
+
+  .ant-form {
+    width:40%;
+    margin-left:-13%;
+  }
+
+  .ant-avatar {
+    margin-bottom:30px;
+    background: white;
+  }
+}

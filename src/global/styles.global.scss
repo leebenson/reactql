@@ -1,6 +1,8 @@
 /* Regular @import url statements work as you'd expect them to -- alternatively
 you can import locally, and they wind up in the resulting bundle */
 @import url("https://fonts.googleapis.com/css?family=Gentium+Basic");
+@import '~antd/dist/antd.css';
+@import 'src/components/LoginModule/login.scss';
 
 html {
   padding: 0;
