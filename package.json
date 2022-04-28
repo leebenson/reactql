@@ -112,7 +112,7 @@
     "bufferutil": "^4.0.1",
     "chalk": "^2.4.2",
     "cross-env": "^5.2.0",
-    "cross-fetch": "^3.0.2",
+    "cross-fetch": "^3.1.5",
     "dotenv": "^8.0.0",
     "emotion": "^10.0.9",
     "graphql": "^14.3.0",
