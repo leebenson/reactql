@@ -1,3 +1,6 @@
+# This is horribly outdated. Please don't use it. Consider [NextJS](https://nextjs.org/) instead.
+
+
 <img src="https://reactql.org/reactql/logo.svg" alt="ReactQL v4.3.0" width="278" height="77" />
 
 ![license](https://img.shields.io/github/license/leebenson/reactql.svg?style=flat-square) [![Twitter Follow](https://img.shields.io/twitter/follow/reactql.svg?style=social&label=Follow)](https://twitter.com/reactql)
